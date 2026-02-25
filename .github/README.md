@@ -4,7 +4,7 @@ A content-first Astro starter for crafting sites by hand.
 
 Write markdown. Push to GitHub. Live in 30 seconds.
 
-> **Note:** This file lives in `.github/README.md` rather than the repository root. This is intentional — it prevents merge conflicts when site repos pull framework updates, since every site has its own root `README.md`.
+> **Note:** This file lives in `.github/README.md` rather than the repository root. This is intentional — it prevents merge conflicts when site repos pull framework updates, since every site has its own root `README.md`. After forking, you may keep it here for reference or delete it — it won't conflict with your root `README.md` either way.
 
 ## Quick Start
 
@@ -24,8 +24,12 @@ Delete these before building your site — they're loomwork repo files, not part
 
 ```bash
 rm MOBILE_README.md   # loomwork mobile editor docs
+rm MOBILE_PROJECT.md  # loomwork mobile project spec
 rm Notes.md           # author's dev notes
 rm PROJECT.md         # loomwork project spec
+rm UPGRADE.md         # loomwork upgrade guide
+rm UPGRADE-PROMPT.md  # loomwork upgrade prompt template
+rm VERIFICATION_AGENT_PROMPT.md  # loomwork CI verification prompt
 ```
 
 Then replace the loomwork placeholder content:
