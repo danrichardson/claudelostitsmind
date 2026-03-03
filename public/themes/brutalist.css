@@ -1,0 +1,98 @@
+/* ── Brutalist — No decoration. No apology. ──────────────── */
+
+:root {
+  --color-bg:           #FFFFFF;
+  --color-bg-alt:       #F0F0F0;
+  --color-surface:      #FFFFFF;
+  --color-text:         #000000;
+  --color-text-muted:   #444444;
+  --color-accent:       #000000;
+  --color-accent-hover: #FF0000;
+  --color-accent-light: #F0F0F0;
+  --color-border:       #000000;
+  --color-code-bg:      #000000;
+
+  --font-body:    'Space Mono', ui-monospace, monospace;
+  --font-heading: 'Space Mono', ui-monospace, monospace;
+  --font-mono:    'Space Mono', ui-monospace, monospace;
+  --leading:      1.6;
+
+  --content-width: 64rem;
+  --radius:        0px;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+}
+
+/* OS-level dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #000000;
+    --color-bg-alt:       #111111;
+    --color-surface:      #111111;
+    --color-text:         #FFFFFF;
+    --color-text-muted:   #AAAAAA;
+    --color-accent:       #FFFFFF;
+    --color-accent-hover: #FF0000;
+    --color-accent-light: #1A1A1A;
+    --color-border:       #FFFFFF;
+    --color-code-bg:      #111111;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #000000;
+  --color-bg-alt:       #111111;
+  --color-surface:      #111111;
+  --color-text:         #FFFFFF;
+  --color-text-muted:   #AAAAAA;
+  --color-accent:       #FFFFFF;
+  --color-accent-hover: #FF0000;
+  --color-accent-light: #1A1A1A;
+  --color-border:       #FFFFFF;
+  --color-code-bg:      #111111;
+}
+
+/* ── Brutalist layout overrides ──────────────────────────── */
+
+/* Kill all rounded corners aggressively */
+.btn, pre, code, .story-card, .project-card, .case-outcome,
+.philosophy-block, .status-badge, .intake-success,
+.form-group input, .form-group textarea {
+  border-radius: 0 !important;
+}
+
+/* Thick borders instead of shadows */
+.story-card, .project-card {
+  border: 2px solid var(--color-border);
+  box-shadow: none;
+}
+.story-card:hover, .project-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: #FF0000;
+}
+.story-card::before {
+  display: none;
+}
+
+/* Links: just underline, monospace */
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+/* Blockquotes: thick border */
+blockquote {
+  border-inline-start-width: 4px;
+  border-inline-start-color: var(--color-text);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* HR: thick */
+hr {
+  border-block-start-width: 3px;
+  border-block-start-color: var(--color-text);
+}

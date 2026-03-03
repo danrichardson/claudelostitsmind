@@ -26,11 +26,9 @@ export const SITE = {
   ],
 
   // ── Fonts ───────────────────────────────────────────────
-  // Google Fonts URL. Leave empty to use system fonts (the default).
-  // Then set --font-body / --font-heading in site.css.
-  //
-  // Example:
-  // fonts_url: "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap",
+  // Google Fonts URL. Themes load their own fonts automatically.
+  // Set this only if you want to override the theme's font choices.
+  // Leave empty to use the theme's default fonts (or system fonts if no theme).
   fonts_url: "",
 
   // ── Social ──────────────────────────────────────────────
@@ -43,6 +41,18 @@ export const SITE = {
     company: "Throughline Technical Services, LLC",
     license: "MIT License",
   },
+
+  // ── Theme ───────────────────────────────────────────────
+  // Pick a built-in theme: "manuscript", "brutalist", "atelier",
+  // "terminal", "gazette", "alpine", "campfire", "moonrise",
+  // "fieldnotes", "neon"
+  // Or leave empty / omit to use framework defaults + your site.css overrides.
+  theme: "manuscript",
+
+  // ── Reader Controls ─────────────────────────────────────
+  // Set to true to show the floating reader-controls panel
+  // (dark mode toggle, font size, TOC toggle, content width, focus mode)
+  reader_controls: true,
 } as const;
 
 export type SiteConfig = typeof SITE;

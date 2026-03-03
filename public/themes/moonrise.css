@@ -1,0 +1,96 @@
+/* ── Moonrise — After dark ───────────────────────────────── */
+
+/* Dark is the DEFAULT for Moonrise */
+:root {
+  --color-bg:           #0B0F1A;
+  --color-bg-alt:       #131825;
+  --color-surface:      rgba(255,255,255,0.04);
+  --color-text:         #B8BCC8;
+  --color-text-muted:   #6B7280;
+  --color-accent:       #8B5CF6;
+  --color-accent-hover: #A78BFA;
+  --color-accent-light: #1A1530;
+  --color-border:       rgba(255,255,255,0.08);
+  --color-code-bg:      #080B14;
+
+  --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Fira Code', ui-monospace, monospace;
+  --leading:      1.7;
+
+  --content-width: 44rem;
+  --radius:        0.75rem;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:     0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* Reader-controls dark toggle (explicit, wins over global.css :root) */
+:root[data-dark="true"] {
+  --color-bg:           #0B0F1A;
+  --color-bg-alt:       #131825;
+  --color-surface:      rgba(255,255,255,0.04);
+  --color-text:         #B8BCC8;
+  --color-text-muted:   #6B7280;
+  --color-accent:       #8B5CF6;
+  --color-accent-hover: #A78BFA;
+  --color-accent-light: #1A1530;
+  --color-border:       rgba(255,255,255,0.08);
+  --color-code-bg:      #080B14;
+  --shadow-sm:          0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:          0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* Light mode is the ALTERNATE for Moonrise */
+@media (prefers-color-scheme: light) {
+  :root:not([data-dark]) {
+    --color-bg:           #F5F5F7;
+    --color-bg-alt:       #EAEAEE;
+    --color-surface:      #FFFFFF;
+    --color-text:         #1C1C1E;
+    --color-text-muted:   #6B6B76;
+    --color-accent:       #7C3AED;
+    --color-accent-hover: #6D28D9;
+    --color-accent-light: #EDE9FE;
+    --color-border:       #D4D4D8;
+    --color-code-bg:      #1E1E2E;
+    --shadow-sm:          0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md:          0 4px 12px rgba(0,0,0,0.07);
+  }
+}
+
+/* ── Moonrise layout overrides ───────────────────────────── */
+
+/* Glass-morphism cards */
+.story-card, .project-card {
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+/* Glow effect on hover */
+.story-card:hover, .project-card:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+.story-card::before {
+  background: var(--color-accent);
+}
+
+/* Buttons glow on hover */
+.btn--primary:hover, .hero-cta:hover {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+}
+
+/* Heading weight */
+h1, h2, h3 {
+  font-weight: 800;
+  color: #E4E4E8;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-dark]) h1,
+  :root:not([data-dark]) h2,
+  :root:not([data-dark]) h3 {
+    color: var(--color-text);
+  }
+}

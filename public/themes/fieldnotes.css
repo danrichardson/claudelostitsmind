@@ -1,0 +1,115 @@
+/* ── Field Notes — Properly cited ────────────────────────── */
+
+:root {
+  --color-bg:           #FFFFF8;
+  --color-bg-alt:       #F5F5EC;
+  --color-surface:      #FFFFFF;
+  --color-text:         #333333;
+  --color-text-muted:   #777777;
+  --color-accent:       #4A6FA5;
+  --color-accent-hover: #365180;
+  --color-accent-light: #E8EEF5;
+  --color-border:       #CCCCBB;
+  --color-code-bg:      #2B2B2B;
+
+  --font-body:    'EB Garamond', Georgia, serif;
+  --font-heading: 'EB Garamond', Georgia, serif;
+  --font-mono:    'Inconsolata', ui-monospace, monospace;
+  --text-base:    1.125rem;
+  --leading:      1.8;
+
+  --content-width: 38rem;
+  --radius:        0.125rem;
+  --shadow-sm:     none;
+  --shadow-md:     none;
+}
+
+/* OS-level dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #1E1E1E;
+    --color-bg-alt:       #282828;
+    --color-surface:      #252525;
+    --color-text:         #D4D0C8;
+    --color-text-muted:   #999088;
+    --color-accent:       #7BA4D4;
+    --color-accent-hover: #A0C0E8;
+    --color-accent-light: #1C2430;
+    --color-border:       #3A3A32;
+    --color-code-bg:      #161616;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #1E1E1E;
+  --color-bg-alt:       #282828;
+  --color-surface:      #252525;
+  --color-text:         #D4D0C8;
+  --color-text-muted:   #999088;
+  --color-accent:       #7BA4D4;
+  --color-accent-hover: #A0C0E8;
+  --color-accent-light: #1C2430;
+  --color-border:       #3A3A32;
+  --color-code-bg:      #161616;
+}
+
+/* ── Field Notes layout overrides ────────────────────────── */
+
+/* Small caps for labels */
+.story-domain, .case-domain, .hero-label, .tl-era, .arc-label {
+  font-variant: small-caps;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-body);
+}
+
+/* Horizontal rule as three asterisks */
+hr {
+  border: none;
+  text-align: center;
+}
+hr::after {
+  content: '* \2003 * \2003 *';
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  letter-spacing: 0.3em;
+}
+
+/* Academic blockquotes — indented, smaller */
+blockquote {
+  border-inline-start: none;
+  padding-inline-start: 2em;
+  padding-inline-end: 2em;
+  font-size: 0.95em;
+}
+
+/* Tables: academic style (heavy top/bottom, light internal) */
+table {
+  border-top: 2px solid var(--color-text);
+  border-bottom: 2px solid var(--color-text);
+}
+th {
+  background: transparent;
+  border-bottom: 1px solid var(--color-text);
+}
+
+/* Numbered headings via CSS counter */
+body {
+  counter-reset: h2-counter;
+}
+main h2 {
+  counter-increment: h2-counter;
+}
+main h2::before {
+  content: counter(h2-counter) '. ';
+  color: var(--color-text-muted);
+}
+
+/* Sidenote-ready layout: shift content left on wide screens */
+@media (min-width: 72rem) {
+  .container {
+    margin-inline-start: calc(50% - 24rem);
+    margin-inline-end: auto;
+  }
+}

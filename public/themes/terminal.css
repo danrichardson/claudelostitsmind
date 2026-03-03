@@ -1,0 +1,89 @@
+/* ── Terminal — ssh into my website ──────────────────────── */
+
+/* Light mode (alternate mode for terminal) */
+:root {
+  --color-bg:           #FAFAFA;
+  --color-bg-alt:       #F0F0F0;
+  --color-surface:      #FFFFFF;
+  --color-text:         #1E1E1E;
+  --color-text-muted:   #6B6B6B;
+  --color-accent:       #16A34A;
+  --color-accent-hover: #15803D;
+  --color-accent-light: #DCFCE7;
+  --color-border:       #D4D4D4;
+  --color-code-bg:      #1E1E1E;
+
+  --font-body:    'Fira Code', ui-monospace, monospace;
+  --font-heading: 'Fira Code', ui-monospace, monospace;
+  --font-mono:    'Fira Code', ui-monospace, monospace;
+  --text-base:    0.9375rem;
+  --leading:      1.65;
+
+  --content-width: 48rem;
+  --radius:        0.25rem;
+  --shadow-sm:     none;
+  --shadow-md:     0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Dark mode (the PRIMARY mode for terminal) — OS-level */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #0D1117;
+    --color-bg-alt:       #161B22;
+    --color-surface:      #161B22;
+    --color-text:         #C9D1D9;
+    --color-text-muted:   #8B949E;
+    --color-accent:       #3FB950;
+    --color-accent-hover: #56D364;
+    --color-accent-light: #0D2818;
+    --color-border:       #30363D;
+    --color-code-bg:      #0D1117;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #0D1117;
+  --color-bg-alt:       #161B22;
+  --color-surface:      #161B22;
+  --color-text:         #C9D1D9;
+  --color-text-muted:   #8B949E;
+  --color-accent:       #3FB950;
+  --color-accent-hover: #56D364;
+  --color-accent-light: #0D2818;
+  --color-border:       #30363D;
+  --color-code-bg:      #0D1117;
+}
+
+/* ── Terminal layout overrides ───────────────────────────── */
+
+/* Cards look like terminal panels */
+.story-card, .project-card {
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+.story-card::before {
+  background: var(--color-accent);
+}
+
+/* Code blocks are the star */
+pre {
+  border: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+/* Status badges look like terminal dots */
+.status-badge {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+/* Blinking cursor after site name */
+.site-header__mark::after {
+  content: '_';
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

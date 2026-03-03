@@ -1,0 +1,127 @@
+/* ── Neon — Turn it up ───────────────────────────────────── */
+
+/* Dark is DEFAULT for Neon */
+:root {
+  --color-bg:           #0A0A0A;
+  --color-bg-alt:       #141414;
+  --color-surface:      #1A1A1A;
+  --color-text:         #F0F0F0;
+  --color-text-muted:   #888888;
+  --color-accent:       #06B6D4;
+  --color-accent-hover: #22D3EE;
+  --color-accent-light: #0A1E24;
+  --color-border:       #2A2A2A;
+  --color-code-bg:      #050505;
+
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Fira Code', ui-monospace, monospace;
+  --leading:      1.7;
+
+  --content-width: 48rem;
+  --radius:        0.5rem;
+  --shadow-sm:     0 0 10px rgba(6,182,212,0.05);
+  --shadow-md:     0 0 30px rgba(6,182,212,0.08);
+
+  /* Neon-specific accent variants */
+  --neon-cyan:    #06B6D4;
+  --neon-magenta: #EC4899;
+  --neon-lime:    #84CC16;
+  --neon-amber:   #F59E0B;
+}
+
+/* Reader-controls dark toggle (explicit, wins over global.css :root) */
+:root[data-dark="true"] {
+  --color-bg:           #0A0A0A;
+  --color-bg-alt:       #141414;
+  --color-surface:      #1A1A1A;
+  --color-text:         #F0F0F0;
+  --color-text-muted:   #888888;
+  --color-accent:       #06B6D4;
+  --color-accent-hover: #22D3EE;
+  --color-accent-light: #0A1E24;
+  --color-border:       #2A2A2A;
+  --color-code-bg:      #050505;
+  --shadow-sm:          0 0 10px rgba(6,182,212,0.05);
+  --shadow-md:          0 0 30px rgba(6,182,212,0.08);
+}
+
+/* Light mode (toned down) */
+@media (prefers-color-scheme: light) {
+  :root:not([data-dark]) {
+    --color-bg:           #FAFAFA;
+    --color-bg-alt:       #F0F0F0;
+    --color-surface:      #FFFFFF;
+    --color-text:         #1A1A1A;
+    --color-text-muted:   #666666;
+    --color-accent:       #0891B2;
+    --color-accent-hover: #0E7490;
+    --color-accent-light: #ECFEFF;
+    --color-border:       #E0E0E0;
+    --color-code-bg:      #1A1A1A;
+    --shadow-sm:          0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md:          0 4px 12px rgba(0,0,0,0.07);
+  }
+}
+
+/* ── Neon layout overrides ───────────────────────────────── */
+
+/* Bold chunky headings */
+h1, h2, h3 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* Gradient text on hero heading */
+.hero h1 {
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-dark]) .hero h1 {
+    -webkit-text-fill-color: var(--color-text);
+    background: none;
+  }
+}
+
+/* Neon glow cards on hover */
+.story-card:hover, .project-card:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 0 60px rgba(6, 182, 212, 0.05);
+}
+.story-card::before {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+}
+
+/* Button scale on hover */
+.btn:hover, .hero-cta:hover {
+  transform: scale(1.02);
+}
+
+/* Gradient CTA buttons */
+.btn--primary, .hero-cta {
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  border: none;
+}
+.btn--primary:hover, .hero-cta:hover {
+  background: linear-gradient(135deg, var(--neon-magenta), var(--neon-cyan));
+}
+
+/* Neon underline on nav hover */
+.site-header__nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--neon-cyan);
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 2px;
+}
+
+/* Accent color section classes */
+.accent-cyan    { --color-accent: var(--neon-cyan); }
+.accent-magenta { --color-accent: var(--neon-magenta); }
+.accent-lime    { --color-accent: var(--neon-lime); }
+.accent-amber   { --color-accent: var(--neon-amber); }

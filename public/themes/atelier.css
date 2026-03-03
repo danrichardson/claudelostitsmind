@@ -1,0 +1,86 @@
+/* ── Atelier — Space to breathe ──────────────────────────── */
+
+:root {
+  --color-bg:           #F8F7F5;
+  --color-bg-alt:       #EFEDE8;
+  --color-surface:      #FFFFFF;
+  --color-text:         #2C2C2C;
+  --color-text-muted:   #7A7A72;
+  --color-accent:       #B8860B;
+  --color-accent-hover: #8B6508;
+  --color-accent-light: #F8F0DC;
+  --color-border:       #DDD9D0;
+  --color-code-bg:      #2C2C2C;
+
+  --font-body:    'Work Sans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-mono:    ui-monospace, 'Cascadia Code', monospace;
+  --leading:      1.8;
+
+  --content-width: 42rem;
+  --radius:        0.25rem;
+
+  /* Extra spacing for the gallery feel */
+  --space-lg:  2rem;
+  --space-xl:  3.5rem;
+  --space-2xl: 5.5rem;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md:  0 6px 20px rgba(0,0,0,0.05);
+}
+
+/* OS-level dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #1C1C1C;
+    --color-bg-alt:       #252523;
+    --color-surface:      #2A2A28;
+    --color-text:         #E8E6E0;
+    --color-text-muted:   #9A9890;
+    --color-accent:       #D4A017;
+    --color-accent-hover: #EBB830;
+    --color-accent-light: #2A2618;
+    --color-border:       #3A3A36;
+    --color-code-bg:      #161614;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #1C1C1C;
+  --color-bg-alt:       #252523;
+  --color-surface:      #2A2A28;
+  --color-text:         #E8E6E0;
+  --color-text-muted:   #9A9890;
+  --color-accent:       #D4A017;
+  --color-accent-hover: #EBB830;
+  --color-accent-light: #2A2618;
+  --color-border:       #3A3A36;
+  --color-code-bg:      #161614;
+}
+
+/* ── Atelier layout overrides ────────────────────────────── */
+
+/* Generous image treatment */
+main img {
+  margin-block: var(--space-xl);
+  border-radius: var(--radius);
+}
+
+/* Lighter card borders */
+.story-card, .project-card {
+  border-color: transparent;
+  background: var(--color-surface);
+}
+.story-card:hover, .project-card:hover {
+  border-color: var(--color-border);
+}
+
+/* Minimal footer */
+.site-footer {
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.site-footer:hover {
+  opacity: 1;
+}

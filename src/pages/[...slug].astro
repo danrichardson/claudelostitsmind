@@ -35,6 +35,7 @@ const { Content: RenderedContent, headings } = await page.render();
   hero_alt={page.data.hero_alt}
   date_updated={page.data.date_updated}
   headings={headings}
+  body={page.body}
 >
   <RenderedContent />
 </Content>

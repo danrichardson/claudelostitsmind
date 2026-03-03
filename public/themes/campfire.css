@@ -1,0 +1,78 @@
+/* ── Campfire — Pull up a chair ──────────────────────────── */
+
+:root {
+  --color-bg:           #FEF7ED;
+  --color-bg-alt:       #F8EFE0;
+  --color-surface:      #FFFCF7;
+  --color-text:         #3D2B1F;
+  --color-text-muted:   #7A6B5D;
+  --color-accent:       #D97706;
+  --color-accent-hover: #B45309;
+  --color-accent-light: #FEF3C7;
+  --color-border:       #E5DDD0;
+  --color-code-bg:      #2C1F14;
+
+  --font-body:    'Nunito', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Lora', Georgia, serif;
+  --font-mono:    ui-monospace, 'Cascadia Code', monospace;
+  --leading:      1.75;
+
+  --content-width: 42rem;
+  --radius:        0.75rem;
+  --shadow-sm:     0 1px 3px rgba(60,40,20,0.06);
+  --shadow-md:     0 4px 16px rgba(60,40,20,0.08);
+}
+
+/* OS-level dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #1C1410;
+    --color-bg-alt:       #261C14;
+    --color-surface:      #2A1F16;
+    --color-text:         #E8DFD4;
+    --color-text-muted:   #A89882;
+    --color-accent:       #F59E0B;
+    --color-accent-hover: #FBBF24;
+    --color-accent-light: #2A2010;
+    --color-border:       #3D3028;
+    --color-code-bg:      #120D08;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #1C1410;
+  --color-bg-alt:       #261C14;
+  --color-surface:      #2A1F16;
+  --color-text:         #E8DFD4;
+  --color-text-muted:   #A89882;
+  --color-accent:       #F59E0B;
+  --color-accent-hover: #FBBF24;
+  --color-accent-light: #2A2010;
+  --color-border:       #3D3028;
+  --color-code-bg:      #120D08;
+}
+
+/* ── Campfire layout overrides ───────────────────────────── */
+
+/* Warm rounded everything */
+.story-card, .project-card, .case-outcome, .philosophy-block,
+.intake-success, .form-group input, .form-group textarea {
+  border-radius: 0.75rem;
+}
+
+/* Warm amber blockquote border */
+blockquote {
+  border-inline-start-color: var(--color-accent);
+}
+
+/* Friendly button feel */
+.btn, .hero-cta, .intake-submit {
+  border-radius: 0.75rem;
+}
+
+/* Softer images */
+main img {
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}

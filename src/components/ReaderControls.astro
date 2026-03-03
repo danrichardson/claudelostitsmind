@@ -1,0 +1,451 @@
+---
+/**
+ * ReaderControls.astro - Floating reader preferences panel
+ * 
+ * Part of the Loomwork framework.
+ * Gated by `reader_controls: true` in site.config.ts.
+ * 
+ * All preferences are stored in localStorage and applied
+ * instantly on page load via a blocking inline script in Base.astro.
+ */
+---
+
+<div class="rc" id="reader-controls" data-reader-controls>
+  {/* ── Toggle button ──────────────────────────────────── */}
+  <button
+    class="rc__toggle"
+    aria-label="Reader settings"
+    aria-expanded="false"
+    title="Reader settings"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+    </svg>
+  </button>
+
+  {/* ── Panel ──────────────────────────────────────────── */}
+  <div class="rc__panel" hidden>
+
+    {/* Dark / Light toggle */}
+    <div class="rc__group">
+      <span class="rc__label">Mode</span>
+      <div class="rc__toggle-row">
+        <button class="rc__pill" data-rc-mode>
+          <span class="rc__pill-icon rc__pill-icon--sun" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+          </span>
+          <span class="rc__pill-label" data-rc-mode-label>Light</span>
+          <span class="rc__pill-icon rc__pill-icon--moon" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    {/* Font size slider */}
+    <div class="rc__group">
+      <span class="rc__label">Font Size</span>
+      <div class="rc__font-size">
+        <span class="rc__font-sm" aria-hidden="true">A</span>
+        <input
+          type="range"
+          min="0"
+          max="4"
+          value="2"
+          step="1"
+          class="rc__slider"
+          data-rc-fontsize
+          aria-label="Font size"
+        />
+        <span class="rc__font-lg" aria-hidden="true">A</span>
+      </div>
+    </div>
+
+    {/* TOC toggle */}
+    <div class="rc__group">
+      <span class="rc__label">Contents</span>
+      <div class="rc__toggle-row">
+        <button class="rc__pill rc__pill--active" data-rc-toc>
+          <span class="rc__pill-label">On</span>
+        </button>
+      </div>
+    </div>
+
+    {/* Content width — Phase 3 feature, included here since panel exists */}
+    <div class="rc__group">
+      <span class="rc__label">Width</span>
+      <div class="rc__chips" data-rc-width>
+        <button data-value="narrow" class="rc__chip" title="Narrow">Narrow</button>
+        <button data-value="default" class="rc__chip rc__chip--active" title="Default">Default</button>
+        <button data-value="wide" class="rc__chip" title="Wide">Wide</button>
+      </div>
+    </div>
+
+    {/* Focus mode — Phase 3 feature */}
+    <div class="rc__group">
+      <span class="rc__label">Focus</span>
+      <div class="rc__toggle-row">
+        <button class="rc__pill" data-rc-zen>
+          <span class="rc__pill-label">Off</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  /* ── Container ───────────────────────────────────────── */
+  .rc {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    z-index: 200;
+    font-family: var(--font-body);
+  }
+
+  /* ── Toggle button ───────────────────────────────────── */
+  .rc__toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
+  }
+  .rc__toggle:hover {
+    color: var(--color-accent);
+    transform: scale(1.05);
+  }
+  .rc__toggle[aria-expanded="true"] {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+
+  /* ── Panel ───────────────────────────────────────────── */
+  .rc__panel {
+    position: absolute;
+    bottom: calc(100% + var(--space-sm));
+    right: 0;
+    width: 240px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .rc__panel[hidden] {
+    display: none;
+  }
+
+  /* ── Group ───────────────────────────────────────────── */
+  .rc__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  .rc__label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Theme chips ─────────────────────────────────────── */
+  .rc__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .rc__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    font-size: 0.6875rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .rc__chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .rc__chip--active {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+
+  /* ── Pill toggle ─────────────────────────────────────── */
+  .rc__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-weight: 500;
+  }
+  .rc__pill:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .rc__pill--active {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+  .rc__pill-icon {
+    display: flex;
+    align-items: center;
+  }
+  .rc__pill-label {
+    pointer-events: none;
+  }
+  .rc__toggle-row {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  /* ── Font size slider ────────────────────────────────── */
+  .rc__font-size {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  .rc__font-sm {
+    font-size: 0.6875rem;
+    color: var(--color-text-muted);
+    font-weight: 700;
+    user-select: none;
+  }
+  .rc__font-lg {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    font-weight: 700;
+    user-select: none;
+  }
+  .rc__slider {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--color-border);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  .rc__slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+  .rc__slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    cursor: pointer;
+  }
+
+  /* ── Print: hide controls ────────────────────────────── */
+  @media print {
+    .rc { display: none !important; }
+  }
+
+  /* ── Mobile: push up a bit above likely nav bars ─────── */
+  @media (max-width: 480px) {
+    .rc {
+      bottom: var(--space-md);
+      right: var(--space-md);
+    }
+    .rc__panel {
+      width: 220px;
+    }
+  }
+</style>
+
+<script>
+  // ── ReaderControls client-side logic ──────────────────
+  (function() {
+    const LS_KEY = "lw-reader";
+    const root = document.documentElement;
+    const container = document.getElementById("reader-controls");
+    if (!container) return;
+
+    const toggleBtn = container.querySelector(".rc__toggle") as HTMLButtonElement;
+    const panel = container.querySelector(".rc__panel") as HTMLElement;
+
+    // Controls
+    const modeBtn = container.querySelector("[data-rc-mode]") as HTMLButtonElement;
+    const modeLbl = container.querySelector("[data-rc-mode-label]") as HTMLElement;
+    const fontSlider = container.querySelector("[data-rc-fontsize]") as HTMLInputElement;
+    const tocBtn = container.querySelector("[data-rc-toc]") as HTMLButtonElement;
+    const widthChips = container.querySelector("[data-rc-width]") as HTMLElement;
+    const zenBtn = container.querySelector("[data-rc-zen]") as HTMLButtonElement;
+
+    const FONT_SIZES = ["xs", "sm", "md", "lg", "xl"];
+
+    // ── Load prefs ────────────────────────────────────
+    function loadPrefs() {
+      try {
+        return JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+      } catch { return {}; }
+    }
+
+    function savePrefs(prefs: Record<string, string>) {
+      localStorage.setItem(LS_KEY, JSON.stringify(prefs));
+    }
+
+    // ── Apply prefs to DOM ────────────────────────────
+    function applyAll(prefs: Record<string, string>) {
+      // Dark mode
+      if (prefs.dark === "true") root.setAttribute("data-dark", "true");
+      else if (prefs.dark === "false") root.setAttribute("data-dark", "false");
+      else root.removeAttribute("data-dark");
+
+      // Font size
+      const fs = prefs.fontSize || "md";
+      if (fs === "md") root.removeAttribute("data-font-size");
+      else root.setAttribute("data-font-size", fs);
+
+      // TOC
+      if (prefs.toc === "hidden") root.setAttribute("data-toc", "hidden");
+      else root.removeAttribute("data-toc");
+
+      // Width
+      const w = prefs.width || "default";
+      if (w === "default") root.removeAttribute("data-width");
+      else root.setAttribute("data-width", w);
+
+      // Zen
+      if (prefs.zen === "true") root.setAttribute("data-zen", "");
+      else root.removeAttribute("data-zen");
+
+      // Sync UI
+      syncUI(prefs);
+    }
+
+    // ── Sync UI state to match prefs ──────────────────
+    function syncUI(prefs: Record<string, string>) {
+      // Mode pill
+      const isDark = prefs.dark === "true";
+      modeBtn?.classList.toggle("rc__pill--active", isDark);
+      if (modeLbl) modeLbl.textContent = isDark ? "Dark" : "Light";
+
+      // Font slider
+      const fsIdx = FONT_SIZES.indexOf(prefs.fontSize || "md");
+      if (fontSlider) fontSlider.value = String(fsIdx >= 0 ? fsIdx : 2);
+
+      // TOC pill
+      const tocOn = prefs.toc !== "hidden";
+      tocBtn?.classList.toggle("rc__pill--active", tocOn);
+      const tocLbl = tocBtn?.querySelector(".rc__pill-label");
+      if (tocLbl) tocLbl.textContent = tocOn ? "On" : "Off";
+
+      // Width chips
+      widthChips?.querySelectorAll(".rc__chip").forEach((btn) => {
+        const val = (btn as HTMLElement).dataset.value;
+        btn.classList.toggle("rc__chip--active", val === (prefs.width || "default"));
+      });
+
+      // Zen pill
+      const zenOn = prefs.zen === "true";
+      zenBtn?.classList.toggle("rc__pill--active", zenOn);
+      const zenLbl = zenBtn?.querySelector(".rc__pill-label");
+      if (zenLbl) zenLbl.textContent = zenOn ? "On" : "Off";
+    }
+
+    // ── Init ──────────────────────────────────────────
+    const prefs = loadPrefs();
+    applyAll(prefs);
+
+    // ── Toggle panel ──────────────────────────────────
+    toggleBtn?.addEventListener("click", () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      toggleBtn.setAttribute("aria-expanded", String(open));
+    });
+
+    // Close panel when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!container.contains(e.target as Node) && !panel.hidden) {
+        panel.hidden = true;
+        toggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // ── Mode toggle ───────────────────────────────────
+    modeBtn?.addEventListener("click", () => {
+      prefs.dark = prefs.dark === "true" ? "false" : "true";
+      savePrefs(prefs);
+      applyAll(prefs);
+    });
+
+    // ── Font size slider ──────────────────────────────
+    fontSlider?.addEventListener("input", () => {
+      prefs.fontSize = FONT_SIZES[parseInt(fontSlider.value)] || "md";
+      savePrefs(prefs);
+      applyAll(prefs);
+    });
+
+    // ── TOC toggle ────────────────────────────────────
+    tocBtn?.addEventListener("click", () => {
+      prefs.toc = prefs.toc === "hidden" ? "visible" : "hidden";
+      savePrefs(prefs);
+      applyAll(prefs);
+    });
+
+    // ── Width picker ──────────────────────────────────
+    widthChips?.addEventListener("click", (e) => {
+      const btn = (e.target as HTMLElement).closest("[data-value]") as HTMLElement;
+      if (!btn) return;
+      prefs.width = btn.dataset.value!;
+      savePrefs(prefs);
+      applyAll(prefs);
+    });
+
+    // ── Zen toggle ────────────────────────────────────
+    zenBtn?.addEventListener("click", () => {
+      prefs.zen = prefs.zen === "true" ? "false" : "true";
+      savePrefs(prefs);
+      applyAll(prefs);
+    });
+  })();
+</script>

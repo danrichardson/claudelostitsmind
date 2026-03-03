@@ -1,0 +1,55 @@
+/* ── Manuscript — The best article you've ever read ──────── */
+
+:root {
+  /* Colors */
+  --color-bg:           #FAFAF8;
+  --color-bg-alt:       #F3F1EC;
+  --color-surface:      #FFFFFF;
+  --color-text:         #1A1B1E;
+  --color-text-muted:   #6B6B76;
+  --color-accent:       #C2662D;
+  --color-accent-hover: #A14E1C;
+  --color-accent-light: #FDF0E8;
+  --color-border:       #E2DFD9;
+  --color-code-bg:      #1E1E2E;
+
+  /* Typography */
+  --font-body:    'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Source Serif 4', Georgia, serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --leading:      1.75;
+
+  /* Layout */
+  --content-width: 52rem;
+  --radius:        0.375rem;
+}
+
+/* OS-level dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-dark="false"]) {
+    --color-bg:           #1A1B1E;
+    --color-bg-alt:       #2A2B36;
+    --color-surface:      #242530;
+    --color-text:         #E4E3DF;
+    --color-text-muted:   #9B9A94;
+    --color-accent:       #E07A3A;
+    --color-accent-hover: #F09050;
+    --color-accent-light: #2E2520;
+    --color-border:       #3A3B45;
+    --color-code-bg:      #16161E;
+  }
+}
+
+/* Reader-controls dark toggle */
+:root[data-dark="true"] {
+  --color-bg:           #1A1B1E;
+  --color-bg-alt:       #2A2B36;
+  --color-surface:      #242530;
+  --color-text:         #E4E3DF;
+  --color-text-muted:   #9B9A94;
+  --color-accent:       #E07A3A;
+  --color-accent-hover: #F09050;
+  --color-accent-light: #2E2520;
+  --color-border:       #3A3B45;
+  --color-code-bg:      #16161E;
+}

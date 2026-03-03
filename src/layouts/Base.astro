@@ -1,9 +1,14 @@
 ---
 import "../styles/global.css";
+import "../styles/themes.css";
 import "../styles/site.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ReaderControls from "../components/ReaderControls.astro";
+import ReadingEnhancements from "../components/ReadingEnhancements.astro";
 import { SITE } from "../site.config";
+import { THEMES } from "../themes/_index";
+import type { ThemeName } from "../themes/_index";
 
 interface Props {
   title: string;
@@ -23,7 +28,13 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, SITE.url);
 const pageTitle = title === SITE.name ? title : `${title} - ${SITE.name}`;
-const fontsUrl = SITE.fonts_url || "";
+const showReaderControls = (SITE as any).reader_controls ?? false;
+
+// Theme system: resolve theme from config, load its fonts
+const themeName = ((SITE as any).theme || "") as string;
+const themeEntry = themeName && themeName in THEMES ? THEMES[themeName as ThemeName] : null;
+// User's fonts_url overrides theme fonts; theme fonts override empty
+const fontsUrl = SITE.fonts_url || themeEntry?.fonts_url || "";
 ---
 
 <!doctype html>
@@ -46,7 +57,7 @@ const fontsUrl = SITE.fonts_url || "";
     <meta property="og:url" content={canonicalURL} />
     {og_image && <meta property="og:image" content={new URL(og_image, SITE.url)} />}
 
-    <!-- Fonts (optional - set fonts_url in site.config.ts) -->
+    <!-- Fonts: loaded from theme or manual fonts_url -->
     {fontsUrl && (
       <>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,6 +65,27 @@ const fontsUrl = SITE.fonts_url || "";
         <link href={fontsUrl} rel="stylesheet" />
       </>
     )}
+
+    <!-- Theme CSS (loaded after global.css, before site.css in cascade) -->
+    {themeEntry && (
+      <link rel="stylesheet" href={`/themes/${themeName}.css`} />
+    )}
+
+    {/* FOUC prevention: apply saved reader prefs before paint */}
+    <script is:inline>
+      (function() {
+        try {
+          var p = JSON.parse(localStorage.getItem("lw-reader") || "{}");
+          var d = document.documentElement;
+          if (p.dark === "true") d.setAttribute("data-dark", "true");
+          else if (p.dark === "false") d.setAttribute("data-dark", "false");
+          if (p.fontSize && p.fontSize !== "md") d.setAttribute("data-font-size", p.fontSize);
+          if (p.toc === "hidden") d.setAttribute("data-toc", "hidden");
+          if (p.width && p.width !== "default") d.setAttribute("data-width", p.width);
+          if (p.zen === "true") d.setAttribute("data-zen", "");
+        } catch(e) {}
+      })();
+    </script>
   </head>
 
   <body>
@@ -62,5 +94,7 @@ const fontsUrl = SITE.fonts_url || "";
       <slot />
     </main>
     <Footer />
+    {showReaderControls && <ReadingEnhancements />}
+    {showReaderControls && <ReaderControls />}
   </body>
 </html>
