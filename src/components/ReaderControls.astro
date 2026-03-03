@@ -27,6 +27,14 @@
   {/* ── Panel ──────────────────────────────────────────── */}
   <div class="rc__panel" hidden>
 
+    {/* Theme picker */}
+    <div class="rc__group">
+      <span class="rc__label">Theme</span>
+      <select class="rc__select" data-rc-theme aria-label="Theme">
+        <option value="">Default</option>
+      </select>
+    </div>
+
     {/* Dark / Light toggle */}
     <div class="rc__group">
       <span class="rc__label">Mode</span>
@@ -284,6 +292,32 @@
     cursor: pointer;
   }
 
+  /* ── Select dropdown ─────────────────────────────────── */
+  .rc__select {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 24px;
+  }
+  .rc__select:hover,
+  .rc__select:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+
   /* ── Print: hide controls ────────────────────────────── */
   @media print {
     .rc { display: none !important; }
@@ -319,8 +353,38 @@
     const tocBtn = container.querySelector("[data-rc-toc]") as HTMLButtonElement;
     const widthChips = container.querySelector("[data-rc-width]") as HTMLElement;
     const zenBtn = container.querySelector("[data-rc-zen]") as HTMLButtonElement;
+    const themeSelect = container.querySelector("[data-rc-theme]") as HTMLSelectElement;
 
     const FONT_SIZES = ["xs", "sm", "md", "lg", "xl"];
+
+    // ── Load theme map from JSON injected by Base.astro ──
+    let themeMap: Record<string, { fonts_url: string; tagline: string }> = {};
+    let defaultTheme = "";
+    try {
+      const raw = JSON.parse(document.getElementById("lw-theme-map")?.textContent || "{}");
+      themeMap = raw.themes || {};
+      defaultTheme = raw.defaultTheme || "";
+    } catch {}
+
+    // Populate the theme <select> with options from the registry
+    if (themeSelect && Object.keys(themeMap).length > 0) {
+      // Remove the static "Default" option, rebuild dynamically
+      themeSelect.innerHTML = "";
+      const defOpt = document.createElement("option");
+      defOpt.value = "";
+      defOpt.textContent = defaultTheme
+        ? defaultTheme.charAt(0).toUpperCase() + defaultTheme.slice(1) + " (default)"
+        : "Default";
+      themeSelect.appendChild(defOpt);
+      for (const [name, meta] of Object.entries(themeMap)) {
+        if (name === defaultTheme) continue; // already the default option
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+        opt.title = meta.tagline;
+        themeSelect.appendChild(opt);
+      }
+    }
 
     // ── Load prefs ────────────────────────────────────
     function loadPrefs() {
@@ -390,6 +454,9 @@
       zenBtn?.classList.toggle("rc__pill--active", zenOn);
       const zenLbl = zenBtn?.querySelector(".rc__pill-label");
       if (zenLbl) zenLbl.textContent = zenOn ? "On" : "Off";
+
+      // Theme select
+      if (themeSelect) themeSelect.value = prefs.theme || "";
     }
 
     // ── Init ──────────────────────────────────────────
@@ -446,6 +513,29 @@
       prefs.zen = prefs.zen === "true" ? "false" : "true";
       savePrefs(prefs);
       applyAll(prefs);
+    });
+
+    // ── Theme picker ──────────────────────────────────
+    themeSelect?.addEventListener("change", () => {
+      const picked = themeSelect.value; // "" means use site default
+      const effectiveTheme = picked || defaultTheme;
+
+      // Swap theme CSS
+      const themeLink = document.getElementById("lw-theme") as HTMLLinkElement;
+      if (themeLink && effectiveTheme) {
+        themeLink.href = "/themes/" + effectiveTheme + ".css";
+      }
+
+      // Swap fonts
+      const fontsLink = document.getElementById("lw-fonts") as HTMLLinkElement;
+      const meta = themeMap[effectiveTheme];
+      if (fontsLink && meta?.fonts_url) {
+        fontsLink.href = meta.fonts_url;
+      }
+
+      // Save preference (empty string = "use site default")
+      prefs.theme = picked;
+      savePrefs(prefs);
     });
   })();
 </script>

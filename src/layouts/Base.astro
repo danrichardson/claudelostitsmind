@@ -58,17 +58,25 @@ const fontsUrl = SITE.fonts_url || themeEntry?.fonts_url || "";
     {og_image && <meta property="og:image" content={new URL(og_image, SITE.url)} />}
 
     <!-- Fonts: loaded from theme or manual fonts_url -->
-    {fontsUrl && (
-      <>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href={fontsUrl} rel="stylesheet" />
-      </>
-    )}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link id="lw-fonts" href={fontsUrl || undefined} rel="stylesheet" />
 
     <!-- Theme CSS (loaded after global.css, before site.css in cascade) -->
-    {themeEntry && (
-      <link rel="stylesheet" href={`/themes/${themeName}.css`} />
+    <link id="lw-theme" rel="stylesheet" href={themeEntry ? `/themes/${themeName}.css` : undefined} />
+
+    <!-- Theme registry for client-side picker -->
+    {showReaderControls && (
+      <script
+        id="lw-theme-map"
+        type="application/json"
+        set:html={JSON.stringify({
+          defaultTheme: themeName,
+          themes: Object.fromEntries(
+            Object.entries(THEMES).map(([k, v]) => [k, { fonts_url: v.fonts_url, tagline: v.tagline }])
+          ),
+        })}
+      />
     )}
 
     {/* FOUC prevention: apply saved reader prefs before paint */}
@@ -83,6 +91,19 @@ const fontsUrl = SITE.fonts_url || themeEntry?.fonts_url || "";
           if (p.toc === "hidden") d.setAttribute("data-toc", "hidden");
           if (p.width && p.width !== "default") d.setAttribute("data-width", p.width);
           if (p.zen === "true") d.setAttribute("data-zen", "");
+          // Swap theme CSS + fonts before paint if user picked a different theme
+          if (p.theme) {
+            var tl = document.getElementById("lw-theme");
+            if (tl) tl.setAttribute("href", "/themes/" + p.theme + ".css");
+            try {
+              var m = JSON.parse(document.getElementById("lw-theme-map").textContent);
+              var t = m && m.themes && m.themes[p.theme];
+              if (t && t.fonts_url) {
+                var fl = document.getElementById("lw-fonts");
+                if (fl) fl.setAttribute("href", t.fonts_url);
+              }
+            } catch(e2) {}
+          }
         } catch(e) {}
       })();
     </script>

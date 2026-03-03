@@ -45,11 +45,12 @@
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    CONTENT WIDTH
    
-   Override --content-width via data-width attribute.
+   Override --content-width scoped to article content only,
+   so the width picker doesn't shift headers, heroes, or footers.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-[data-width="narrow"] { --content-width: 42rem; }
+[data-width="narrow"] .page { --content-width: 42rem; }
 /* "default" = 52rem from global.css */
-[data-width="wide"]   { --content-width: 64rem; }
+[data-width="wide"] .page   { --content-width: 64rem; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    FOCUS / ZEN MODE
