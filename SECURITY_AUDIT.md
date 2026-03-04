@@ -1,7 +1,8 @@
 # Loomwork Security Audit
 
 **Initial audit:** March 3, 2026  
-**Re-audit:** March 4, 2026  
+**Re-audit #1:** March 3, 2026  
+**Re-audit #2:** March 3, 2026 — No code changes since prior run; re-verified deployed site  
 **Auditor:** Independent security review  
 **Scope:** Full codebase (`security` branch) + live site pen-test  
 **Tested URL:** `https://security.loomwork.pages.dev`  
@@ -14,6 +15,8 @@
 Loomwork is a static Astro site with a client-side React mobile editor that talks directly to the GitHub API using a personal access token (PAT). The overall attack surface is small — there is no server-side runtime processing user input in production.
 
 The initial audit on March 3 identified 18 findings (1 Critical, 3 High, 5 Medium, 5 Low, 4 Info). Significant remediation work has been completed on the `security` branch. **7 of 18 findings are now fully resolved**, 1 is partially fixed, and 10 remain open (mostly medium/low severity). No new vulnerabilities were introduced by the fixes.
+
+**Re-audit #2 (March 3):** No code changes since the prior run. All fixes remain in place. Live pen-test re-confirmed all security headers are served correctly. `npm audit` still clean, all dependencies current. No regression or new findings.
 
 ### Remediation Scorecard
 
@@ -314,7 +317,8 @@ All dependencies are current. The `overrides` for `undici` and `wrangler` in `pa
 - **Authentication review:** Analyzed PAT storage, transmission, and scope
 - **Service worker audit:** Cache strategy and update mechanism review
 - **Header verification:** Confirmed all security headers are served on deployed site (HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CSP on /mobile/)
+- **Re-verification (March 3, re-audit #2):** No code changes detected. Re-tested all headers on live site — still correctly served. `npm audit` 0 vulnerabilities. `npm outdated` clean. Sensitive file probes (`.git/config`, `.env`, `package.json`, `wrangler.toml`, `site.config.ts`, `_headers`) all return 404.
 
 ---
 
-*Initial audit: March 3, 2026. Re-audit: March 4, 2026 against `security` branch deployed to `https://security.loomwork.pages.dev`. Re-audit after significant changes or before major releases.*
+*Initial audit: March 3, 2026. Re-audit #1: March 3, 2026. Re-audit #2: March 3, 2026 — no changes, all prior findings confirmed. Re-audit after significant changes or before major releases.*
