@@ -93,9 +93,27 @@ import { SITE } from "../site.config";
   </section>
 </Base>
 
+<style is:global>
+  /* Single-viewport homepage: pin footer to bottom edge */
+  body:has(.hero) {
+    height: 100vh;
+    overflow: hidden;
+  }
+  body:has(.hero) > main {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  body:has(.hero) > .site-footer {
+    margin-block-start: 0;
+    padding-block: var(--space-md);
+    flex-shrink: 0;
+  }
+</style>
+
 <style>
   .hero {
-    padding: 24px 0 8px;
+    padding: 16px 0 6px;
     text-align: center;
   }
 
@@ -146,7 +164,7 @@ import { SITE } from "../site.config";
 
   /* ── Feature rotator ───────────────────────────────── */
   .features {
-    padding: 8px 0 16px;
+    padding: 4px 0 8px;
     text-align: center;
   }
 
@@ -230,8 +248,9 @@ import { SITE } from "../site.config";
 
   /* ── Clone CTA ─────────────────────────────────────── */
   .clone-cta {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-lg) 0 var(--space-md);
     text-align: center;
+    margin-block-start: auto;
   }
 
   .clone-cta__heading {
