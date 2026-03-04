@@ -131,13 +131,13 @@ const containerClass = isLanding || isTool
   /* ── Grid: single column mobile, sidebar + content desktop */
   .page__grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-xl);
   }
 
   @media (min-width: 960px) {
     .page__grid {
-      grid-template-columns: 11rem 1fr;
+      grid-template-columns: 11rem minmax(0, 1fr);
       gap: var(--space-xl);
     }
   }
@@ -160,6 +160,8 @@ const containerClass = isLanding || isTool
 
   .page__content {
     padding-block-end: var(--space-2xl);
+    min-width: 0;
+    overflow-x: hidden;
   }
 
   /* Prose - styles for rendered MDX content */
