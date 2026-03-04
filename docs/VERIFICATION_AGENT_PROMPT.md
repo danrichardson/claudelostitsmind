@@ -9,13 +9,34 @@ Use this prompt with a coding agent to verify that the Loomwork fork-and-rebrand
 You are a developer testing the fork-and-rebrand workflow for Loomwork, an open-source Astro site starter. The repo is at https://github.com/danrichardson/loomwork
 Your job is to follow the repo's directions exactly to create a new site called "Coastal Kitchen" — a food and recipe site focused on seafood and coastal cooking. You should NOT look at any other demo site for reference. Follow only the directions in the loomwork repo's README and any setup guides in the repo.
 
+### CRITICAL: Do NOT Edit Framework Files
+
+The 2.0 features (theme system, reader controls, FOUC prevention, longform layout) are built into the framework's layout and component files. They work automatically when you set the right values in site.config.ts. **Do NOT create, overwrite, or edit any of these files:**
+
+- `src/layouts/Base.astro` — Contains the theme system, reader controls injection, FOUC prevention scripts, font loading via document.write(). This is the most important file to leave untouched.
+- `src/layouts/Content.astro` — Content page chrome, template variants
+- `src/layouts/Longform.astro` — Split-panel deep dive layout
+- `src/components/*.astro` — Header, Footer, Callout, TOC, ThemePicker, ReaderControls, ReadingEnhancements, DemoControl
+- `src/components/mobile/` — PWA mobile editor components
+- `src/styles/global.css` — Reset, base typography, utilities
+- `src/styles/themes.css` — Reader preference styles (font size, width, TOC, zen mode)
+- `src/content.config.ts` — Content collection schemas
+- `src/themes/_index.ts` — Theme registry (maps theme names to CSS/fonts)
+- `src/pages/[...slug].astro` — Dynamic route for content pages
+- `src/pages/404.astro` — Not found page
+- `src/pages/mobile/` — PWA mobile editor page
+
+**How 2.0 features work:** You don't need to write any theme loading code, reader controls HTML, or font `<link>` tags. Setting `theme: "alpine"` and `reader_controls: true` in site.config.ts is all that's needed — Base.astro reads those values and handles everything: theme CSS loading, font loading, reader controls panel, FOUC prevention, dark mode, and the theme picker.
+
+**If you overwrite Base.astro, ALL 2.0 features will be destroyed.** The deployed site will look like a 1.0 site with no themes, no reader controls, and no FOUC prevention.
+
 ### Efficiency Notes
 
 This workflow must complete within a limited turn budget. Follow these rules to avoid running out of turns:
 
 - **Use Write (not Edit) for new files.** Every content page, the homepage, site.css, and README are new — write the full file in one shot.
 - **Batch shell commands.** Combine all `rm` deletions into a single Bash call. Combine all verification `grep`/`test` checks into a single Bash call.
-- **Don't read files you're about to overwrite.** For site.config.ts, package.json, astro.config.mjs, and wrangler.toml — read once, then write the complete replacement.
+- **Don't read files you're about to overwrite.** For site.config.ts, package.json, astro.config.mjs, and wrangler.toml — read once, then write the complete replacement. But NEVER overwrite framework files listed above.
 - **Content pages should be concise.** A few solid paragraphs per page is sufficient. The goal is to exercise templates and components, not write a real cookbook.
 - **Parallelize verification.** Steps 5–7 can be checked with a handful of combined shell commands, not individual reads.
 
@@ -40,7 +61,7 @@ src/styles/site.css — Add minimal site-specific CSS overrides on top of the th
 astro.config.mjs — site URL: "https://verification.loomwork.org"
 wrangler.toml — project name: "coastal-kitchen"
 package.json — name: "coastal-kitchen", update description
-src/pages/index.astro — custom homepage with a hero section and feature cards for your content sections. Style using only CSS variables from the theme (--color-accent, --color-bg, --color-surface, etc.) — no hardcoded hex colors.
+src/pages/index.astro — custom homepage with a hero section and feature cards for your content sections. Import and use the `Base` layout from `../layouts/Base.astro` (do NOT write your own HTML shell — Base.astro handles the `<html>`, `<head>`, theme loading, and reader controls). Style using only CSS variables from the theme (--color-accent, --color-bg, --color-surface, etc.) — no hardcoded hex colors.
 
 3. Create 5 content pages as .mdx files in src/content/pages/ that exercise different templates:
 
@@ -62,9 +83,14 @@ Delete any orphaned images in public/images/ that were referenced by deleted pag
 Delete public/icons/ (loomwork homepage icons — replace with your own or remove)
 Replace public/favicon.svg with your own favicon
 Replace README.md with a site-specific readme for Coastal Kitchen
-Note: These are intentional framework files — do NOT delete them:
+Note: These are intentional framework files — do NOT delete or edit them:
+- src/layouts/ (Base.astro, Content.astro, Longform.astro — the 2.0 theme/reader system lives here)
+- src/components/*.astro (Header, Footer, Callout, TOC, ThemePicker, ReaderControls, ReadingEnhancements, DemoControl)
 - src/pages/mobile/ and src/components/mobile/ (PWA mobile editor)
+- src/styles/global.css and src/styles/themes.css (framework styles)
 - src/themes/_index.ts (theme registry)
+- src/content.config.ts (collection schemas)
+- src/pages/[...slug].astro and src/pages/404.astro
 - public/themes/*.css (theme stylesheets)
 - public/mobile/ (PWA manifest and service worker)
 - public/_headers, public/_redirects, public/.assetsignore
@@ -80,11 +106,20 @@ No loomwork-specific placeholder page slugs appear in the build output (about_Lo
 
 6. Verify 2.0 features work:
 
+**Run all of these checks. If ANY check fails, report FAIL immediately — do not skip or work around them.**
+
 Theme: Confirm the alpine theme CSS is loaded. Check that dist/themes/alpine.css exists and the site references it.
-Reader Controls: Confirm the floating reader-controls panel markup is in the built HTML (search for "lw-reader-controls" in the output HTML files).
+Reader Controls: Confirm the floating reader-controls panel markup is in the built HTML (search for "lw-reader-controls" in the output HTML files). This should appear in EVERY page.
 Longform template: Confirm the seasonal-catch page uses the longform layout (search for "longform" class or layout markers in its HTML output).
-Theme registry: Confirm the theme map JSON is injected in the page head (search for "lw-theme-map" in the output HTML).
+Theme registry: Confirm the theme map JSON is injected in the page head (search for "lw-theme-map" in the output HTML). This should appear in EVERY page.
 All 10 theme CSS files should be in dist/themes/ (alpine.css, atelier.css, brutalist.css, campfire.css, fieldnotes.css, gazette.css, manuscript.css, moonrise.css, neon.css, terminal.css).
+
+**Critical 2.0 integrity checks** (these verify Base.astro was not overwritten):
+- FOUC prevention: Confirm "document.write" appears in the built HTML (the theme loader uses document.write to inject theme CSS before paint). Run: `grep -c "document.write" dist/index.html` — must be >= 1.
+- Theme defaults: Confirm "lw-defaults" appears in the built HTML (the meta tag that stores the default theme/fonts). Run: `grep -c "lw-defaults" dist/index.html` — must be >= 1.
+- Font loading: Fonts should NOT be loaded via a static `<link>` tag in the `<head>`. They should be loaded by the FOUC prevention script via document.write(). If you see a hardcoded Google Fonts `<link>` in the HTML head (not inside a `<noscript>` tag), Base.astro was overwritten — report FAIL.
+
+If any of these checks fail, it means a framework file was accidentally overwritten. This is a critical failure — the site will deploy without 2.0 features.
 
 7. Scrub for leftover loomwork references. Search src/ and root config files for:
 
@@ -93,27 +128,27 @@ All 10 theme CSS files should be in dist/themes/ (alpine.css, atelier.css, bruta
 "danrichardson"
 Any nav links pointing to pages that don't exist
 
-Allowed references: Framework-marker comments like `// won't conflict with framework updates from the loomwork repo` are acceptable in site files — those are upstream annotations, not site content. The following are framework files; they may reference "loomwork" in comments and should not be edited or flagged:
+Allowed references: Framework-marker comments like `// won't conflict with framework updates from the loomwork repo` are acceptable in site files — those are upstream annotations, not site content. The following are framework files; they may reference "loomwork" in comments and **must not be edited, overwritten, or recreated**:
 
-| File | Purpose |
-|------|---------|
-| src/layouts/Base.astro | HTML shell, meta tags, font/theme loading |
-| src/layouts/Content.astro | Content page chrome, template variants |
-| src/layouts/Longform.astro | Split-panel deep dive layout |
-| src/components/*.astro | Callout, YouTube, Header, Footer, TOC, ThemePicker, ReaderControls, ReadingEnhancements, DemoControl |
-| src/components/mobile/ | PWA mobile editor components |
-| src/styles/global.css | Reset, base typography, utilities |
-| src/styles/themes.css | Theme-related global styles |
-| src/content.config.ts | Content collection schemas |
-| src/themes/_index.ts | Theme registry (maps theme names to CSS/fonts) |
-| src/pages/[...slug].astro | Dynamic route for content pages |
-| src/pages/404.astro | Not found page |
-| src/pages/mobile/ | PWA mobile editor page |
-| public/_headers | Security headers (Cloudflare Pages) |
-| public/_redirects | URL redirects |
-| public/.assetsignore | Cloudflare deploy fix |
-| public/mobile/ | PWA manifest and service worker |
-| public/themes/*.css | Built-in theme stylesheets |
+| File | Purpose | Why it matters |
+|------|---------|---------------|
+| src/layouts/Base.astro | HTML shell, meta tags, font/theme loading | **Contains the entire 2.0 theme system — overwriting this destroys themes, reader controls, and FOUC prevention** |
+| src/layouts/Content.astro | Content page chrome, template variants | Template switching (default/guide/tool/landing) |
+| src/layouts/Longform.astro | Split-panel deep dive layout | The longform template for deep-dives |
+| src/components/*.astro | Callout, YouTube, Header, Footer, TOC, ThemePicker, ReaderControls, ReadingEnhancements, DemoControl | Header reads nav from site.config.ts. ReaderControls provides the floating panel. |
+| src/components/mobile/ | PWA mobile editor components | |
+| src/styles/global.css | Reset, base typography, utilities | |
+| src/styles/themes.css | Theme-related global styles | Reader preference CSS (font size, width, zen) |
+| src/content.config.ts | Content collection schemas | |
+| src/themes/_index.ts | Theme registry (maps theme names to CSS/fonts) | Maps "alpine" → alpine.css + Inter font URL |
+| src/pages/[...slug].astro | Dynamic route for content pages | |
+| src/pages/404.astro | Not found page | |
+| src/pages/mobile/ | PWA mobile editor page | |
+| public/_headers | Security headers (Cloudflare Pages) | |
+| public/_redirects | URL redirects | |
+| public/.assetsignore | Cloudflare deploy fix | |
+| public/mobile/ | PWA manifest and service worker | |
+| public/themes/*.css | Built-in theme stylesheets | |
 
 But site files (site.config.ts, site.css, index.astro, content pages, README.md, package.json, astro.config.mjs, wrangler.toml) should have zero loomwork-specific content.
 
@@ -135,6 +170,8 @@ PASS if:
 - The longform template renders correctly for the deep-dive page
 - All 10 theme CSS files are in the build output
 - The theme registry JSON is injected in the page head
+- **The 2.0 integrity checks pass** (document.write FOUC prevention, lw-defaults meta tag, no hardcoded font `<link>` outside `<noscript>`)
+- **No framework files were edited** (layouts, components, global.css, themes.css, content.config.ts, themes/_index.ts)
 
 FAIL if any of these occurred:
 
@@ -146,6 +183,8 @@ FAIL if any of these occurred:
 - No theme was set (site uses raw global.css defaults instead of a built-in theme)
 - reader_controls is not enabled
 - The longform template was not used for any page
+- **Any framework file was overwritten or edited** (especially Base.astro, Content.astro, Longform.astro, Header.astro, Footer.astro)
+- **The 2.0 integrity checks fail** (no document.write in HTML, no lw-defaults, no lw-theme-map, no lw-reader-controls, hardcoded font `<link>` tags)
 
 Documentation gap (report but not a hard FAIL):
 
