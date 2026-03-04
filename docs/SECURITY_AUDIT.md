@@ -17,14 +17,14 @@ Loomwork is a static Astro site with a client-side React mobile editor that talk
 
 The initial audit on March 3 identified 18 findings (1 Critical, 3 High, 5 Medium, 5 Low, 4 Info). Two phases of remediation have been completed on the `security` branch. **Phase 1** resolved the critical XSS, input validation, security headers, and several lower items. **Phase 2** addressed PAT encryption, service worker versioning, `execSync` removal, feature-branch commits, the deprecated `unescape()` pattern, and replaced the custom YAML parser with a proper library. The mobile editor has also been temporarily disabled during hardening.
 
-**15 of 18 findings are now fully resolved.** No Critical or High issues remain. The 3 remaining items are Low severity or informational.
+**16 of 18 findings are now fully resolved.** No Critical or High issues remain. The 2 remaining items are informational only.
 
 ### Remediation Scorecard
 
 | Status | Count | Details |
 |--------|-------|---------|
-| ✅ Fixed | 15 | #1 (XSS), #2 (PAT encryption), #3, #4 (injection), #5 (headers), #6 (SW), #7 (execSync), #8 (YouTube), #9 (branch commits), #10 (unescape), #12 (YAML), #13 (CSRF mitigated), #14 (noopener), #16 (generator), #18 (deps clean) |
-| 🔴 Open | 3 | #11 (rate limiting — Low), #15 (gitignore — Info), #17 (no leakage — Info) |
+| ✅ Fixed | 16 | #1 (XSS), #2 (PAT encryption), #3, #4 (injection), #5 (headers), #6 (SW), #7 (execSync), #8 (YouTube), #9 (branch commits), #10 (unescape), #11 (rate limiting), #12 (YAML), #13 (CSRF mitigated), #14 (noopener), #16 (generator), #18 (deps clean) |
+| 🔴 Open | 2 | #15 (gitignore — Info), #17 (no leakage — Info) |
 
 ### Current Severity Breakdown (open items only)
 
@@ -33,7 +33,7 @@ The initial audit on March 3 identified 18 findings (1 Critical, 3 High, 5 Mediu
 | Critical | 0 |
 | High     | 0 |
 | Medium   | 0 |
-| Low      | 1 |
+| Low      | 0 |
 | Info     | 2 |
 
 ---
@@ -191,15 +191,19 @@ function toBase64Utf8(content: string): string {
 
 No `unescape()` calls remain in the codebase.
 
-### 11. 🔴 OPEN — No Rate Limiting on GitHub API Calls
+### 11. ✅ FIXED — Rate Limiting Added to GitHub API Calls
 
 **File:** `src/components/mobile/github.ts`
 
-The mobile editor makes authenticated GitHub API calls without any rate-limiting or retry logic. A rapid sequence of operations could hit GitHub's rate limits (5,000/hr for PATs).
+**Original risk:** No rate-limiting or retry logic on GitHub API calls. Rapid operations could exhaust the 5,000/hr PAT limit.
 
-**Mitigating factor:** The mobile editor is currently disabled (maintenance page) while hardening is in progress. When re-enabled, this should be addressed.
+**Fix applied (Phase 2):** A `ghFetch()` wrapper replaces all raw `fetch()` calls (15 call sites). It provides:
+- **Header tracking:** Reads `X-RateLimit-Remaining` and `X-RateLimit-Reset` from every response
+- **Pre-flight gating:** If the limit is known to be exhausted, waits until the reset timestamp (capped at 2 minutes)
+- **Retry with backoff:** On 429 or rate-limit 403 responses, retries up to 3 times with exponential backoff (1s → 2s → 4s), respecting the `Retry-After` header when present
+- **Exported `getRateLimitInfo()`:** Exposes remaining calls and reset time for potential UI display
 
-**Fix:** Add exponential backoff and check `X-RateLimit-Remaining` headers.
+**Verification:** The only raw `fetch()` in the file is inside `ghFetch()` itself. All 15 API call sites use `ghFetch()`.
 
 ### 12. ✅ FIXED — Custom YAML Parser Replaced with `yaml` Library
 
@@ -288,11 +292,7 @@ The `MobileApp` import is commented out, the service worker registration script 
 
 ### Before re-enabling the mobile editor
 
-1. **Add rate limiting** for GitHub API calls (#11) — the only remaining Low-severity code item
-
-### Backlog / Nice-to-have
-
-2. Re-enable mobile editor with all security fixes active
+1. Re-enable mobile editor — all code-level security fixes are now complete
 3. Add a main-site CSP using nonces or `strict-dynamic` (currently blocked by inline scripts)
 4. Consider automating `CACHE_VERSION` bump in sw.js via build script
 
@@ -301,7 +301,7 @@ The `MobileApp` import is commented out, the service worker registration script 
 | Phase | Findings Resolved |
 |-------|-------------------|
 | Phase 1 | #1 (Critical XSS), #3 + #4 (input validation), #5 (security headers), #8 (YouTube), #10 partial (github.ts), #14 (noopener), #16 (generator meta) |
-| Phase 2 | #2 (PAT encryption), #6 (SW versioning + network-first), #7 (execSync → Vite env), #9 (feature branches), #10 complete (MobileApp.tsx), #12 (yaml library), #13 (CSRF mitigated), mobile editor disabled |
+| Phase 2 | #2 (PAT encryption), #6 (SW versioning + network-first), #7 (execSync → Vite env), #9 (feature branches), #10 complete (MobileApp.tsx), #11 (rate limiting), #12 (yaml library), #13 (CSRF mitigated), mobile editor disabled |
 
 ---
 
