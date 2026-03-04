@@ -76,13 +76,12 @@ import { SITE } from "../site.config";
 
   <section class="clone-cta">
     <div class="container">
-      <h2 class="clone-cta__heading">Get Started</h2>
-      <p class="clone-cta__sub">Clone. Configure. Deploy.</p>
       <div class="clone-cta__row">
+        <span class="clone-cta__label">Get Started</span>
         <div class="clone-cta__box">
           <code id="clone-url">git clone https://github.com/danrichardson/loomwork.git my-site</code>
           <button class="clone-cta__copy" aria-label="Copy to clipboard" data-copy>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
         </div>
         <a href="https://github.com/danrichardson/loomwork" class="clone-cta__link" target="_blank" rel="noopener">
@@ -248,22 +247,18 @@ import { SITE } from "../site.config";
 
   /* ── Clone CTA ─────────────────────────────────────── */
   .clone-cta {
-    padding: var(--space-lg) 0 var(--space-md);
+    padding: var(--space-sm) 0;
     text-align: center;
     margin-block-start: auto;
   }
 
-  .clone-cta__heading {
+  .clone-cta__label {
     font-family: var(--font-heading);
-    font-size: var(--text-2xl);
+    font-size: var(--text-sm);
     font-weight: 700;
-    margin-block-end: 4px;
-  }
-
-  .clone-cta__sub {
-    font-size: var(--text-base);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--color-text-muted);
-    margin-block-end: var(--space-lg);
   }
 
   .clone-cta__row {
