@@ -26,6 +26,7 @@ export const SITE = {
     { label: "About", href: "/about_Loomwork" },
     { label: "Building", href: "/building" },
     { label: "Theming", href: "/theming" },
+    { label: "Page Types", href: "/page-types" },
     { label: "Controls", href: "/reader-controls" },
     { label: "Deploy", href: "/guide" },
   ],
