@@ -11,19 +11,19 @@ html, body { height: 100%;
   overflow: hidden;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-  background: var(--bg); /* Windows 95 Desktop Teal */
+body {
+  background: var(--bg);
   font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
   height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; padding: 20px;
+  align-items: center; justify-content: center; padding: 8px;
   overflow: hidden;
 }
 
 /* Retro Window Container */
-.window { 
-  background: #c0c0c0; border: 2px solid; 
-  border-color: #ffffff #000000 #000000 #ffffff; 
-  padding: 2px; min-width: 440px; max-width: 600px; width: 100%; 
+.window {
+  background: #c0c0c0; border: 2px solid;
+  border-color: #ffffff #000000 #000000 #ffffff;
+  padding: 2px; max-width: 600px; width: 100%;
   box-shadow: 1px 1px 0 #000, 2px 2px 5px rgba(0,0,0,0.5);
   position: relative; z-index: 10;
 }

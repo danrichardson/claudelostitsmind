@@ -10,12 +10,12 @@ export function render() {
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html, body { height: 100%; }
-body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Source Sans 3',Arial,sans-serif;padding:20px;color:#111;font-size:12px}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Source Sans 3',Arial,sans-serif;padding:12px;color:#111;font-size:12px}
 .review{max-width:700px;margin:0 auto}
 h1{font-size:1rem;font-weight:600;margin-bottom:4px;text-align:center}
 .byline{font-size:0.65rem;color:#888;text-align:center;margin-bottom:20px;font-style:italic}
-.prisma{border:1px solid #ccc;padding:20px;margin-bottom:16px}
-svg{display:block;margin:0 auto}
+.prisma{border:1px solid #ccc;padding:12px;margin-bottom:16px}
+svg{display:block;width:100%;height:auto}
 .prisma-box{fill:#e3f2fd;stroke:#1976d2;stroke-width:1}
 .prisma-box.excl{fill:#ffebee;stroke:#c62828}
 .prisma-box.incl{fill:#e8f5e9;stroke:#2e7d32}
@@ -51,7 +51,7 @@ ${nav('078')}
   <div class="byline">Session: the-entire-mess.md · Protocol: PRISMA 2020 · Cochrane-style methodology</div>
 
   <div class="prisma">
-    <svg viewBox="0 0 640 580" width="640" height="580">
+    <svg viewBox="0 0 640 580">
       <defs>
         <marker id="pa" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
           <polygon points="0 0, 8 3, 0 6" fill="#555"/>

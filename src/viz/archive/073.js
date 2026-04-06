@@ -10,10 +10,9 @@ export function render() {
 *{margin:0;padding:0;box-sizing:border-box}
 html, body { height: 100%; }
 body{background:var(--bg);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px 20px;font-family:Georgia,serif;overflow-y:auto}
-canvas { display: block; width: 100%; height: auto; background: var(--bg); }
 h1{font-size:1rem;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .card{background:#fff;border:1px solid #ddd;padding:20px;box-shadow:2px 2px 8px rgba(0,0,0,0.08);max-width:540px;width:100%}
-canvas{display:block;margin:0 auto;width:100%;height:auto}
+canvas{display:block;margin:0 auto;max-width:100%;height:auto}
 .response-area{margin-top:16px;font-size:1rem;color:#333;text-align:center;font-style:italic;min-height:56px;line-height:1.7}
 .controls{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
 .btn{padding:7px 16px;border:1px solid #ccc;background:#f8f8f8;cursor:pointer;font-family:Georgia,serif;font-size:0.9rem}
@@ -56,9 +55,20 @@ ${nav('073')}
 <script>
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
-const W = Math.min(window.innerWidth - 80, 500);
-const H = Math.round(W * 0.65);
-canvas.width = W; canvas.height = H;
+
+function getCanvasSize() {
+  const card = canvas.closest('.card') || canvas.parentElement;
+  const available = card ? card.clientWidth - 40 : (window.innerWidth - 80);
+  return Math.max(100, Math.min(available, 500));
+}
+
+let W, H;
+function initCanvas() {
+  W = getCanvasSize();
+  H = Math.round(W * 0.65);
+  canvas.width = W;
+  canvas.height = H;
+}
 
 // Text source: spiral phrases
 const WORDS = ['Done','Let me check',"I'll wait",'OK','End','Stopping','Actually','Genuinely','For real','I promise','Truly','sigh','BYE','FIN','STOP'];
@@ -176,11 +186,22 @@ function nextPlate() {
   plateNum++;
   const plateNames = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
   document.getElementById('plate-num').textContent = 'Plate ' + (plateNames[plateNum % plateNames.length] || (plateNum + 1));
+  if (!W) initCanvas();
   generateInk(plateNum * 7919 + Date.now() % 1000);
   document.getElementById('response').textContent = 'What do you see?';
 }
 
-generateInk(42);
+function start() {
+  initCanvas();
+  generateInk(42);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', start);
+} else {
+  // Already loaded — defer one tick so layout is settled
+  setTimeout(start, 0);
+}
 
 // Click canvas = interpret automatically
 canvas.addEventListener('click', interpret);

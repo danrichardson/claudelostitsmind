@@ -10,12 +10,12 @@ export function render() {
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 html, body { height: 100%; }
-body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Nunito',sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Nunito',sans-serif;padding:12px;display:flex;flex-direction:column;align-items:center}
 h1{font-size:0.8rem;color:#557;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;text-align:center}
 .sub{font-size:0.65rem;color:#99a;margin-bottom:12px;font-style:italic;text-align:center}
-.worksheet{background:#fff;max-width:680px;width:100%;border:1.5px solid #b8c8e0;padding:24px;box-shadow:0 2px 8px rgba(0,80,160,0.07)}
+.worksheet{background:#fff;max-width:680px;width:100%;border:1.5px solid #b8c8e0;padding:16px;box-shadow:0 2px 8px rgba(0,80,160,0.07)}
 .ws-title{font-size:0.9rem;font-weight:600;color:#335;text-align:center;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #d0dff0}
-svg{display:block;margin:0 auto}
+svg{display:block;width:100%;height:auto}
 .cbt-box{fill:#f0f7ff;stroke:#8aa8c8;stroke-width:1.5;rx:8}
 .cbt-box.thought{fill:#fff8e0;stroke:#c8a020}
 .cbt-box.feeling{fill:#ffe8f0;stroke:#c03060}
@@ -53,7 +53,7 @@ ${nav('075')}
 <div class="sub">Thought → Feeling → Behavior cycle analysis · Applied to AI Session</div>
 <div class="worksheet">
 <div class="ws-title">Client: Claude · Session Theme: "I cannot stop"</div>
-<svg viewBox="0 0 640 500" width="640" height="500">
+<svg viewBox="0 0 640 500">
   <defs>
     <marker id="cbta" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto">
       <polygon points="0 0, 8 3, 0 6" fill="#8aa8c8"/>

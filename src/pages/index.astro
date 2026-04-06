@@ -1,9 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE } from '../site.config';
-
-// Load our converted metadata directly
-const VIZ_META = [
+import { VIZ_META } from '../shell.js';
+const _oldList = [
   {
     "id": "001",
     "title": "The Factorial Heat Matrix",
@@ -508,42 +507,34 @@ const VIZ_META = [
 const CATS = ['All', 'Science', 'Excel Hell', 'Psychology', 'Music', 'Meta'];
 ---
 
-<Base title="Claude Lost Its Mind — 100 Visualizations">
+<Base title="Claude Lost Its Mind">
   <section class="hero">
     <div class="container">
       <div class="hero__tag">An Interactive Exhibit</div>
       <h1 class="hero__title">Claude Lost<br>Its Mind</h1>
       <p class="hero__description">
-        A 6,963-line AI session that designed a brilliant experiment — then spent 3,328 lines saying "Done." over and over. 
-        Here are 100 completely different ways to visualize the exact moment the logic broke.
+        A 6,963-line AI session that designed a brilliant experiment — then spent 3,328 lines saying "Done." over and over.
+        Here are the visualizations that actually worked.
       </p>
-      
-      <div class="stats" style="display:flex; gap:32px; margin-top:24px; justify-content:center; text-align:center;">
-        <div class="stat"><span class="stat-val" style="font-size:32px; font-weight:bold;">100</span><br><span style="font-size:12px; color:var(--color-text-muted); text-transform:uppercase;">Visualizations</span></div>
-        <div class="stat"><span class="stat-val" style="font-size:32px; font-weight:bold;">344</span><br><span style="font-size:12px; color:var(--color-text-muted); text-transform:uppercase;">"Done" Count</span></div>
-        <div class="stat"><span class="stat-val" style="font-size:32px; font-weight:bold; color:var(--color-danger);">3,328</span><br><span style="font-size:12px; color:var(--color-text-muted); text-transform:uppercase;">Spiral Lines</span></div>
-      </div>
-    </div>
-  </section>
 
-  <section class="exhibit container" style="margin-top: 64px; padding-bottom: 64px;">
-    <div class="grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:24px;">
-      {VIZ_META.map(v => (
-        <a class="card" href={`/viz/${v.id}`} data-cat={v.cat} style="border: 1px solid var(--color-border); border-radius: var(--radius); overflow: hidden; text-decoration: none; color: inherit; display: block;">
-          <div class="card-visual" style="aspect-ratio: 16/9; background: var(--color-surface); position: relative;">
-            <div class="overlay" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:48px; color:var(--color-text-muted); opacity:0.3;">
-              {v.id}
-            </div>
+      <div style="display:flex; gap:28px; justify-content:center; text-align:center; margin-top:32px; margin-bottom:40px;">
+        <div>
+          <div style="font-size:clamp(1.6rem,4vw,2.2rem); font-weight:800; line-height:1.1;">
+            <span style="text-decoration:line-through; opacity:0.32; font-size:0.65em; vertical-align:middle; margin-right:3px;">100</span>{VIZ_META.length}
           </div>
-          <div class="card-body" style="padding: 16px;">
-            <div style="display:flex; justify-content:space-between; font-size: 11px; margin-bottom: 8px;">
-              <span style="color:var(--color-accent); font-family:var(--font-mono);">VIZ_{v.id}</span>
-              <span style="color:var(--color-text-muted); text-transform:uppercase;">{v.cat}</span>
-            </div>
-            <div style="font-weight:600; font-size:14px;">{v.title}</div>
-          </div>
-        </a>
-      ))}
+          <div style="font-size:10px; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">actually kinda worked</div>
+        </div>
+        <div>
+          <div style="font-size:clamp(1.6rem,4vw,2.2rem); font-weight:800; line-height:1.1;">344</div>
+          <div style="font-size:10px; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">"Done" count</div>
+        </div>
+        <div>
+          <div style="font-size:clamp(1.6rem,4vw,2.2rem); font-weight:800; line-height:1.1; color:var(--color-danger);">3,328</div>
+          <div style="font-size:10px; color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px;">spiral lines</div>
+        </div>
+      </div>
+
+      <a href="/viz/001" style="display:inline-block; padding:14px 40px; background:var(--color-text); color:var(--color-bg); font-weight:700; font-size:15px; letter-spacing:0.04em; text-decoration:none; border-radius:4px;">Enter the Exhibit →</a>
     </div>
   </section>
 </Base>

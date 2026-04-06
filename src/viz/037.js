@@ -10,7 +10,7 @@ export function render() {
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
 body{background:#0078D4 !important;color:#fff !important;font-family:'Segoe UI',Arial,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
-.ui-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden;padding:20px}
+.ui-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;min-height:0;overflow-y:auto;padding:20px}
 .bsod{max-width:700px;width:100%;transform-origin:center center}
 .emoji{font-size:clamp(2rem,8vw,5rem);margin-bottom:24px;display:block}
 .main-text{font-size:clamp(1rem,3vw,1.8rem);font-weight:300;margin-bottom:24px;line-height:1.4}
@@ -76,7 +76,23 @@ ${nav('037')}
 </div></div>
 
 <script>
-function scaleUI(){const w=document.querySelector('.ui-wrap');const el=document.getElementById('uel');if(!w||!el)return;const s=Math.min(w.offsetWidth/el.offsetWidth,w.offsetHeight/el.offsetHeight,1);el.style.transform='scale('+s+')';el.style.transformOrigin='center top';}
+function scaleUI(){
+  const w=document.querySelector('.ui-wrap');
+  const el=document.getElementById('uel');
+  if(!w||!el)return;
+  el.style.transform='';
+  el.style.marginTop='';
+  const availW=w.clientWidth-40;
+  const availH=w.clientHeight-40;
+  const natW=el.offsetWidth;
+  const natH=el.offsetHeight;
+  const s=Math.min(availW/natW,availH/natH,1);
+  el.style.transformOrigin='top center';
+  el.style.transform='scale('+s+')';
+  // Center vertically: visual height = natH*s, so offset top = (availH - natH*s)/2
+  const mt=Math.max(0,(availH-natH*s)/2);
+  el.style.marginTop=mt+'px';
+}
 window.addEventListener('resize',scaleUI);setTimeout(scaleUI,50);
 </script>
 </body>
