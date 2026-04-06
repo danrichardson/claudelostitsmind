@@ -68,8 +68,10 @@ class Spark {
   }
   draw() {
     const t = this.life / this.maxLife;
+    if (t <= 0) return;
+    const r = Math.max(0.5, 1.5 * t);
     ctx.beginPath();
-    ctx.arc(this.x, this.y, 1.5 * t, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
     ctx.fillStyle = this.col.replace('A', (t * 0.9).toFixed(2));
     ctx.fill();
   }
@@ -159,7 +161,7 @@ function launchNext() {
   }
   const run = RUNS[runIdx];
   const scores = SCORES[run];
-  const composite = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2);
+  const composite = (scores.slice(0, 5).reduce((a, b) => a + b, 0) / 39 * 10).toFixed(1);
   document.getElementById('runname').textContent = run;
   document.getElementById('runscore').textContent = 'Composite score: ' + composite + ' / 10';
   dotEls[runIdx].classList.add('done');
@@ -171,6 +173,7 @@ function launchNext() {
 setTimeout(launchNext, 800);
 
 function loop() {
+  requestAnimationFrame(loop);
   ctx.fillStyle = 'rgba(0,5,16,0.2)';
   ctx.fillRect(0, 0, W, H);
 
@@ -182,7 +185,6 @@ function loop() {
     particles[i].update(); particles[i].draw();
     if (particles[i].life <= 0) particles.splice(i, 1);
   }
-  requestAnimationFrame(loop);
 }
 loop();
 </script>
