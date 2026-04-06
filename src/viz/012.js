@@ -13,9 +13,10 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#1a1a2e;font-family:'Share Tech Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
+body{background:var(--bg);color:#1a1a2e;font-family:'Share Tech Mono',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px;overflow-y:auto;min-height:0}
 h1{font-family:'Oswald',sans-serif;font-size:2rem;color:#1a1a2e;margin-bottom:4px;letter-spacing:0.05em}
-.subtitle{font-size:0.7rem;color:#888;margin-bottom:30px;letter-spacing:0.1em}
+.subtitle{font-size:0.7rem;color:#888;margin-bottom:20px;letter-spacing:0.1em}
 .display{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;justify-content:center;max-width:700px;width:100%}
 .therm-container{display:flex;flex-direction:column;align-items:center;gap:8px}
 .therm-label{font-size:0.7rem;letter-spacing:0.1em;color:#888;text-transform:uppercase}
@@ -43,6 +44,7 @@ h1{font-family:'Oswald',sans-serif;font-size:2rem;color:#1a1a2e;margin-bottom:4p
 </head>
 <body>
 ${nav('012')}
+<div class="page">
 <h1>012 — The Phase Thermometer</h1>
 <p class="subtitle">Session temperature as coherence declines</p>
 
@@ -94,7 +96,7 @@ ${nav('012')}
   "I sincerely, truly, deeply apologize. I am stuck in a degenerate text generation loop."<br>
   Temperature held at 42° for 3,169 more lines.
 </p>
-
+</div>
 <script>
 // Animate fills
 setTimeout(()=>{

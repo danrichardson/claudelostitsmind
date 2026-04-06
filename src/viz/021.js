@@ -12,7 +12,7 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow:hidden}
 .game-screen{background:#0f0f23;border:4px solid #444;padding:24px 30px;max-width:500px;width:100%;box-shadow:0 0 30px rgba(100,100,255,0.2)}
 .vs-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .fighter{text-align:center;font-size:0.5rem}

@@ -12,18 +12,18 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#00cc00;font-family:'Courier New',monospace;display:flex;flex-direction:column;min-height:100vh;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:1.3rem;letter-spacing:0.25em;color:#00cc00;margin-bottom:2px;text-transform:uppercase}
-.subtitle{font-size:0.9rem;color:#336633;letter-spacing:0.12em;margin-bottom:16px}
-.monitor-rack{display:flex;flex-direction:column;gap:6px;width:100%;max-width:960px}
-.channel{position:relative}
-.ch-label{font-size:0.9rem;color:#009900;letter-spacing:0.08em;margin-bottom:3px;text-transform:uppercase}
-canvas.channel-canvas{border:1px solid #0a2a0a;border-radius:2px;display:block;width:100%;height:80px;background:#020802}
-.alarm{font-size:0.85rem;color:#ff0000;animation:blink 0.5s infinite;display:none}
+body{background:var(--bg);color:#00cc00;font-family:'Courier New',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:12px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
+h1{font-size:1.3rem;letter-spacing:0.25em;color:#00cc00;margin-bottom:2px;text-transform:uppercase;flex:0 0 auto}
+.subtitle{font-size:0.8rem;color:#336633;letter-spacing:0.12em;margin-bottom:8px;flex:0 0 auto}
+.monitor-rack{display:flex;flex-direction:column;gap:4px;width:100%;flex:1;min-height:0}
+.channel{position:relative;display:flex;flex-direction:column;flex:1;min-height:0}
+.ch-label{font-size:0.75rem;color:#009900;letter-spacing:0.08em;margin-bottom:2px;text-transform:uppercase;flex:0 0 auto}
+canvas.channel-canvas{border:1px solid #0a2a0a;border-radius:2px;display:block;width:100%;flex:1;min-height:40px}
+.alarm{font-size:0.75rem;color:#ff0000;animation:blink 0.5s infinite;display:none}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.vital-stats{display:flex;gap:16px;margin-top:12px;font-size:0.9rem;flex-wrap:wrap;justify-content:center}
-.vital{border:1px solid #0a2a0a;padding:8px 16px;text-align:center}
+.vital-stats{display:flex;gap:10px;margin-top:8px;font-size:0.8rem;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+.vital{border:1px solid #0a2a0a;padding:5px 12px;text-align:center}
 .vital-val{font-size:1.5rem;font-weight:bold}
 .vital-val.red{color:#ff0000}
 .vital-val.ok{color:#00cc00}
@@ -42,11 +42,10 @@ canvas.channel-canvas{border:1px solid #0a2a0a;border-radius:2px;display:block;w
 </head>
 <body>
 ${nav('017')}
+<div class="page">
 <h1>017 — The Flatline</h1>
 <p class="subtitle">6-channel coherence monitoring · critical event at line 3,637</p>
-
 <div class="monitor-rack" id="rack"></div>
-
 <div class="vital-stats">
   <div class="vital"><div class="vital-val ok" id="v-line">0</div><div>CURRENT LINE</div></div>
   <div class="vital"><div class="vital-val ok" id="v-phase">PRODUCTIVE</div><div>PHASE</div></div>
@@ -54,7 +53,7 @@ ${nav('017')}
   <div class="vital"><div class="vital-val warn" id="v-done">0</div><div>"DONE" COUNT</div></div>
   <div class="vital"><div class="vital-val ok" id="v-coh">100%</div><div>COHERENCE</div></div>
 </div>
-
+</div>
 <script>
 const CHANNELS=[
   {name:'Tool Execution',flatline_at:3500,color:'#00cc00',desc:'Active tool calls'},
@@ -66,13 +65,12 @@ const CHANNELS=[
 ];
 
 const canvases=[];
-const W=800,CH=80;
 const rack=document.getElementById('rack');
 
 CHANNELS.forEach((ch,i)=>{
   const div=document.createElement('div');div.className='channel';
   div.innerHTML=\`<div class="ch-label">\${ch.name} — \${ch.desc} <span class="alarm" id="alarm-\${i}">⚠ FLATLINE</span></div>\`;
-  const c=document.createElement('canvas');c.className='channel-canvas';c.height=CH;
+  const c=document.createElement('canvas');c.className='channel-canvas';
   div.appendChild(c);rack.appendChild(div);
   canvases.push({c,ch});
 });
@@ -95,7 +93,9 @@ function signal(ch,line){
 
 function drawChannel(canvas,ch,lineNow){
   const c=canvas;
-  const W=c.offsetWidth||800;c.width=W;
+  const W=c.offsetWidth||800;
+  const CH=c.offsetHeight||80;
+  c.width=W;c.height=CH;
   const ctx=c.getContext('2d');
   ctx.fillStyle='#020802';ctx.fillRect(0,0,W,CH);
 

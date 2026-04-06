@@ -13,13 +13,14 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#fff;font-family:'Inter',Helvetica,sans-serif;display:flex;flex-direction:column;min-height:100vh;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:clamp(1rem,4vw,1.8rem);font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;text-align:center}
-.subtitle{font-size:0.95rem;font-weight:100;letter-spacing:0.2em;opacity:0.8;margin-bottom:30px;text-align:center}
-canvas{border-radius:50%;box-shadow:0 0 60px rgba(255,200,200,0.3);display:block}
-.readout{margin-top:20px;text-align:center;font-size:1rem;letter-spacing:0.15em;font-weight:100;opacity:0.85}
-.cite{font-size:0.8rem;opacity:0.6;margin-top:24px;text-align:center;max-width:500px;line-height:1.8;font-weight:100;letter-spacing:0.03em}
+body{background:var(--bg);color:#fff;font-family:'Inter',Helvetica,sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{flex:1;display:flex;flex-direction:column;align-items:center;padding:12px 20px;min-height:0}
+h1{font-size:clamp(1rem,4vw,1.8rem);font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;text-align:center;flex:0 0 auto}
+.subtitle{font-size:0.95rem;font-weight:100;letter-spacing:0.2em;opacity:0.8;margin-bottom:12px;text-align:center;flex:0 0 auto}
+.clock-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;width:100%}
+canvas{border-radius:50%;box-shadow:0 0 60px rgba(255,200,200,0.3);display:block;max-width:min(calc(100vw - 40px),calc(100vh - 220px));max-height:min(calc(100vw - 40px),calc(100vh - 220px))}
+.readout{margin-top:10px;text-align:center;font-size:0.9rem;letter-spacing:0.15em;font-weight:100;opacity:0.85;flex:0 0 auto}
+.cite{font-size:0.72rem;opacity:0.6;margin-top:10px;text-align:center;max-width:500px;line-height:1.6;font-weight:100;letter-spacing:0.03em;flex:0 0 auto}
 </style>
 
 <style>
@@ -34,15 +35,16 @@ canvas{border-radius:50%;box-shadow:0 0 60px rgba(255,200,200,0.3);display:block
 </head>
 <body>
 ${nav('013')}
+<div class="page">
 <h1>013 — The Entropy Clock</h1>
 <p class="subtitle">Shannon entropy per 100-line window · as the session progresses</p>
-<canvas id="c"></canvas>
+<div class="clock-wrap"><canvas id="c"></canvas></div>
 <div class="readout" id="readout">LINE 0 — ENTROPY: NOMINAL</div>
 <p class="cite">
   "Shannon entropy spikes in next-token probability distributions indicate model confusion and breakdown in multi-turn comprehension. When entropy exceeds baseline, it signals the onset of incoherence."<br>
   — ERGO, arXiv:2510.14077 (2025). Also: Braverman et al., "Calibration, Entropy Rates, and Memory in Language Models," PMLR 2020.
 </p>
-
+</div>
 <script>
 const canvas=document.getElementById('c');
 const ctx=canvas.getContext('2d');
@@ -137,16 +139,6 @@ function animate(){
 animate();
 </script>
 
-<script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
-</script>
 
 </body>
 </html>`;

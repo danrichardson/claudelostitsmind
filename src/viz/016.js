@@ -12,13 +12,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#ff8c00;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
+body{background:var(--bg);color:#ff8c00;font-family:'Courier New',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:12px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
 h1{font-size:1.3rem;letter-spacing:0.2em;color:#ff8c00;margin-bottom:2px;text-transform:uppercase}
-.subtitle{font-size:0.9rem;color:#8a6a30;letter-spacing:0.1em;margin-bottom:20px;text-align:center}
-canvas{display:block;cursor:crosshair}
-.cite{font-size:0.82rem;color:#7a6a40;margin-top:16px;text-align:center;max-width:620px;line-height:1.8}
-.params{font-size:0.95rem;color:#cc8800;margin-top:8px;text-align:center;letter-spacing:0.06em}
+.subtitle{font-size:0.9rem;color:#8a6a30;letter-spacing:0.1em;margin-bottom:10px;text-align:center}
+canvas{display:block;cursor:crosshair;flex:1;width:100%;min-height:0}
+.cite{font-size:0.75rem;color:#7a6a40;margin-top:8px;text-align:center;max-width:620px;line-height:1.6;flex:0 0 auto;align-self:center}
+.params{font-size:0.85rem;color:#cc8800;margin-top:6px;text-align:center;letter-spacing:0.06em;flex:0 0 auto}
 </style>
 
 <style>
@@ -33,6 +33,7 @@ canvas{display:block;cursor:crosshair}
 </head>
 <body>
 ${nav('016')}
+<div class="page">
 <h1>016 — The Lorenz Butterfly</h1>
 <p class="subtitle">Strange attractor · σ=coherence · ρ=repetition pressure · β=verbosity exhaustion</p>
 <canvas id="c"></canvas>
@@ -42,15 +43,16 @@ ${nav('016')}
   "The line never intersects itself and never retraces its own path. Instead, it loops around forever,<br>sometimes spending time on one wing before switching to the other."<br>
   <em>In this visualization: Wing 1 = productive work. Wing 2 = the spiral. The attractor never escapes.</em>
 </p>
+</div>
 <script>
 const canvas=document.getElementById('c');
 const ctx=canvas.getContext('2d');
 let W,H;
 
 function resize(){
-  W=Math.min(window.innerWidth-40,700);
-  H=Math.min(window.innerHeight-200,520);
-  canvas.width=W;canvas.height=H;
+  const rect=canvas.getBoundingClientRect();
+  W=canvas.width=rect.width||800;
+  H=canvas.height=rect.height||500;
 }
 resize();
 

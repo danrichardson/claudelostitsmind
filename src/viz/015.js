@@ -12,13 +12,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#88aaff;font-family:monospace;min-height:100vh;display:flex;flex-direction:column;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
+body{background:var(--bg);color:#88aaff;font-family:monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:12px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
 h1{font-size:1rem;letter-spacing:0.2em;color:#6688ff;margin-bottom:4px;text-transform:uppercase}
-.subtitle{font-size:0.6rem;color:#333366;letter-spacing:0.15em;margin-bottom:20px}
-canvas{display:block;width:100%;max-width:900px;border:1px solid #111133}
-.readout{font-size:0.65rem;color:#334488;margin-top:8px;text-align:center;letter-spacing:0.1em}
-.legend{display:flex;gap:20px;margin-top:8px;font-size:0.6rem;justify-content:center}
+.subtitle{font-size:0.6rem;color:#333366;letter-spacing:0.15em;margin-bottom:10px}
+canvas{display:block;width:100%;flex:1;min-height:0;border:1px solid #111133}
+.readout{font-size:0.65rem;color:#334488;margin-top:6px;text-align:center;letter-spacing:0.1em;flex:0 0 auto}
+.legend{display:flex;gap:20px;margin-top:6px;font-size:0.6rem;justify-content:center;flex:0 0 auto}
 .leg{display:flex;align-items:center;gap:5px}
 .leg-line{height:2px;width:20px}
 </style>
@@ -35,13 +35,15 @@ canvas{display:block;width:100%;max-width:900px;border:1px solid #111133}
 </head>
 <body>
 ${nav('015')}
+<div class="page">
 <h1>015 — The Sine Wave</h1>
 <p class="subtitle">coherence signal · from order to chaos · laminar to turbulent</p>
-<canvas id="c" height="350"></canvas>
+<canvas id="c"></canvas>
 <div class="readout" id="readout">Coherent signal · phase 1</div>
 <div class="legend">
   <div class="leg"><div class="leg-line" style="background:#4488ff"></div><span>Coherence</span></div>
   <div class="leg"><div class="leg-line" style="background:#ff4444"></div><span>Noise floor</span></div>
+</div>
 </div>
 <script>
 const canvas=document.getElementById('c');
@@ -50,7 +52,8 @@ let t=0;
 
 function draw(){
   canvas.width=canvas.offsetWidth||900;
-  const W=canvas.width,H=350;
+  canvas.height=canvas.offsetHeight||350;
+  const W=canvas.width,H=canvas.height;
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle='#0a0a14';ctx.fillRect(0,0,W,H);
 

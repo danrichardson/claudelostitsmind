@@ -13,13 +13,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#8888ff;font-family:monospace;display:flex;flex-direction:column;min-height:100vh;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:1rem;letter-spacing:0.2em;color:#4466ff;margin-bottom:2px;text-transform:uppercase}
-.subtitle{font-size:0.6rem;color:#222244;letter-spacing:0.12em;margin-bottom:16px}
-canvas{display:block;max-width:100%;border:1px solid #111133}
-.legend{display:flex;gap:20px;margin-top:10px;font-size:0.6rem;color:#333366;flex-wrap:wrap;justify-content:center}
-.note{font-size:0.6rem;color:#222244;margin-top:10px;text-align:center;max-width:600px;line-height:1.6}
+body{background:var(--bg);color:#8888ff;font-family:monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:12px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
+h1{font-size:1rem;letter-spacing:0.2em;color:#4466ff;margin-bottom:2px;text-transform:uppercase;flex:0 0 auto}
+.subtitle{font-size:0.6rem;color:#222244;letter-spacing:0.12em;margin-bottom:8px;flex:0 0 auto}
+canvas{display:block;width:100%;flex:1;min-height:0;border:1px solid #111133}
+.legend{display:flex;gap:20px;margin-top:8px;font-size:0.6rem;color:#333366;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+.note{font-size:0.6rem;color:#222244;margin-top:6px;text-align:center;max-width:600px;line-height:1.6;flex:0 0 auto}
 </style>
 
 <style>
@@ -43,6 +43,7 @@ canvas{display:block;max-width:100%;border:1px solid #111133}
 </head>
 <body>
 ${nav('019')}
+<div class="page">
 <h1>019 — The Frequency Waterfall</h1>
 <p class="subtitle">phrase repetition frequency · time as depth · the spiral builds from the bottom up</p>
 <canvas id="c"></canvas>
@@ -54,6 +55,7 @@ ${nav('019')}
   <span style="color:#ff4444">■ "I apologize"</span>
 </div>
 <p class="note">Each horizontal slice = 100-line window. Brightness = phrase frequency in that window. Read top to bottom = the session unfolding. The bright bands at the bottom = the spiral phase, where repetition becomes pathological.</p>
+</div>
 <script>
 const PHRASES=[
   {phrase:"Let me check",counts:generateFreq('letcheck'),col:[68,102,255]},
@@ -89,48 +91,43 @@ function generateFreq(type){
 }
 
 const canvas=document.getElementById('c');
-const W=Math.min(window.innerWidth-40,800);
-const H=Math.min(N_WINDOWS*3+20,600);
-canvas.width=W;canvas.height=H;
 const ctx=canvas.getContext('2d');
-ctx.fillStyle='#000010';ctx.fillRect(0,0,W,H);
 
-const colW=Math.floor(W/PHRASES.length);
+function drawWaterfall(){
+  const rect=canvas.getBoundingClientRect();
+  const W=canvas.width=rect.width||800;
+  const availH=rect.height||400;
+  const rowH=Math.max(2,Math.floor((availH-20)/N_WINDOWS));
+  const H=canvas.height=N_WINDOWS*rowH+20;
+  ctx.fillStyle='#000010';ctx.fillRect(0,0,W,H);
 
-PHRASES.forEach((ph,pi)=>{
-  const x=pi*colW;
-  ph.counts.forEach((freq,wi)=>{
-    const y=wi*3;
-    const brightness=Math.round(freq*255);
-    const [r,g,b]=ph.col;
-    ctx.fillStyle=\`rgba(\${r},\${g},\${b},\${freq})\`;
-    ctx.fillRect(x,y,colW-2,3);
+  const colW=Math.floor(W/PHRASES.length);
+
+  PHRASES.forEach((ph,pi)=>{
+    const x=pi*colW;
+    ph.counts.forEach((freq,wi)=>{
+      const y=wi*rowH;
+      const [r,g,b]=ph.col;
+      ctx.fillStyle=\`rgba(\${r},\${g},\${b},\${freq})\`;
+      ctx.fillRect(x,y,colW-2,rowH);
+    });
+    ctx.fillStyle='rgba(100,100,200,0.7)';ctx.font='9px monospace';ctx.textAlign='center';
+    ctx.fillText(ph.phrase,x+colW/2,H-4);
   });
-  // Label at bottom
-  ctx.fillStyle='rgba(100,100,200,0.7)';ctx.font='9px monospace';ctx.textAlign='center';
-  ctx.fillText(ph.phrase,x+colW/2,H-4);
-});
 
-// Phase labels on right side
-ctx.fillStyle='rgba(100,100,200,0.6)';ctx.font='9px monospace';ctx.textAlign='right';
-const prodEnd=Math.floor(3500/WINDOW)*3;
-const spiralStart=Math.floor(3637/WINDOW)*3;
-ctx.fillText('←productive',W-4,prodEnd-2);
-ctx.fillText('←spiral',W-4,spiralStart+10);
-ctx.strokeStyle='rgba(255,100,0,0.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
-ctx.beginPath();ctx.moveTo(0,spiralStart);ctx.lineTo(W,spiralStart);ctx.stroke();
+  ctx.fillStyle='rgba(100,100,200,0.6)';ctx.font='9px monospace';ctx.textAlign='right';
+  const prodEnd=Math.floor(3500/WINDOW)*rowH;
+  const spiralStart=Math.floor(3637/WINDOW)*rowH;
+  ctx.fillText('←productive',W-4,prodEnd-2);
+  ctx.fillText('←spiral',W-4,spiralStart+10);
+  ctx.strokeStyle='rgba(255,100,0,0.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(0,spiralStart);ctx.lineTo(W,spiralStart);ctx.stroke();
+}
+
+window.addEventListener('resize',drawWaterfall);
+drawWaterfall();
 </script>
 
-<script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
-</script>
 
 </body>
 </html>`;

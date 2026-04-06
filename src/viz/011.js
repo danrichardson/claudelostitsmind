@@ -13,14 +13,14 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#33ff33;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
+body{background:var(--bg);color:#33ff33;font-family:'Courier New',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:12px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
 h1{font-size:1.3rem;letter-spacing:0.2em;color:#33ff33;margin-bottom:2px;text-transform:uppercase}
-.subtitle{font-size:0.9rem;color:#1a8a1a;letter-spacing:0.15em;margin-bottom:16px}
-canvas{border:2px solid #1a4a1a;border-radius:4px;box-shadow:0 0 20px rgba(50,255,50,0.15);display:block;width:100%;max-width:960px}
-.readout{display:flex;gap:20px;margin-top:10px;font-size:0.95rem;color:#33ff33;letter-spacing:0.1em;flex-wrap:wrap;justify-content:center}
-.readout span{background:#0a180a;padding:6px 14px;border:1px solid #1a4a1a;border-radius:2px}
-.phase-legend{display:flex;gap:16px;margin-top:8px;font-size:0.9rem}
+.subtitle{font-size:0.9rem;color:#1a8a1a;letter-spacing:0.15em;margin-bottom:8px}
+canvas{border:1px solid #1a4a1a;border-radius:4px;box-shadow:0 0 20px rgba(50,255,50,0.15);display:block;width:100%;flex:1;min-height:0}
+.readout{display:flex;gap:20px;margin-top:8px;font-size:0.85rem;color:#33ff33;letter-spacing:0.1em;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+.readout span{background:#0a180a;padding:4px 10px;border:1px solid #1a4a1a;border-radius:2px}
+.phase-legend{display:flex;gap:16px;margin-top:6px;font-size:0.8rem;flex:0 0 auto}
 .ph{display:flex;align-items:center;gap:5px}
 .ph-dot{width:10px;height:3px}
 </style>
@@ -37,6 +37,7 @@ canvas{border:2px solid #1a4a1a;border-radius:4px;box-shadow:0 0 20px rgba(50,25
 </head>
 <body>
 ${nav('011')}
+<div class="page">
 <h1>011 — The Coherence ECG</h1>
 <p class="subtitle">6,805 lines · coherence monitoring · flatline at line 3,637</p>
 <canvas id="ecg"></canvas>
@@ -51,13 +52,14 @@ ${nav('011')}
   <div class="ph"><div class="ph-dot" style="background:#ffaa00"></div><span style="color:#cc9900">Drift (3501–3636)</span></div>
   <div class="ph"><div class="ph-dot" style="background:#ff3333"></div><span style="color:#dd4444">Spiral (3637–6805)</span></div>
 </div>
+</div>
 <script>
 const TOTAL=${TOTAL_LINES};
 const SPIRAL=${SPIRAL_START};
 const DRIFT=${DRIFT_START};
 
 const canvas=document.getElementById('ecg');
-let W,H=Math.max(340, Math.min(Math.floor(window.innerHeight*0.55), 480)),ctx,t=0,frame=0;
+let W,H,ctx,t=0,frame=0;
 const scrollSpeed=2;
 
 function coherenceAt(line){
@@ -82,8 +84,8 @@ for(let i=0;i<TOTAL;i+=3)POINTS.push({line:i,coh:coherenceAt(i),col:colorFor(i)}
 
 let offset=0;
 function draw(){
-  W=canvas.width=canvas.offsetWidth;
-  canvas.height=H;
+  W=canvas.width=canvas.offsetWidth||800;
+  H=canvas.height=canvas.offsetHeight||400;
   ctx=canvas.getContext('2d');
   ctx.fillStyle='#0a0f0a';ctx.fillRect(0,0,W,H);
 
