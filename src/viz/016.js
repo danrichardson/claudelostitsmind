@@ -8,7 +8,12 @@ export function render() {
 <title>016 – The Lorenz Butterfly — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#ff8c00;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#ff8c00;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1.3rem;letter-spacing:0.2em;color:#ff8c00;margin-bottom:2px;text-transform:uppercase}
 .subtitle{font-size:0.9rem;color:#8a6a30;letter-spacing:0.1em;margin-bottom:20px;text-align:center}
 canvas{display:block;cursor:crosshair}
@@ -19,7 +24,7 @@ canvas{display:block;cursor:crosshair}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -131,6 +136,7 @@ function draw(){
 
 window.addEventListener('resize',()=>{resize();ctx.clearRect(0,0,W,H);});
 draw();
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

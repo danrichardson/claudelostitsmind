@@ -9,7 +9,12 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated}
-body{background:#000;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;font-family:'Press Start 2P',monospace;color:#fff}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:'Press Start 2P',monospace;color:#fff}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.6rem;color:#ffff00;letter-spacing:0.1em;margin-bottom:4px;text-align:center}
 .subtitle{font-size:0.45rem;color:#555;letter-spacing:0.08em;margin-bottom:16px;text-align:center}
 canvas{border:3px solid #111;display:block;max-width:100%}
@@ -20,7 +25,7 @@ canvas{border:3px solid #111;display:block;max-width:100%}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -217,6 +222,7 @@ loop();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

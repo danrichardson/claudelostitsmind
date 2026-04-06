@@ -9,16 +9,19 @@ export function render() {
 <title>009 – Parallel Coordinates — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0f0f14;color:#d0d0e8;font-family:'Courier New',monospace;min-height:100vh}
-.page{padding:24px 16px}
-h1{font-size:1.2rem;letter-spacing:0.08em;color:#aaaaee;margin-bottom:4px}
-.subtitle{font-size:0.62rem;color:#555568;letter-spacing:0.15em;margin-bottom:20px}
-svg{width:100%;overflow:visible}
-.axis-label{font-size:10px;fill:#666688;font-family:'Courier New'}
-.dim-title{font-size:11px;fill:#9999cc;font-family:'Courier New';text-anchor:middle}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:var(--text-pc);font-family:'Courier New',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.page{padding:16px 20px;flex:1;display:flex;flex-direction:column;min-height:0}
+h1{font-size:1.1rem;letter-spacing:0.08em;color:var(--accent-pc);margin-bottom:2px}
+.subtitle{font-size:0.6rem;color:var(--muted-pc);letter-spacing:0.15em;margin-bottom:10px}
+svg{width:100%;flex:1;overflow:visible}
+.axis-label{font-size:10px;fill:var(--muted-pc);font-family:'Courier New'}
+.dim-title{font-size:11px;fill:var(--accent-pc);font-family:'Courier New';text-anchor:middle}
 .line{fill:none;stroke-width:1.5;opacity:0.6;transition:opacity 0.2s,stroke-width 0.2s;cursor:pointer}
 .line:hover{opacity:1;stroke-width:3}
-.legend{display:flex;gap:16px;font-size:0.65rem;margin-top:12px;flex-wrap:wrap}
+.legend{display:flex;gap:16px;font-size:0.65rem;margin-top:8px;flex-wrap:wrap;flex:0 0 auto}
 .leg{display:flex;align-items:center;gap:6px}
 .leg-line{width:20px;height:2px}
 </style>
@@ -26,7 +29,7 @@ svg{width:100%;overflow:visible}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0f0f14; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

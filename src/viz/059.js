@@ -11,7 +11,12 @@ export function render() {
 <title>059 – The Microscope View — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0f1a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:monospace}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:monospace}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;color:#1a3a6a;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px;text-align:center}
 .scope-outer{position:relative;border-radius:50%;overflow:hidden;border:8px solid #222;box-shadow:0 0 40px rgba(0,100,200,0.2),inset 0 0 60px rgba(0,0,0,0.8)}
 canvas{display:block;border-radius:50%}
@@ -23,7 +28,7 @@ canvas{display:block;border-radius:50%}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0f1a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -162,6 +167,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

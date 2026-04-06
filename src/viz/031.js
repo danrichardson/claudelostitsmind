@@ -11,7 +11,8 @@ export function render() {
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
-body{background:#000;display:flex;flex-direction:column;min-height:100vh}
+canvas { background: var(--bg); }
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
 canvas{position:fixed;top:0;left:0;z-index:0;width:100%;height:100%}
 .overlay{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:space-between;padding:50px 30px 80px;pointer-events:none}
 .vhs-text{font-family:'Courier New',monospace;color:#fff;text-shadow:3px 0 #f00,-3px 0 #0ff;font-size:clamp(1rem,2.5vw,1.6rem);line-height:1.4;mix-blend-mode:screen}
@@ -24,7 +25,7 @@ canvas{position:fixed;top:0;left:0;z-index:0;width:100%;height:100%}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

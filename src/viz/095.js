@@ -9,7 +9,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a0d28;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px;font-family:'Cinzel',Georgia,serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:'Cinzel',Georgia,serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1rem;letter-spacing:0.2em;color:#6a4a8a;text-transform:uppercase;margin-bottom:20px;text-align:center}
 .spread{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:740px}
 .card{width:120px;cursor:pointer;transition:transform 0.3s}
@@ -24,7 +29,7 @@ canvas{display:block;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,0.6)}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a0d28; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -192,6 +197,7 @@ CARDS.forEach(card => {
   };
   spread.appendChild(wrap);
 });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

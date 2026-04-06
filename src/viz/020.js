@@ -11,7 +11,8 @@ export function render() {
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
-body{background:#000;display:flex;flex-direction:column;min-height:100vh}
+canvas { background: var(--bg); }
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh}
 canvas{position:fixed;top:0;left:0;z-index:0}
 .overlay{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 .quote-box{background:rgba(0,0,0,0.7);border:1px solid #003300;padding:20px 30px;max-width:600px;text-align:center;border-radius:2px;backdrop-filter:blur(4px)}
@@ -24,7 +25,7 @@ canvas{position:fixed;top:0;left:0;z-index:0}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

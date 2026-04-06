@@ -10,7 +10,10 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oswald:wght@700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0f4f8;color:#1a1a2e;font-family:'Share Tech Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#1a1a2e;font-family:'Share Tech Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:30px 20px}
 h1{font-family:'Oswald',sans-serif;font-size:2rem;color:#1a1a2e;margin-bottom:4px;letter-spacing:0.05em}
 .subtitle{font-size:0.7rem;color:#888;margin-bottom:30px;letter-spacing:0.1em}
 .display{display:flex;gap:40px;align-items:flex-end;flex-wrap:wrap;justify-content:center;max-width:700px;width:100%}
@@ -29,7 +32,7 @@ h1{font-family:'Oswald',sans-serif;font-size:2rem;color:#1a1a2e;margin-bottom:4p
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0f4f8; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

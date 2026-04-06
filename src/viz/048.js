@@ -8,7 +8,12 @@ export function render() {
 <title>048 – The Sandfall — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1008;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:Georgia,serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:Georgia,serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.75rem;letter-spacing:0.15em;color:#8a6a3a;text-transform:uppercase;margin-bottom:4px;text-align:center}
 canvas{display:block;max-width:100%}
 .readout{font-size:0.7rem;color:#8a6a3a;text-align:center;margin-top:8px;font-style:italic}
@@ -17,7 +22,7 @@ canvas{display:block;max-width:100%}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a1008; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

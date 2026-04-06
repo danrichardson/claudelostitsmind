@@ -11,8 +11,10 @@ export function render() {
 <title>018 – The Terminal Replay — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{background:#0d1117;color:#e6edf3;font-family:'SFMono-Regular','Consolas','Liberation Mono',monospace;font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
+html,body{height:100%
+  overflow: hidden;
+}
+body{background:var(--bg);color:#e6edf3;font-family:'SFMono-Regular','Consolas','Liberation Mono',monospace;font-size:13px;line-height:1.6;display:flex;flex-direction:column;min-height:100vh}
 .terminal{flex:1;overflow-y:auto;padding:16px 20px;max-width:960px;width:100%;margin:0 auto}
 .line{padding:1px 0}
 .line.user{color:#58a6ff}
@@ -32,7 +34,7 @@ body{background:#0d1117;color:#e6edf3;font-family:'SFMono-Regular','Consolas','L
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0d1117; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

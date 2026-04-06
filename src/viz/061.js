@@ -21,7 +21,11 @@ export function render() {
 <style>
 @font-face{font-family:'Comic Sans MS';src:local('Comic Sans MS'),local('ComicSansMS')}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#ffffff;font-family:'Comic Sans MS','Comic Sans',cursive;padding:20px;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Comic Sans MS','Comic Sans',cursive;padding:20px;padding-top:52px}
+canvas { background: var(--bg); }
 h1{text-align:center;font-size:1.8rem;color:#ff0000;text-shadow:3px 3px 0 #ffff00;margin-bottom:4px}
 .subtitle{text-align:center;font-size:0.9rem;color:#0000ff;margin-bottom:12px;font-style:italic}
 .chart-container{background:linear-gradient(135deg,#ffffcc,#ccffff,#ffccff,#ccffcc);border:4px ridge #ff00ff;padding:20px;margin:0 auto;max-width:720px;position:relative}
@@ -37,7 +41,7 @@ canvas{display:block;margin:0 auto;cursor:pointer}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #ffffff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

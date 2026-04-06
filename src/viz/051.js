@@ -8,7 +8,12 @@ export function render() {
 <title>051 – The DNA Helix — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000814;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:monospace}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:monospace}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;letter-spacing:0.2em;color:#003060;text-transform:uppercase;margin-bottom:4px;text-align:center}
 canvas{display:block;max-width:100%}
 .readout{font-size:0.6rem;color:#003060;text-align:center;margin-top:8px;letter-spacing:0.1em}
@@ -19,7 +24,7 @@ canvas{display:block;max-width:100%}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000814; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

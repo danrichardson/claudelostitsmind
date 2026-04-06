@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#d4c9a8;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
 .newspaper{background:#f5f0e0;max-width:700px;width:100%;padding:24px 28px;box-shadow:2px 2px 16px rgba(0,0,0,0.25);font-family:'Source Serif 4',Georgia,serif;filter:sepia(0.15) contrast(1.05)}
 .nameplate{text-align:center;border-top:4px solid #1a1408;border-bottom:4px solid #1a1408;padding:8px 0;margin-bottom:6px;cursor:pointer;user-select:none;transition:filter 0.2s}
 .nameplate:hover{filter:brightness(1.05)}
@@ -41,7 +42,7 @@ p{font-size:0.9rem;line-height:1.65;color:#1a1408;margin-bottom:8px;text-align:j
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #d4c9a8; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

@@ -7,9 +7,12 @@ export function render() {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>014 – The Progress Bar of Doom</title>
 <style>
+html, body { height: 100%;
+  overflow: hidden;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
-  background: #008080; /* Windows 95 Desktop Teal */
+  background: var(--bg); /* Windows 95 Desktop Teal */
   font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
   min-height: 100vh; display: flex; flex-direction: column; 
   align-items: center; justify-content: center; padding: 20px;
@@ -81,7 +84,7 @@ body {
 /* Force overrides of global styles that might break the retro aesthetic */
 :root { --bg: #008080 !important; }
 @media (prefers-color-scheme: dark) {
-  :root { --bg: #008080 !important; }
+  :root { --bg: #008080; }
   body { background: #008080 !important; color: #000 !important; }
 }
 

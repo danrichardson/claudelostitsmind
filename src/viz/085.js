@@ -19,7 +19,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fffef8;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;font-family:'Crimson Pro',Georgia,serif;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:'Crimson Pro',Georgia,serif;padding-top:52px}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.7rem;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .sub{font-size:0.65rem;color:#bbb;margin-bottom:12px;text-align:center;font-style:italic}
 .sheet{background:#fffef8;max-width:700px;width:100%;padding:20px}
@@ -30,7 +35,7 @@ canvas{display:block;width:100%}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fffef8; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

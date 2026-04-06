@@ -8,7 +8,12 @@ export function render() {
 <title>073 – The Rorschach — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f8f5ee;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;padding-top:52px;font-family:Georgia,serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:Georgia,serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1rem;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .card{background:#fff;border:1px solid #ddd;padding:20px;box-shadow:2px 2px 8px rgba(0,0,0,0.08);max-width:540px;width:100%}
 canvas{display:block;margin:0 auto;width:100%;height:auto}
@@ -20,7 +25,7 @@ canvas{display:block;margin:0 auto;width:100%;height:auto}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f8f5ee; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -199,6 +204,7 @@ document.addEventListener('keydown', function(e) {
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

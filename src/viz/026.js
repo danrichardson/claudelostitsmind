@@ -9,7 +9,10 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .screen{text-align:center;max-width:500px}
 .gameover{font-size:clamp(1.5rem,6vw,2.5rem);color:#ff4444;text-shadow:4px 4px 0 #880000;animation:flash 0.8s steps(1) infinite;margin-bottom:20px;letter-spacing:0.05em}
 @keyframes flash{50%{color:#ff8888}}
@@ -33,7 +36,7 @@ body{background:#000;color:#fff;font-family:'Press Start 2P',monospace;display:f
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

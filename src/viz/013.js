@@ -9,7 +9,12 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@100;400;700&family=Inter:wght@100;400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#d40000;color:#fff;font-family:'Inter',Helvetica,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#fff;font-family:'Inter',Helvetica,sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:clamp(1rem,4vw,1.8rem);font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;text-align:center}
 .subtitle{font-size:0.95rem;font-weight:100;letter-spacing:0.2em;opacity:0.8;margin-bottom:30px;text-align:center}
 canvas{border-radius:50%;box-shadow:0 0 60px rgba(255,200,200,0.3);display:block}

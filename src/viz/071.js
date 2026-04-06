@@ -9,7 +9,10 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:ital,wght@0,400;0,700;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#f5f5f0;font-family:'Times New Roman',Times,serif;font-size:12pt;padding:20px;padding-top:52px;color:#111}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Times New Roman',Times,serif;font-size:12pt;padding:20px;color:#111}
 .form{background:#fff;max-width:680px;margin:0 auto;border:1px solid #999;padding:36px;box-shadow:1px 1px 4px rgba(0,0,0,0.1)}
 .form-header{border-bottom:2px solid #000;padding-bottom:12px;margin-bottom:20px}
 .form-header h1{font-size:1rem;text-transform:uppercase;letter-spacing:0.08em;text-align:center;margin-bottom:4px}
@@ -38,7 +41,7 @@ body{min-height:100vh;overflow-x:hidden;background:#f5f5f0;font-family:'Times Ne
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f5f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

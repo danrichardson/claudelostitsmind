@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0ece0;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px;font-family:'Lora',Georgia,serif}
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;font-family:'Lora',Georgia,serif}
 .book{background:#fff;max-width:540px;width:100%;box-shadow:4px 4px 20px rgba(0,0,0,0.2),-2px 0 8px rgba(0,0,0,0.1);border-left:8px solid #8a1a20;padding:32px;min-height:400px;display:flex;flex-direction:column}
 .page-num{font-size:0.9rem;color:#aaa;text-align:right;margin-bottom:20px;letter-spacing:0.1em}
 .chapter{font-size:0.85rem;color:#8a1a20;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px}
@@ -22,7 +23,7 @@ body{background:#f0ece0;display:flex;flex-direction:column;align-items:center;mi
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0ece0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

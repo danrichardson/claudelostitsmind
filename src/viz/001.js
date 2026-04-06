@@ -38,93 +38,135 @@ export function render() {
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body { 
-  background: var(--bg); 
-  color: var(--text-main); 
-  font-family: 'Inter', -apple-system, sans-serif; 
-  min-height: 100vh;
-  display: flex; 
-  flex-direction: column; 
-  padding-top: 60px;
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
-.container { margin: 0 auto; max-width: 1000px; width: 100%; padding: 40px 20px; }
+body {
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-header { margin-bottom: 40px; text-align: center; }
-h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
-.subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.top { flex: 0 0 auto; padding: 16px 24px 8px; text-align: center; }
 
-.metric-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
-.tab { 
-  padding: 6px 14px; 
-  border: 1px solid var(--border); 
-  border-radius: 6px; 
-  background: var(--surface); 
+h1 { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+.subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.metric-tabs { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+.tab {
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
   color: var(--text-muted);
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem; 
+  font-size: 0.75rem;
   font-weight: 500;
-  cursor: pointer; 
+  cursor: pointer;
   transition: all 0.2s;
 }
 .tab:hover { border-color: var(--text-muted); color: var(--text-main); }
 .tab.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
 
-.panel { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
-.transcript-block { flex: 1; min-width: 320px; }
-.transcript-label { 
-  font-family: 'IBM Plex Mono', monospace; 
-  font-size: 0.75rem; 
-  font-weight: 500; 
-  color: var(--text-main); 
-  margin-bottom: 16px; 
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 8px;
+/* Main panel fills all remaining height */
+.panel {
+  flex: 1 1 0;
+  display: flex;
+  gap: 16px;
+  padding: 12px 24px 8px;
+  overflow: hidden;
+  min-height: 0;
 }
 
-.grid { display: grid; grid-template-columns: 70px repeat(3, 1fr); gap: 4px; }
-.header-cell { color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center; padding-bottom: 8px;}
-.row-label { color: var(--text-muted); font-size: 0.75rem; font-weight: 500; display: flex; align-items: center; justify-content: flex-end; padding-right: 12px; }
+.transcript-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
 
-.cell { 
+.transcript-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  flex: 0 0 auto;
+}
+
+/* Grid fills the block height */
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 64px repeat(3, 1fr);
+  grid-template-rows: auto repeat(3, 1fr);
+  gap: 4px;
+  min-height: 0;
+}
+
+.header-cell {
+  color: var(--text-muted); font-size: 0.65rem; text-transform: uppercase;
+  letter-spacing: 0.05em; display: flex; align-items: center; justify-content: center;
+  padding-bottom: 4px;
+}
+.row-label {
+  color: var(--text-muted); font-size: 0.78rem; font-weight: 500;
+  display: flex; align-items: center; justify-content: flex-end; padding-right: 10px;
+}
+
+.cell {
   background: var(--grid-empty);
   border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 12px 6px; 
-  text-align: center; 
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8rem; 
-  font-weight: 500; 
+  font-size: 1.4rem;
+  font-weight: 600;
   position: relative;
   cursor: crosshair;
   transition: transform 0.1s, box-shadow 0.1s, border-color 0.1s;
+  min-height: 0;
 }
-.cell:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-color: var(--accent); z-index: 2; }
-.cell[data-val="0"] { color: var(--danger); font-weight: 600; }
+.cell:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); border-color: var(--accent); z-index: 2; }
+.cell[data-val="0"] { color: var(--danger); }
 
-.tooltip { 
+.tooltip {
   display: block; opacity: 0; pointer-events: none;
-  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px); 
-  background: var(--text-main); color: var(--bg); 
-  padding: 8px 12px; border-radius: 6px; 
-  font-family: 'Inter', sans-serif; font-size: 0.7rem; white-space: nowrap; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: all 0.2s;
+  position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px);
+  background: var(--text-main); color: var(--bg);
+  padding: 8px 12px; border-radius: 6px;
+  font-family: 'Inter', sans-serif; font-size: 0.7rem; white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.15s;
+  z-index: 10;
 }
 .cell:hover .tooltip { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-.citation { font-size: 0.7rem; color: var(--text-muted); margin-top: 60px; text-align: center; line-height: 1.6; }
+.citation {
+  flex: 0 0 auto;
+  font-size: 0.65rem; color: var(--text-muted);
+  text-align: center; line-height: 1.6;
+  padding: 6px 24px 10px;
+}
 </style>
 </head>
 <body>
 ${nav('001')}
 
-<div class="container">
-  <header>
-    <h1>The Factorial Heat Matrix</h1>
-    <div class="subtitle">3 × 3 × 2 factorial design • 18 runs • 6 scoring dimensions</div>
-  </header>
-
+<div class="top">
+  <h1>The Factorial Heat Matrix</h1>
+  <div class="subtitle">3 × 3 × 2 factorial design • 18 runs • 6 scoring dimensions</div>
   <div class="metric-tabs" id="tabs">
     <button class="tab active" data-metric="0">R1 Completeness</button>
     <button class="tab" data-metric="1">R2 Specificity</button>
@@ -133,13 +175,13 @@ ${nav('001')}
     <button class="tab" data-metric="5">R6 Word Count</button>
     <button class="tab" data-metric="composite">Composite</button>
   </div>
+</div>
 
-  <div class="panel" id="panel"></div>
+<div class="panel" id="panel"></div>
 
-  <div class="citation">
-    Scores from 18-run DOE. R1 max=14, R2 max=10, R3 range=−10 to 10, R4 max=5.<br>
-    R5 zeroed after correction — automated scorer lacked transcript access.
-  </div>
+<div class="citation">
+  Scores from 18-run DOE. R1 max=14, R2 max=10, R3 range=−10 to 10, R4 max=5.<br>
+  R5 zeroed after correction — automated scorer lacked transcript access.
 </div>
 
 <script>
@@ -181,7 +223,7 @@ function buildGrid(transcript, metric) {
   let h = \`<div class="transcript-block">
              <div class="transcript-label">Transcript: \${transcript}</div>
              <div class="grid">
-               <div class="header-cell"></div>\`;
+               <div class="header-cell" style="grid-column:1"></div>\`;
                
   for(const v of VERBOSITY) h += \`<div class="header-cell">\${v}</div>\`;
   

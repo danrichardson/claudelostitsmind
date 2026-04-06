@@ -7,7 +7,10 @@ export function render() {
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>066 – The Org Chart — Claude Lost Its Mind</title>
 <style>
-body{min-height:100vh;overflow-x:hidden;background:#fff8f0;font-family:Papyrus,fantasy;padding:20px;padding-top:52px;overflow-x:auto}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:Papyrus,fantasy;padding:20px;overflow-x:auto}
 h1{text-align:center;font-size:1rem;color:#5a3a1a;margin-bottom:4px}
 .sub{text-align:center;font-size:0.9rem;color:#8a7a5a;margin-bottom:16px;font-style:italic;font-family:Georgia,serif}
 svg{display:block;margin:0 auto;max-width:100%;overflow:visible}
@@ -24,7 +27,7 @@ text.red{fill:#cc4444;font-style:italic}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff8f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

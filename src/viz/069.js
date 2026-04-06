@@ -9,7 +9,10 @@ export function render() {
 <style>
 @font-face{font-family:'Impact';src:local('Impact'),local('impact')}
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#1a1a2e;color:#fff;font-family:Impact,sans-serif;padding:20px;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);color:#fff;font-family:Impact,sans-serif;padding:20px;padding-top:52px}
 .infographic{max-width:700px;margin:0 auto}
 .ig-title{text-align:center;font-size:clamp(1.5rem,5vw,3rem);background:linear-gradient(135deg,#ff6b6b,#ffd93d,#6bcb77,#4d96ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none;margin-bottom:4px;line-height:1.1}
 .ig-sub{text-align:center;font-size:0.9rem;color:#aaa;font-family:Arial,sans-serif;margin-bottom:16px;letter-spacing:0.1em;text-transform:uppercase}
@@ -38,7 +41,7 @@ body{min-height:100vh;overflow-x:hidden;background:#1a1a2e;color:#fff;font-famil
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a1a2e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

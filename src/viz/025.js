@@ -8,7 +8,12 @@ export function render() {
 <title>025 – The Dungeon Map — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated}
-body{background:#1a0a00;color:#ffcc44;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:16px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#ffcc44;font-family:'Courier New',monospace;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.7rem;letter-spacing:0.15em;color:#ff8c00;margin-bottom:4px;text-transform:uppercase}
 canvas{border:3px solid #3a2000;display:block;max-width:100%;background:#000}
 .legend{display:flex;gap:12px;margin-top:10px;font-size:0.5rem;color:#886600;flex-wrap:wrap;justify-content:center}
@@ -18,7 +23,7 @@ canvas{border:3px solid #3a2000;display:block;max-width:100%;background:#000}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a0a00; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -162,6 +167,7 @@ autoWalk();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

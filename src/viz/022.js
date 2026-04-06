@@ -9,8 +9,9 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated}
-html,body{height:100%;background:#000}
-body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:'Press Start 2P',monospace;color:#fff}
+html,body{height:100%;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;height: 100vh;font-family:'Press Start 2P',monospace;color:#fff
+  overflow: hidden;
+}
 .screen{background:#6d6d6d;border:8px solid #999;border-radius:8px;padding:0;width:min(360px,90vw);position:relative;box-shadow:inset 0 0 20px rgba(0,0,0,0.5)}
 .screen-inner{background:#0000aa;padding:20px 16px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
 .nes-title{font-size:0.7rem;color:#fff;letter-spacing:0.1em;text-align:center;margin-bottom:8px;line-height:1.8}
@@ -30,7 +31,8 @@ body{display:flex;flex-direction:column;align-items:center;justify-content:cente
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000}
+body{display:flex; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

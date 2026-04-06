@@ -12,7 +12,10 @@ export function render() {
 <title>065 – The Pivot Table — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;font-family:Calibri,Arial,sans-serif;font-size:13px;padding:20px;padding-top:52px;min-height:100vh}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);font-family:Calibri,Arial,sans-serif;font-size:13px;padding:20px;min-height:100vh}
 h1{font-size:1rem;color:#333;margin-bottom:8px}
 .pivot-wrapper{overflow-x:auto;margin-bottom:12px}
 table{border-collapse:collapse;font-size:13px;min-width:600px;width:100%}
@@ -44,7 +47,7 @@ tr.row-selected td{outline:2px solid #4472c4;outline-offset:-1px}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

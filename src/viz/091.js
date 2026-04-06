@@ -9,7 +9,12 @@ export function render() {
 <title>091 – The Galaxy Map — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#02020a;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px;font-family:system-ui,sans-serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,sans-serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.6rem;letter-spacing:0.2em;color:#333;text-transform:uppercase;margin-bottom:8px;text-align:center}
 canvas{display:block;cursor:grab;touch-action:none}
 canvas:active{cursor:grabbing}
@@ -22,7 +27,7 @@ canvas:active{cursor:grabbing}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #02020a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -210,6 +215,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

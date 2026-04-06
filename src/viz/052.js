@@ -9,7 +9,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,300;0,600;1,300&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f5f0e8;color:#1a1a1a;font-family:'Source Serif 4',serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#1a1a1a;font-family:'Source Serif 4',serif;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 .paper{background:#fffef8;border:1px solid #ddd;padding:24px;max-width:720px;width:100%;margin-top:52px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
 h1{font-size:1.2rem;font-weight:600;margin-bottom:4px;text-align:center}
 .byline{font-size:0.9rem;color:#888;text-align:center;margin-bottom:20px;font-style:italic}
@@ -20,7 +25,7 @@ canvas{display:block;width:100%;border:1px solid #ccc;cursor:crosshair}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f0e8; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -278,6 +283,7 @@ drawAnimated();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

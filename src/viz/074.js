@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0ece0;font-family:'Libre Baskerville',Georgia,serif;padding:20px;padding-top:52px;color:#2a1a0a;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:'Libre Baskerville',Georgia,serif;padding:20px;color:#2a1a0a;min-height:100vh}
 .couch-layout{max-width:680px;margin:0 auto;background:#fffef8;border:1px solid #c8b890;padding:36px;box-shadow:2px 2px 8px rgba(0,0,0,0.08);position:relative}
 .byline{font-size:0.85rem;color:#888;text-align:center;margin-bottom:20px;font-style:italic;border-bottom:1px solid #e8e0c8;padding-bottom:12px}
 h1{font-size:1.1rem;text-align:center;margin-bottom:4px;color:#3a1a0a}
@@ -31,7 +32,7 @@ strong{color:#3a1a0a}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0ece0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

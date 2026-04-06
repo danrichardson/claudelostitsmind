@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#fff;font-family:'Source Sans 3',Arial,sans-serif;padding:20px;padding-top:52px;color:#111;font-size:12px}
+html, body { height: 100%; }
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Source Sans 3',Arial,sans-serif;padding:20px;color:#111;font-size:12px}
 .review{max-width:700px;margin:0 auto}
 h1{font-size:1rem;font-weight:600;margin-bottom:4px;text-align:center}
 .byline{font-size:0.65rem;color:#888;text-align:center;margin-bottom:20px;font-style:italic}
@@ -25,7 +26,7 @@ text{font-family:'Source Sans 3',Arial,sans-serif}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

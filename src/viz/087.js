@@ -9,7 +9,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=UnifrakturMaguntia&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d0d0d;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;padding-top:52px}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 .poster{width:100%;max-width:min(95vw,680px);position:relative;overflow:hidden;cursor:pointer}
 canvas{display:block;width:100%;height:auto}
 .hint{font-size:0.7rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:8px;letter-spacing:0.1em}
@@ -18,7 +23,7 @@ canvas{display:block;width:100%;height:auto}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0d0d0d; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -252,6 +257,7 @@ document.addEventListener('keydown', function(e) {
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

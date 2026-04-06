@@ -9,7 +9,10 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0010;color:#ddbbff;font-family:'Press Start 2P',monospace;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#ddbbff;font-family:'Press Start 2P',monospace;min-height:100vh;padding:20px}
 h1{font-size:0.6rem;color:#aa88ff;letter-spacing:0.1em;margin-bottom:16px;text-align:center}
 .quest-log{max-width:600px;margin:0 auto;border:2px solid #330066;padding:12px;background:#05000a}
 .quest-header{font-size:0.5rem;color:#8866ff;border-bottom:1px solid #330066;padding-bottom:8px;margin-bottom:12px}
@@ -28,7 +31,7 @@ h1{font-size:0.6rem;color:#aa88ff;letter-spacing:0.1em;margin-bottom:16px;text-a
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0010; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

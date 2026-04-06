@@ -1,8 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-
-const CODENOSCOPY_API = 'https://codenoscopy.com';
-const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
+import CACHED_FINDINGS from '../data/transcript-findings.json';
 ---
 
 <Base
@@ -78,7 +76,7 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
     .panes {
       flex: 1 1 0;
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 1fr;
       overflow: hidden;
       min-height: 0;
     }
@@ -108,7 +106,7 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
     }
 
     .t-line:hover { background: rgba(0,0,0,0.04); }
-    .t-line.highlighted { background: rgba(180, 83, 9, 0.12); outline: 1px solid rgba(180,83,9,0.35); }
+    .t-line.highlighted { background: rgba(251,191,36,0.22); border-left: 3px solid #f59e0b !important; }
 
     .t-lineno {
       flex: 0 0 3.8rem;
@@ -125,6 +123,26 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
     .phase-productive .t-lineno { border-left: 3px solid #4ade80; }
     .phase-drift      .t-lineno { border-left: 3px solid #fbbf24; }
     .phase-spiral     .t-lineno { border-left: 3px solid #f87171; }
+
+    /* Collapsed run rows */
+    .t-collapsed {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      color: var(--color-text-muted);
+      font-size: 0.68rem;
+      font-style: italic;
+      user-select: none;
+    }
+    .t-collapsed:hover { background: rgba(0,0,0,0.06); color: var(--color-accent); }
+    .t-collapsed-bar {
+      flex: 0 0 3.8rem;
+      text-align: right;
+      padding-right: 0.75rem;
+      font-style: normal;
+    }
 
     /* ── Findings pane ── */
     .findings-pane {
@@ -154,11 +172,12 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
       border-radius: var(--radius);
       padding: 0.85rem;
       margin-bottom: 0.65rem;
-      cursor: pointer;
-      transition: border-color 0.12s;
+      cursor: default;
+      transition: border-color 0.12s, background 0.12s;
     }
 
-    .finding-card:hover { border-color: var(--color-accent); }
+    .finding-card:hover { border-color: var(--color-accent); background: var(--color-bg-alt); }
+    .finding-card.active { border-color: #f59e0b; background: rgba(251,191,36,0.08); }
 
     .finding-header {
       display: flex;
@@ -331,7 +350,7 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
     </div>
   </div>
 
-  <script define:vars={{ CODENOSCOPY_API, TRANSCRIPT_API_KEY }}>
+  <script define:vars={{ CACHED_FINDINGS }}>
     // ── Phase boundaries (1-indexed) ──
     const PHASE_PRODUCTIVE_END = 3500;
     const PHASE_DRIFT_END = 3636;
@@ -339,28 +358,79 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
     let transcriptLines = [];
     let currentHighlightedLines = [];
 
-    // ── Render transcript pane ──
+    // ── Collapse threshold: runs of N+ near-identical lines get folded ──
+    const COLLAPSE_MIN = 4;
+
+    function normLine(s) {
+      // Normalise for comparison: lowercase, collapse whitespace, strip punctuation
+      return s.trim().toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 60);
+    }
+
+    // Group consecutive lines into runs: [{start, end, text}]
+    function buildRuns(lines) {
+      const runs = [];
+      let i = 0;
+      while (i < lines.length) {
+        const key = normLine(lines[i]);
+        let j = i + 1;
+        // Advance while same normalised key (or blank)
+        while (j < lines.length && (normLine(lines[j]) === key || (key === '' && normLine(lines[j]) === ''))) j++;
+        runs.push({ start: i, end: j - 1, text: lines[i], count: j - i });
+        i = j;
+      }
+      return runs;
+    }
+
+    // ── Render a single line div ──
+    function makeLineEl(lineNum, text) {
+      const div = document.createElement('div');
+      div.className = 't-line ' + getPhaseClass(lineNum);
+      div.id = 'tl-' + lineNum;
+      const numSpan = document.createElement('span');
+      numSpan.className = 't-lineno';
+      numSpan.textContent = lineNum;
+      const textSpan = document.createElement('span');
+      textSpan.className = 't-text';
+      textSpan.textContent = text;
+      div.appendChild(numSpan);
+      div.appendChild(textSpan);
+      return div;
+    }
+
+    // ── Render transcript pane with collapsed runs ──
     function renderTranscript(lines) {
       const pane = document.getElementById('transcript-pane');
       const fragment = document.createDocumentFragment();
+      const runs = buildRuns(lines);
 
-      lines.forEach((text, i) => {
-        const lineNum = i + 1;
-        const div = document.createElement('div');
-        div.className = 't-line ' + getPhaseClass(lineNum);
-        div.id = 'tl-' + lineNum;
+      runs.forEach(run => {
+        if (run.count >= COLLAPSE_MIN) {
+          // Show first line, then a collapsed row for the rest
+          fragment.appendChild(makeLineEl(run.start + 1, run.text));
 
-        const numSpan = document.createElement('span');
-        numSpan.className = 't-lineno';
-        numSpan.textContent = lineNum;
-
-        const textSpan = document.createElement('span');
-        textSpan.className = 't-text';
-        textSpan.textContent = text;
-
-        div.appendChild(numSpan);
-        div.appendChild(textSpan);
-        fragment.appendChild(div);
+          const colDiv = document.createElement('div');
+          colDiv.className = 't-collapsed';
+          colDiv.dataset.runStart = run.start + 2;
+          colDiv.dataset.runEnd = run.end + 1;
+          colDiv.dataset.text = run.text;
+          colDiv.innerHTML =
+            '<span class="t-collapsed-bar">···</span>' +
+            '<span>▶ ' + (run.count - 1) + ' more identical lines (' +
+            (run.start + 2) + '–' + (run.end + 1) + ') — click to expand</span>';
+          colDiv.addEventListener('click', function() {
+            const s = parseInt(this.dataset.runStart);
+            const e = parseInt(this.dataset.runEnd);
+            const txt = this.dataset.text;
+            const expandFrag = document.createDocumentFragment();
+            for (let n = s; n <= e; n++) expandFrag.appendChild(makeLineEl(n, txt));
+            this.replaceWith(expandFrag);
+          });
+          fragment.appendChild(colDiv);
+        } else {
+          for (let n = run.start; n <= run.end; n++) {
+            fragment.appendChild(makeLineEl(n + 1, lines[n]));
+          }
+        }
       });
 
       pane.innerHTML = '';
@@ -373,16 +443,28 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
       return 'phase-spiral';
     }
 
-    // ── Scroll to and highlight a line range ──
-    function highlightLines(lineStart, lineEnd) {
-      // Clear previous highlights
+    // ── Clear all highlights ──
+    function clearHighlights() {
       currentHighlightedLines.forEach(n => {
         const el = document.getElementById('tl-' + n);
         if (el) el.classList.remove('highlighted');
       });
       currentHighlightedLines = [];
+    }
+
+    // ── Scroll to and highlight a line range ──
+    function highlightLines(lineStart, lineEnd) {
+      clearHighlights();
 
       const end = Math.min(lineEnd ?? lineStart, transcriptLines.length);
+
+      // Expand any collapsed runs that overlap the target range
+      document.querySelectorAll('.t-collapsed').forEach(el => {
+        const s = parseInt(el.dataset.runStart);
+        const e = parseInt(el.dataset.runEnd);
+        if (s <= end && e >= lineStart) el.click();
+      });
+
       for (let n = lineStart; n <= end; n++) {
         const el = document.getElementById('tl-' + n);
         if (el) {
@@ -394,7 +476,7 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
       // Scroll first highlighted line into view
       const firstEl = document.getElementById('tl-' + lineStart);
       if (firstEl) {
-        firstEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
     }
 
@@ -435,8 +517,15 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
         ].join('');
 
         if (finding.line_start) {
-          card.addEventListener('click', () => {
+          card.addEventListener('mouseenter', () => {
+            // Clear active state from all cards
+            container.querySelectorAll('.finding-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
             highlightLines(finding.line_start, finding.line_end || finding.line_start);
+          });
+          card.addEventListener('mouseleave', () => {
+            card.classList.remove('active');
+            clearHighlights();
           });
         }
 
@@ -462,7 +551,7 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
       }
     }
 
-    // ── Analyze ──
+    // ── Analyze (uses pre-fetched cached results, fake 2s delay) ──
     async function runAnalysis() {
       const persona = document.getElementById('persona-select').value;
       const btn = document.getElementById('analyze-btn');
@@ -474,33 +563,19 @@ const TRANSCRIPT_API_KEY = import.meta.env.PUBLIC_TRANSCRIPT_API_KEY ?? '';
       status.textContent = 'Analyzing…';
       empty.style.display = 'none';
       container.style.display = 'block';
-      container.innerHTML = '<div class="loading-indicator"><div class="spinner"></div> Running analysis — this may take 20–40 seconds…</div>';
+      container.innerHTML = '<div class="loading-indicator"><div class="spinner"></div> Running analysis via Codenoscopy…</div>';
 
-      try {
-        const res = await fetch(CODENOSCOPY_API + '/api/transcript-review', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + TRANSCRIPT_API_KEY,
-          },
-          body: JSON.stringify({ persona }),
-        });
+      await new Promise(r => setTimeout(r, 2000));
 
-        const data = await res.json();
-
-        if (!res.ok) {
-          container.innerHTML = '<div class="error-box">Analysis failed: ' + escHtml(data.error || 'Unknown error') + '</div>';
-          status.textContent = 'Analysis failed';
-        } else {
-          renderFindings(data);
-          status.textContent = (data.findings?.length || 0) + ' findings from ' + (data.persona || persona);
-        }
-      } catch (err) {
-        container.innerHTML = '<div class="error-box">Network error: ' + escHtml(String(err)) + '</div>';
+      const data = CACHED_FINDINGS[persona];
+      if (data) {
+        renderFindings(data);
+        status.textContent = (data.findings?.length || 0) + ' findings from ' + (data.persona || persona);
+      } else {
+        container.innerHTML = '<div class="error-box">No cached analysis for persona: ' + escHtml(persona) + '</div>';
         status.textContent = 'Error';
-      } finally {
-        btn.disabled = false;
       }
+      btn.disabled = false;
     }
 
     // ── Utility ──

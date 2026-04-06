@@ -25,7 +25,12 @@ export function render() {
 <title>070 – Death by PowerPoint — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1a2e;font-family:Calibri,Arial,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);font-family:Calibri,Arial,sans-serif;display:flex;flex-direction:column;min-height:100vh;padding-top:52px}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 .ppt-container{width:100%;max-width:720px}
 .slide{background:#fff;width:100%;padding-bottom:56.25%;position:relative;margin-bottom:8px;box-shadow:0 4px 12px rgba(0,0,0,0.3);overflow:hidden}
 .slide-inner{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden}
@@ -54,7 +59,7 @@ canvas.ppt-pie{display:block}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a1a2e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -147,6 +152,7 @@ show(0);
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

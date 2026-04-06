@@ -9,7 +9,12 @@ export function render() {
 <title>081 – The Piano Roll — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a1a2a;color:#ccc;font-family:monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#ccc;font-family:monospace;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;letter-spacing:0.2em;color:#555;text-transform:uppercase;margin-bottom:4px;text-align:center}
 .daw{background:#111;border:1px solid #222;width:100%;max-width:700px;margin-top:8px;overflow:hidden}
 .daw-header{background:#181828;padding:6px 10px;display:flex;gap:12px;align-items:center;border-bottom:1px solid #222}
@@ -26,7 +31,7 @@ canvas{display:block}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a1a2a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -184,6 +189,7 @@ requestAnimationFrame(loop);
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

@@ -9,7 +9,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;color:#1a1a1a;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#1a1a1a;font-family:'Inter',sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 .paper{max-width:740px;width:100%;margin-top:52px}
 h1{font-size:1.1rem;font-weight:600;margin-bottom:4px;text-align:center;letter-spacing:-0.02em}
 .byline{font-size:0.9rem;color:#999;text-align:center;margin-bottom:20px}
@@ -22,7 +27,7 @@ canvas{display:block;width:100%;border-bottom:1px solid #eee}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -188,6 +193,7 @@ drawChart();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

@@ -9,7 +9,10 @@ export function render() {
 <title>032 – Chromatic Aberration — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px 20px;font-family:monospace}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px 20px;font-family:monospace}
 .quote-display{max-width:700px;width:100%;text-align:center;position:relative}
 .quote-r{position:absolute;left:0;right:0;color:rgba(255,0,0,0.8);transform:translateX(var(--ox))}
 .quote-g{position:absolute;left:0;right:0;color:rgba(0,255,0,0.8);transform:translateX(var(--ox));mix-blend-mode:screen}
@@ -25,7 +28,7 @@ body{background:#000;color:#fff;display:flex;flex-direction:column;align-items:c
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

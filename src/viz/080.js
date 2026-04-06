@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f5f3ee;font-family:'Crimson Pro',Georgia,serif;font-size:12pt;padding:20px;padding-top:52px;color:#111;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:'Crimson Pro',Georgia,serif;font-size:12pt;padding:20px;color:#111;min-height:100vh}
 .manuscript{background:#fff;max-width:680px;margin:0 auto;padding:40px;border:1px solid #ddd;box-shadow:1px 1px 6px rgba(0,0,0,0.08)}
 .review-header{background:#f0f0f0;border:1px solid #ccc;padding:12px 16px;margin-bottom:24px;font-size:0.9rem;color:#555}
 .review-header strong{color:#333}
@@ -41,7 +42,7 @@ p{font-size:0.95rem;line-height:1.9;margin-bottom:14px;position:relative}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f3ee; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

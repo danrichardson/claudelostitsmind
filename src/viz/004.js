@@ -10,24 +10,27 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Futura:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
-h1{font-size:1.4rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;color:#fff}
-.subtitle{font-size:0.65rem;letter-spacing:0.2em;color:#555;margin-bottom:20px;text-transform:uppercase}
-#canvas-container{position:relative;display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
-canvas{border:1px solid #1a1a1a}
-.controls{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center}
-.btn{padding:6px 14px;border:1px solid #333;background:transparent;color:#888;cursor:pointer;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s;border-radius:2px}
-.btn.active{color:#fff;border-color:currentColor}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+h1{font-size:1.2rem;font-weight:900;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2px;color:var(--fg);padding:16px 20px 0}
+.subtitle{font-size:0.6rem;letter-spacing:0.2em;color:var(--text-muted,#888);margin-bottom:8px;text-transform:uppercase;padding:0 20px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:0 20px 8px}
+.btn{padding:5px 12px;border:1px solid var(--border-color,#444);background:transparent;color:var(--text-muted,#888);cursor:pointer;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;transition:all 0.2s;border-radius:2px}
+.btn.active{color:var(--fg);border-color:currentColor}
 .btn[data-model="Haiku"].active{color:#FF6B35;border-color:#FF6B35}
 .btn[data-model="Sonnet"].active{color:#4ECDC4;border-color:#4ECDC4}
 .btn[data-model="Opus"].active{color:#FFD700;border-color:#FFD700}
-.note{font-size:0.62rem;color:#444;margin-top:16px;text-align:center;max-width:500px;line-height:1.6}
+canvas{display:block;flex:1;width:100%;min-height:0;background:var(--bg);}
+.note{font-size:0.6rem;color:var(--text-muted,#666);text-align:center;max-width:600px;margin:0 auto;padding:6px 20px 10px;line-height:1.5}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; --text-muted: #666; --border-color: #ccc; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0a0a; --fg: #e8e4f0; --accent: #00e5ff; --text-muted: #888; --border-color: #444; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -43,7 +46,7 @@ ${nav('004')}
   <button class="btn active" data-model="Sonnet">Sonnet</button>
   <button class="btn active" data-model="Opus">Opus</button>
 </div>
-<canvas id="c" width="600" height="500"></canvas>
+<canvas id="c"></canvas>
 <p class="note">Each axis = one scoring dimension. Area fill = model's coverage. Tight/Medium/Full verbosity shown as line weight. R5 zeroed (hallucination scoring required transcript access).</p>
 <script>
 const SCORES=${JSON.stringify(SCORES)};
@@ -66,11 +69,19 @@ function getModelAvg(model){
 
 function draw(){
   const canvas=document.getElementById('c');
+  // Size canvas to its actual display size
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=rect.width||window.innerWidth;
+  canvas.height=rect.height||(window.innerHeight-120);
   const W=canvas.width,H=canvas.height;
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);
   const cx=W/2,cy=H/2,R=Math.min(W,H)*0.38;
   const n=AXES.length;
+  const dark=document.documentElement.dataset.dark==='true';
+  const gridColor=dark?'rgba(255,255,255,0.08)':'rgba(0,0,0,0.1)';
+  const axisColor=dark?'rgba(255,255,255,0.18)':'rgba(0,0,0,0.2)';
+  const labelColor=dark?'#888':'#555';
 
   // Grid circles
   for(let r=1;r<=5;r++){
@@ -82,7 +93,7 @@ function draw(){
       if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
     }
     ctx.closePath();
-    ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.stroke();
+    ctx.strokeStyle=gridColor;ctx.lineWidth=1;ctx.stroke();
   }
 
   // Axis lines + labels
@@ -91,10 +102,10 @@ function draw(){
     const x=cx+Math.cos(angle)*R;
     const y=cy+Math.sin(angle)*R;
     ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);
-    ctx.strokeStyle='rgba(255,255,255,0.15)';ctx.lineWidth=1;ctx.stroke();
+    ctx.strokeStyle=axisColor;ctx.lineWidth=1;ctx.stroke();
     const lx=cx+Math.cos(angle)*(R+28);
     const ly=cy+Math.sin(angle)*(R+28);
-    ctx.fillStyle='#888';ctx.font='11px Inter';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle=labelColor;ctx.font='11px Inter';ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillText(AXES[i],lx,ly);
   }
 
@@ -147,14 +158,8 @@ draw();
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
+  window.addEventListener('resize', draw);
+  window.addEventListener('message', () => draw());
 </script>
 </body>
 </html>`;

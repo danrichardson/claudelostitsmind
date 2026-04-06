@@ -8,7 +8,10 @@ export function render() {
 <title>037 – The BSOD — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0078D4;color:#fff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#fff;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .bsod{max-width:700px;width:100%}
 .emoji{font-size:clamp(2rem,8vw,5rem);margin-bottom:24px;display:block}
 .main-text{font-size:clamp(1rem,3vw,1.8rem);font-weight:300;margin-bottom:24px;line-height:1.4}
@@ -25,7 +28,7 @@ body{background:#0078D4;color:#fff;font-family:'Segoe UI',Arial,sans-serif;min-h
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0078D4; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

@@ -8,7 +8,10 @@ export function render() {
 <title>099 – The Loading Spinner — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;padding-top:52px;font-family:system-ui,sans-serif;color:#e0e0e0}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:system-ui,sans-serif;color:#e0e0e0}
 .container{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:440px;width:100%;text-align:center}
 h1{font-size:0.55rem;letter-spacing:0.25em;color:#333;text-transform:uppercase}
 .spinner-wrap{position:relative;width:80px;height:80px}
@@ -32,7 +35,7 @@ h1{font-size:0.55rem;letter-spacing:0.25em;color:#333;text-transform:uppercase}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0a0a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

@@ -10,7 +10,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Calibri:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0f0f0;font-family:Calibri,Arial,sans-serif;font-size:11pt;padding:20px;padding-top:52px;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:Calibri,Arial,sans-serif;font-size:11pt;padding:20px;min-height:100vh}
 .ribbon{background:#2b579a;color:#fff;padding:6px 12px;margin-bottom:0;font-size:0.9rem;display:flex;gap:16px;align-items:center;flex-wrap:wrap;position:sticky;top:32px;z-index:10}
 .ribbon-group{display:flex;gap:6px;align-items:center}
 .ribbon-btn{padding:3px 10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:0.82rem;cursor:pointer;font-family:Calibri,sans-serif;transition:background 0.1s}
@@ -39,7 +40,7 @@ p{margin-bottom:8pt;line-height:1.5}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0f0f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

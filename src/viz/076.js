@@ -51,7 +51,8 @@ export function render() {
 <title>076 – The Academic Abstract — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f8f6f0;font-family:Georgia,'Times New Roman',serif;padding:20px;padding-top:52px;color:#111;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:Georgia,'Times New Roman',serif;padding:20px;color:#111;min-height:100vh}
 .page{max-width:700px;margin:0 auto}
 h1{font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;color:#888;margin-bottom:4px;text-align:center}
 .sub{font-size:0.85rem;color:#bbb;margin-bottom:16px;text-align:center;font-style:italic}
@@ -81,7 +82,7 @@ h1{font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;color:#888;margi
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f8f6f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

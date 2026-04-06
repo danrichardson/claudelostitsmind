@@ -8,7 +8,8 @@ export function render() {
 <title>067 – The Email Thread — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f5f5f5;font-family:Arial,Helvetica,sans-serif;font-size:13px;padding:0 20px 20px;padding-top:52px;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:Arial,Helvetica,sans-serif;font-size:13px;padding:0 20px 20px;min-height:100vh}
 .outlook-bar{background:#0072c6;color:#fff;padding:6px 12px;font-size:0.9rem;display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:32px;z-index:10}
 .ol-btn{padding:3px 12px;background:rgba(255,255,255,0.15);border:none;color:#fff;cursor:pointer;font-size:0.85rem;transition:background 0.1s}
 .ol-btn:hover{background:rgba(255,255,255,0.3)}

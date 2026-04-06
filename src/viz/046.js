@@ -9,7 +9,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1c1c1c;color:#ccc;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#ccc;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:#888;margin-bottom:2px;text-align:center}
 .subtitle{font-size:0.6rem;color:#444;margin-bottom:12px;text-align:center;font-style:italic}
 canvas{display:block;max-width:100%;border:1px solid #2a2a2a}
@@ -22,7 +27,7 @@ canvas{display:block;max-width:100%;border:1px solid #2a2a2a}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1c1c1c; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

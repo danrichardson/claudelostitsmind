@@ -11,14 +11,19 @@ export function render() {
 <title>049 – Spring Mesh Network — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f4f6f8;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;font-family:system-ui,sans-serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,sans-serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1rem;letter-spacing:0.15em;color:#666;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .sub{font-size:0.9rem;color:#888;margin-bottom:12px;text-align:center}
 canvas{display:block;max-width:100%;background:#f4f6f8;border:1px solid #e0e0e0}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f4f6f8; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -178,6 +183,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

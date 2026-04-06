@@ -8,7 +8,10 @@ export function render() {
 <title>086 – The DJ Crossfader — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#e0e0e0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
 .deck{background:#1a1a1a;border:2px solid #333;padding:24px;max-width:700px;width:100%;border-radius:4px}
 .deck-title{font-size:0.65rem;letter-spacing:0.2em;color:#555;text-transform:uppercase;margin-bottom:16px;text-align:center}
 .decks-row{display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
@@ -37,7 +40,7 @@ body{background:#0a0a0a;color:#e0e0e0;font-family:system-ui,sans-serif;display:f
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0a0a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

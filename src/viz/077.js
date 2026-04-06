@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#e8eaf0;font-family:'Open Sans',sans-serif;padding:20px;padding-top:52px;font-size:13px;color:#111;min-height:100vh}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:'Open Sans',sans-serif;padding:20px;font-size:13px;color:#111;min-height:100vh}
 .poster{background:#fff;max-width:960px;margin:0 auto;box-shadow:0 4px 16px rgba(0,0,0,0.15)}
 .poster-header{background:linear-gradient(135deg,#003b6f,#0066cc);color:#fff;padding:20px 24px}
 .poster-title{font-size:1.4rem;font-weight:700;line-height:1.2;margin-bottom:6px}
@@ -42,7 +43,7 @@ p{font-size:0.85rem;line-height:1.7;margin-bottom:8px;color:#333}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #e8eaf0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

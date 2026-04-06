@@ -9,19 +9,25 @@ export function render() {
 <title>008 – The 3D Response Surface — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#050510;color:#aaaaff;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh}
-h1{font-size:1.3rem;letter-spacing:0.1em;color:#8888ff;padding:20px 20px 4px;text-align:center;text-transform:uppercase}
-.subtitle{font-size:0.65rem;color:#444488;letter-spacing:0.15em;margin-bottom:16px;text-align:center}
-#c{cursor:grab;display:block;max-width:100%;margin:0 auto}
-#c:active{cursor:grabbing}
-.controls{display:flex;gap:16px;margin:10px;font-size:0.65rem;color:#555588;letter-spacing:0.1em;flex-wrap:wrap;justify-content:center}
-.note{font-size:0.62rem;color:#333366;text-align:center;max-width:500px;margin:8px auto 20px;line-height:1.6}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:var(--text-3d);font-family:system-ui,sans-serif;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+canvas{display:block;flex:1;width:100%;min-height:0;cursor:grab;background:var(--bg)}
+canvas:active{cursor:grabbing}
+h1{font-size:1.2rem;letter-spacing:0.1em;color:var(--accent-3d);padding:12px 20px 2px;text-align:center;text-transform:uppercase}
+.subtitle{font-size:0.6rem;color:var(--muted-3d);letter-spacing:0.15em;margin-bottom:4px;text-align:center}
+.controls{display:flex;gap:16px;margin:4px 10px;font-size:0.62rem;color:var(--muted-3d);letter-spacing:0.1em;flex-wrap:wrap;justify-content:center}
+.note{font-size:0.6rem;color:var(--muted-3d);text-align:center;max-width:500px;margin:4px auto 8px;line-height:1.5}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f5f5; --fg: #111; --accent: #222;
+    --text-3d: #334; --accent-3d: #446; --muted-3d: #668; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #050510; --fg: #e8e4f0; --accent: #00e5ff;
+      --text-3d: #aaaaff; --accent-3d: #8888ff; --muted-3d: #555588; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -41,7 +47,7 @@ h1{font-size:1.3rem;letter-spacing:0.1em;color:#8888ff;padding:20px 20px 4px;tex
 ${nav('008')}
 <h1>008 — The 3D Response Surface</h1>
 <p class="subtitle">Model × Verbosity → Quality · drag to rotate</p>
-<canvas id="c" width="700" height="500"></canvas>
+<canvas id="c"></canvas>
 <div class="controls">
   <span>X-axis: Models (Haiku → Sonnet → Opus)</span>
   <span>Z-axis: Verbosity (Tight → Medium → Full)</span>
@@ -64,8 +70,14 @@ const grid=MODELS.map(m=>VERBOSITY.map(v=>{
 }));
 
 const canvas=document.getElementById('c');
-let W=canvas.width,H=canvas.height;
 const ctx=canvas.getContext('2d');
+let W,H;
+function resizeCanvas(){
+  const rect=canvas.getBoundingClientRect();
+  W=canvas.width=rect.width||window.innerWidth;
+  H=canvas.height=rect.height||(window.innerHeight-120);
+}
+resizeCanvas();
 let rotX=0.4,rotY=-0.4,dragging=false,lastX=0,lastY=0;
 
 function project3D(x,y,z,W,H){
@@ -87,8 +99,10 @@ function colorForScore(s){
 }
 
 function draw(){
+  resizeCanvas();
   ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#050510';ctx.fillRect(0,0,W,H);
+  const dark=document.documentElement.dataset.dark==='true';
+  ctx.fillStyle=dark?'#050510':'#f0f0f8';ctx.fillRect(0,0,W,H);
 
   // Draw surface quads (back to front)
   const polys=[];
@@ -114,7 +128,7 @@ function draw(){
   });
 
   // Axis labels
-  const axisStyle='rgba(150,150,255,0.6)';
+  const axisStyle=dark?'rgba(150,150,255,0.6)':'rgba(50,50,150,0.8)';
   ctx.fillStyle=axisStyle;ctx.font='11px system-ui';ctx.textAlign='center';
   MODELS.forEach((m,i)=>{
     const p=project3D(i-1,-0.1,-1.2,W,H);
@@ -156,6 +170,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

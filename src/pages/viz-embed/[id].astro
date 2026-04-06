@@ -29,7 +29,55 @@ html = html.replace(/<nav id="global-masthead">[\s\S]*?<\/nav>/i, '');
 // Strip the inline keyboard/touch nav script that nav() emits
 html = html.replace(/<script>\(function\(\)\{[\s\S]*?var tx=[\s\S]*?\}\)\(\);<\/script>/, '');
 
-// Strip OS dark mode media queries — reader controls own dark mode
-html = html.replace(/@media\s*\([^)]*prefers-color-scheme[^)]*\)\s*\{[^{}]*(?:\{[^{}]*\}[^{}]*)?\}/g, '');
+// Convert @media (prefers-color-scheme: dark) { ... } blocks
+// into html[data-dark="true"] rules so the iframe responds to postMessage.
+// Works by finding the outer brace pair, then rewriting each inner selector.
+function transformDarkMedia(src) {
+  const re = /@media\s*\([^)]*prefers-color-scheme:\s*dark[^)]*\)\s*\{/g;
+  let out = '';
+  let last = 0;
+  let m;
+  while ((m = re.exec(src)) !== null) {
+    out += src.slice(last, m.index);
+    // Walk forward to find matching closing brace
+    let depth = 1;
+    let i = m.index + m[0].length;
+    while (i < src.length && depth > 0) {
+      if (src[i] === '{') depth++;
+      else if (src[i] === '}') depth--;
+      i++;
+    }
+    const inner = src.slice(m.index + m[0].length, i - 1);
+    // Rewrite each selector block: `selector { body }`
+    const rewritten = inner.replace(/([^{};]+)\{([^{}]*)\}/g, (_, sel, body) => {
+      sel = sel.trim();
+      if (!sel) return '';
+      // :root IS the html element — map directly
+      if (sel === ':root') sel = 'html[data-dark="true"]';
+      else sel = `html[data-dark="true"] ${sel}`;
+      return `${sel} { ${body.trim()} }\n`;
+    });
+    out += rewritten;
+    last = i;
+    re.lastIndex = i;
+  }
+  out += src.slice(last);
+  return out;
+}
+
+html = transformDarkMedia(html);
+
+// Inject postMessage listener so the parent viz/[id] page can sync dark mode
+const darkBridge = `<script>
+window.addEventListener('message', function(e) {
+  if (e.data && typeof e.data.dark === 'boolean') {
+    document.documentElement.dataset.dark = e.data.dark ? 'true' : 'false';
+  }
+});
+// Signal readiness so parent can send initial state
+window.parent.postMessage({ type: 'viz-ready' }, '*');
+</script>`;
+
+html = html.replace('</body>', darkBridge + '</body>');
 ---
 <Fragment set:html={html} />

@@ -8,7 +8,12 @@ export function render() {
 <title>100 – The Mirror — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;padding-top:52px;font-family:system-ui,sans-serif;color:#e0e0e0;overflow:hidden}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,sans-serif;color:#e0e0e0;overflow:hidden}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 .mirror-frame{position:relative;width:100%;max-width:540px;background:#0a0a0a;border:2px solid #1a1a1a;border-radius:4px;overflow:hidden}
 video{display:block;width:100%;transform:scaleX(-1);opacity:0.85;min-height:200px;background:#0d0d0d}
 .overlay{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none}
@@ -31,7 +36,7 @@ canvas.scan{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.15}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -173,6 +178,7 @@ tick();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

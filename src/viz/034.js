@@ -8,7 +8,12 @@ export function render() {
 <title>034 – The Databend — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#111;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:monospace}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:monospace}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.7rem;color:#ff8c00;letter-spacing:0.2em;margin-bottom:4px;text-transform:uppercase}
 canvas{display:block;max-width:min(600px,100%);border:1px solid #222;margin:10px 0}
 .label{font-size:0.6rem;color:#555;text-align:center;margin-bottom:10px;line-height:1.8}
@@ -20,7 +25,7 @@ canvas{display:block;max-width:min(600px,100%);border:1px solid #222;margin:10px
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #111; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -113,6 +118,7 @@ function reset(){offset=0;ctx.putImageData(base,0,0);document.getElementById('of
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

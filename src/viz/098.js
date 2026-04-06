@@ -8,7 +8,8 @@ export function render() {
 <title>098 – The Blank Page — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;padding-top:52px;font-family:Georgia,'Times New Roman',serif;cursor:text}
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;font-family:Georgia,'Times New Roman',serif;cursor:text}
 .page{max-width:480px;width:100%;text-align:left}
 p{font-size:1rem;line-height:1.9;color:#222}
 .meta{font-size:0.85rem;color:#bbb;margin-top:40px;text-align:center;letter-spacing:0.05em}
@@ -24,7 +25,7 @@ p{font-size:1rem;line-height:1.9;color:#222}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

@@ -15,7 +15,10 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d0d0d;color:#d4d4d4;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;padding:20px;min-height:100vh}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#d4d4d4;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;padding:20px;min-height:100vh}
 .container{max-width:860px;margin:0 auto;padding-top:52px}
 h1{font-size:1rem;letter-spacing:0.2em;color:#666;text-transform:uppercase;margin-bottom:20px}
 .toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
@@ -42,7 +45,7 @@ pre{white-space:pre-wrap;word-break:break-word;background:#111;border:1px solid 
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0d0d0d; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

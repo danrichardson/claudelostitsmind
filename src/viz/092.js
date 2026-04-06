@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f5f5f0;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:0 20px 40px;padding-top:52px;font-family:'Courier Prime','Courier New',monospace}
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:0 20px 40px;font-family:'Courier Prime','Courier New',monospace}
 .script{background:#fff;max-width:620px;width:100%;padding:40px 60px;box-shadow:0 2px 12px rgba(0,0,0,0.15);margin-top:8px;font-size:0.85rem;line-height:1.7;color:#111;min-height:calc(100vh - 120px)}
 @media(max-width:500px){.script{padding:24px 20px}}
 .title-page{text-align:center;padding:60px 0;margin-bottom:20px;border-bottom:1px solid #ddd}
@@ -37,7 +38,7 @@ body{background:#f5f5f0;display:flex;flex-direction:column;align-items:center;mi
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f5f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

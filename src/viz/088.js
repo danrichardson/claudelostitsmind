@@ -9,7 +9,10 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1c1008;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:'Special Elite',Georgia,serif}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:'Special Elite',Georgia,serif}
 .radio{background:linear-gradient(145deg,#3d2a10,#2a1a08,#1c1008);border:3px solid #5a3a18;border-radius:12px;padding:24px;max-width:560px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,200,80,0.1)}
 .radio-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}
 .brand{font-size:1.1rem;color:#c8940a;letter-spacing:0.1em;text-shadow:0 0 8px rgba(200,148,10,0.5)}
@@ -40,7 +43,7 @@ body{background:#1c1008;display:flex;flex-direction:column;align-items:center;ju
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1c1008; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

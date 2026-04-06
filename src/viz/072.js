@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f8f7f2;font-family:'Patrick Hand',cursive;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
+html, body { height: 100%; }
+body{background:var(--bg);font-family:'Patrick Hand',cursive;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
 h1{font-size:1rem;color:#444;margin-bottom:2px;text-align:center}
 .sub{font-size:0.9rem;color:#888;margin-bottom:12px;text-align:center}
 svg{max-width:100%;width:100%;display:block;filter:drop-shadow(2px 2px 6px rgba(0,0,0,0.06))}
@@ -20,7 +21,7 @@ text{font-family:'Patrick Hand',cursive}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f8f7f2; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

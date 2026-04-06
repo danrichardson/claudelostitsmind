@@ -8,7 +8,12 @@ export function render() {
 <title>055 – The Fractal Tree — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#faf6ef;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:Georgia,serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:Georgia,serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1rem;letter-spacing:0.1em;color:#8a7a5a;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .sub{font-size:0.9rem;color:#bba;margin-bottom:12px;text-align:center;font-style:italic}
 canvas{display:block;max-width:100%;background:#faf6ef}
@@ -17,7 +22,7 @@ input[type=range]{width:140px}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #faf6ef; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -205,6 +210,7 @@ requestAnimationFrame(autoRun);
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

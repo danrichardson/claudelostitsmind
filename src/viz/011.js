@@ -9,7 +9,12 @@ export function render() {
 <title>011 – The Coherence ECG — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0f0a;color:#33ff33;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:16px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#33ff33;font-family:'Courier New',monospace;min-height:100vh;display:flex;flex-direction:column;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1.3rem;letter-spacing:0.2em;color:#33ff33;margin-bottom:2px;text-transform:uppercase}
 .subtitle{font-size:0.9rem;color:#1a8a1a;letter-spacing:0.15em;margin-bottom:16px}
 canvas{border:2px solid #1a4a1a;border-radius:4px;box-shadow:0 0 20px rgba(50,255,50,0.15);display:block;width:100%;max-width:960px}
@@ -23,7 +28,7 @@ canvas{border:2px solid #1a4a1a;border-radius:4px;box-shadow:0 0 20px rgba(50,25
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0a0f0a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

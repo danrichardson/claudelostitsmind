@@ -10,7 +10,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Arial:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#f5f5f5;font-family:Arial,sans-serif;font-size:11px;padding:20px;padding-top:52px}
+html, body { height: 100%; }
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:Arial,sans-serif;font-size:11px;padding:20px;padding-top:52px}
 .toolbar{background:#e8e8e8;border:1px solid #ccc;padding:4px 8px;display:flex;gap:8px;align-items:center;margin-bottom:0;font-size:0.7rem;flex-wrap:wrap}
 .tb-btn{padding:2px 8px;background:#f0f0f0;border:1px solid #aaa;cursor:pointer;font-size:0.65rem}
 .chart-outer{border:1px solid #aaa;background:#fff;overflow-x:auto}

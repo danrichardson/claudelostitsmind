@@ -9,7 +9,12 @@ export function render() {
 <title>096 – The QR Code — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;padding-top:52px;font-family:system-ui,sans-serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:system-ui,sans-serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1rem;letter-spacing:0.2em;color:#bbb;text-transform:uppercase;margin-bottom:12px;text-align:center}
 .qr-wrap{padding:20px;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,0.12);display:inline-block;cursor:crosshair}
 canvas{display:block;image-rendering:pixelated}
@@ -19,7 +24,7 @@ canvas{display:block;image-rendering:pixelated}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
@@ -193,6 +198,7 @@ canvas.addEventListener('click', function() {
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

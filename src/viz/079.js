@@ -8,7 +8,12 @@ export function render() {
 <title>079 – The Citation Graph — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0d1117;color:#c9d1d9;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#c9d1d9;font-family:system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh;padding-top:52px}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#555;margin-bottom:4px;text-align:center}
 canvas{display:block;max-width:100%;cursor:grab}
 .tooltip{position:fixed;background:#161b22;border:1px solid #30363d;padding:8px 12px;font-size:0.7rem;color:#c9d1d9;pointer-events:none;max-width:260px;line-height:1.6;z-index:100;display:none}
@@ -20,7 +25,7 @@ canvas{display:block;max-width:100%;cursor:grab}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #0d1117; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -170,6 +175,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

@@ -9,8 +9,8 @@ export function render() {
 <title>035 – CRT Phosphor Burn — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{min-height:100vh;overflow-x:hidden;height:100%;overflow:hidden}
-body{background:#030a03;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+html,body{height: 100vh;overflow-x:hidden;height:100%;overflow:hidden}
+body{background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}
 .screen{width:min(640px,95vw);height:min(480px,60vh);background:#020702;border-radius:8px;position:relative;overflow:hidden;box-shadow:inset 0 0 60px rgba(0,0,0,0.8),0 0 40px rgba(50,255,50,0.1)}
 .phosphor{position:absolute;inset:0;font-family:'Courier New',monospace;color:#33ff33;padding:24px;font-size:13px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;overflow:hidden}
 .burn-layer{position:absolute;inset:0;padding:24px;font-family:'Courier New',monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;word-wrap:break-word;opacity:0.08;color:#33ff33;pointer-events:none}
@@ -24,7 +24,7 @@ body{background:#030a03;display:flex;align-items:center;justify-content:center;f
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #030a03; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

@@ -10,11 +10,15 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#faf8f3;color:#2c2416;font-family:'Source Sans 3',sans-serif;min-height:100vh}
-.page{max-width:900px;margin:0 auto;padding:30px 20px}
-h1{font-family:'Lora',serif;font-size:clamp(1.4rem,3vw,2rem);color:#2c2416;margin-bottom:4px}
-.subtitle{font-family:'Lora',serif;font-style:italic;color:#7a6a4a;margin-bottom:24px;font-size:0.95rem}
-#canvas-wrap{position:relative;width:100%;padding-bottom:65%;background:#fff;border:1px solid #ddd6c2;border-radius:4px;overflow:hidden}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#2c2416;font-family:'Source Sans 3',sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+canvas { background: var(--bg); }
+.page{max-width:1100px;width:100%;margin:0 auto;padding:20px 24px;flex:1;display:flex;flex-direction:column;min-height:0}
+h1{font-family:'Lora',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);color:#2c2416;margin-bottom:2px}
+.subtitle{font-family:'Lora',serif;font-style:italic;color:#7a6a4a;margin-bottom:12px;font-size:0.9rem}
+#canvas-wrap{position:relative;width:100%;flex:1;min-height:0;background:#fff;border:1px solid #ddd6c2;border-radius:4px;overflow:hidden}
 canvas{position:absolute;inset:0;width:100%;height:100%}
 .tooltip-box{position:absolute;pointer-events:none;background:#fff;border:1px solid #2c2416;padding:8px 12px;border-radius:3px;font-size:0.75rem;display:none;line-height:1.6}
 .legend{display:flex;gap:20px;margin-top:14px;flex-wrap:wrap;font-size:0.8rem}
@@ -24,7 +28,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #faf8f3; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

@@ -9,7 +9,11 @@ export function render() {
 <title>047 – Confetti Shower — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:'Arial Black',sans-serif;overflow:hidden}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:'Arial Black',sans-serif;overflow:hidden}
+canvas { background: var(--bg); }
 canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none}
 .content{position:relative;z-index:1;text-align:center;max-width:500px}
 h1{font-size:clamp(1.5rem,5vw,3rem);color:#222;margin-bottom:12px}
@@ -24,7 +28,7 @@ h1{font-size:clamp(1.5rem,5vw,3rem);color:#222;margin-bottom:12px}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #fff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

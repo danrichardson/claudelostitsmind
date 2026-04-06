@@ -16,7 +16,11 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0f2f5;font-family:'Open Sans',Arial,sans-serif;padding:20px;padding-top:52px;font-size:13px;min-height:100vh}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);font-family:'Open Sans',Arial,sans-serif;padding:20px;font-size:13px;min-height:100vh}
+canvas { background: var(--bg); }
 .header{background:#2c3e50;color:#fff;padding:12px 20px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
 .header h1{font-size:0.9rem;font-weight:400}
 .header .date{font-size:0.7rem;opacity:0.7}
@@ -45,7 +49,7 @@ canvas{display:block;width:100%;cursor:crosshair}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0f2f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

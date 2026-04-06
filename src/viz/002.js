@@ -12,25 +12,28 @@ export function render() {
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
-body{background:#111;color:#fff;font-family:'Roboto',sans-serif;min-height:100vh;overflow-x:hidden}
-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:0.05em;color:#FFD700;padding:20px 30px 0;text-shadow:3px 3px 0 #333}
-.subtitle{padding:0 30px;font-size:0.75rem;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:var(--fg);font-family:'Roboto',sans-serif;min-height:100vh;overflow-x:hidden}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:0.05em;color:#FFD700;padding:20px 30px 0;text-shadow:3px 3px 0 rgba(0,0,0,0.3)}
+.subtitle{padding:0 30px;font-size:0.75rem;color:var(--label-color);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px}
 #chart{padding:0 20px 20px}
 .run-row{display:flex;align-items:center;margin:4px 0;height:38px;gap:8px}
-.run-label{width:170px;font-size:0.7rem;text-align:right;color:#aaa;flex-shrink:0;letter-spacing:0.05em}
-.bar-track{flex:1;background:#1a1a1a;border-radius:3px;height:28px;position:relative;overflow:hidden}
+.run-label{width:170px;font-size:0.7rem;text-align:right;color:var(--label-color);flex-shrink:0;letter-spacing:0.05em}
+.bar-track{flex:1;background:var(--track-bg);border-radius:3px;height:28px;position:relative;overflow:hidden}
 .bar-fill{height:100%;border-radius:3px;transition:width 0.8s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:0.7rem;font-weight:700;color:#000;white-space:nowrap;min-width:40px}
-.score-val{width:50px;font-size:0.75rem;font-weight:700;color:#FFD700;flex-shrink:0}
+.score-val{width:50px;font-size:0.75rem;font-weight:700;color:var(--score-color);flex-shrink:0}
 .controls{padding:10px 30px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{padding:6px 16px;border:2px solid #FFD700;background:transparent;color:#FFD700;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.08em;cursor:pointer;border-radius:3px;transition:all 0.15s}
-.btn:hover,.btn.active{background:#FFD700;color:#111}
-.metric-label{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#FFD700;padding:0 30px;letter-spacing:0.05em;margin-bottom:8px}
+.btn{padding:6px 16px;border:2px solid var(--score-color);background:transparent;color:var(--score-color);font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:0.08em;cursor:pointer;border-radius:3px;transition:all 0.15s}
+.btn:hover,.btn.active{background:var(--score-color);color:#111}
+.metric-label{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--score-color);padding:0 30px;letter-spacing:0.05em;margin-bottom:8px}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; --track-bg: #e0e0e0; --label-color: #555; --score-color: #c8960a; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #111; --fg: #e8e4f0; --accent: #00e5ff; --track-bg: #1a1a1a; --label-color: #aaa; --score-color: #FFD700; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

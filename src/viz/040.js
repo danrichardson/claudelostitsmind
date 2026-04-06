@@ -12,7 +12,10 @@ export function render() {
 <title>040 – The Broken Carousel — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#ffffff;color:#000080;font-family:Arial,sans-serif;min-height:100vh;padding-top:52px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#000080;font-family:Arial,sans-serif;min-height:100vh;padding-top:52px}
 body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 10px,rgba(0,0,128,0.03) 10px,rgba(0,0,128,0.03) 20px);z-index:-1}
 h1{text-align:center;font-size:1.2rem;color:#000080;padding:10px;background:#c0c0c0;border-top:2px solid #fff;border-left:2px solid #fff;border-right:2px solid #808080;border-bottom:2px solid #808080;margin:10px}
 .titlebar{background:linear-gradient(to right,#000080,#1084d0);color:#fff;font-size:0.8rem;padding:3px 6px;display:flex;align-items:center;gap:6px;margin:0 10px}
@@ -35,7 +38,7 @@ marquee{display:block;font-size:0.9rem;color:#000080;padding:4px 0;border-bottom
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #ffffff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

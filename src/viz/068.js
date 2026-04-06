@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#f4f4f4;font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;padding:20px;padding-top:52px;color:#333}
+html, body { height: 100%; }
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Source Sans 3',Arial,sans-serif;font-size:12px;padding:20px;color:#333}
 .form{background:#fff;max-width:700px;margin:0 auto;border:1px solid #ccc;box-shadow:0 2px 6px rgba(0,0,0,0.1)}
 .form-header{background:#2c4a7c;color:#fff;padding:16px 20px;border-bottom:2px solid #1a3060}
 .form-header h1{font-size:1.1rem;font-weight:600;margin-bottom:2px}
@@ -39,7 +40,7 @@ tr[data-row]:hover td{background:rgba(44,74,124,0.06)!important}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f4f4f4; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

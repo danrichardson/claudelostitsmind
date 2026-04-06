@@ -8,7 +8,8 @@ export function render() {
 <title>097 – The CAPTCHA — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#f0f0f0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;padding-top:52px;font-family:system-ui,-apple-system,sans-serif}
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:system-ui,-apple-system,sans-serif}
 h1{font-size:1rem;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;margin-bottom:16px;text-align:center}
 .captcha-box{background:#fff;border:1px solid #d3d3d3;border-radius:4px;padding:16px;max-width:420px;width:100%;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
 .captcha-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #eee}
@@ -35,7 +36,7 @@ h1{font-size:1rem;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;marg
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0f0f0; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

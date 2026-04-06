@@ -34,25 +34,27 @@ export function render() {
   }
 }
 
+html, body { height: 100%;
+  overflow: hidden;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body { 
-  background: var(--bg); color: var(--text-main); 
-  font-family: 'Inter', -apple-system, sans-serif; 
-  min-height: 100vh; overflow-x: hidden;
-  padding-top: 60px;
-}
+body {
+  background: var(--bg); color: var(--text-main);
+  font-family: 'Inter', -apple-system, sans-serif;
+  height: 100vh; overflow: hidden; display: flex; flex-direction: column;
+  }
 
-.container { margin: 0 auto; max-width: 1200px; width: 100%; padding: 40px 20px; }
+.container { margin: 0 auto; max-width: 1200px; width: 100%; padding: 16px 24px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
 
-header { margin-bottom: 40px; }
-h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
-.subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+header { margin-bottom: 10px; flex: 0 0 auto; }
+h1 { font-size: 1.3rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 4px; }
+.subtitle { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
 
 .sankey-wrapper {
-  position: relative; width: 100%; height: 600px; 
+  position: relative; width: 100%; flex: 1; min-height: 0;
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; margin-top: 20px;
+  border-radius: 8px; margin-top: 8px;
 }
 
 canvas { display: block; width: 100%; height: 100%; }

@@ -10,7 +10,12 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#02040a;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:10px 20px;font-family:'IM Fell English',serif}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;20px;font-family:'IM Fell English',serif}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 canvas{display:block;max-width:100%;cursor:crosshair}
 .caption{font-size:0.95rem;color:#7a8aaa;text-align:center;margin-top:8px;letter-spacing:0.05em;font-style:italic}
 </style>
@@ -18,7 +23,7 @@ canvas{display:block;max-width:100%;cursor:crosshair}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #02040a; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -187,6 +192,7 @@ draw();
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

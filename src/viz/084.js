@@ -8,7 +8,12 @@ export function render() {
 <title>084 – The Vinyl Record — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1a0f08;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;letter-spacing:0.2em;color:#5a4030;text-transform:uppercase;margin-bottom:4px;text-align:center}
 canvas{display:block;max-width:min(500px,100%)}
 .track-info{font-family:Georgia,serif;text-align:center;color:#8a6a4a;margin-top:8px;font-size:0.75rem}
@@ -21,7 +26,7 @@ canvas{display:block;max-width:min(500px,100%)}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a0f08; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -159,6 +164,7 @@ requestAnimationFrame(loop);
       cvs.height = window.innerHeight;
     }
   });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;

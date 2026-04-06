@@ -33,3 +33,24 @@ const navHtml = nav(v.id);
     overflow: hidden;
   }
 </style>
+
+<script>
+  function sendDark(frame) {
+    const dark = document.documentElement.dataset.dark === 'true';
+    frame.contentWindow?.postMessage({ dark }, '*');
+  }
+
+  const frame = document.querySelector('.viz-frame');
+
+  // Send dark state when iframe signals ready
+  window.addEventListener('message', (e) => {
+    if (e.data?.type === 'viz-ready') sendDark(frame);
+  });
+
+  // Watch for reader-controls toggling data-dark on <html>
+  new MutationObserver(() => sendDark(frame))
+    .observe(document.documentElement, { attributeFilter: ['data-dark'] });
+
+  // Also send on load in case ready fired before we registered
+  frame?.addEventListener('load', () => sendDark(frame));
+</script>

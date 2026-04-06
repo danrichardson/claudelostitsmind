@@ -9,7 +9,10 @@ export function render() {
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated}
-body{background:#1a1a2e;color:#fff;font-family:'Press Start 2P',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
 .game-screen{background:#0f0f23;border:4px solid #444;padding:24px 30px;max-width:500px;width:100%;box-shadow:0 0 30px rgba(100,100,255,0.2)}
 .vs-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .fighter{text-align:center;font-size:0.5rem}
@@ -38,7 +41,7 @@ body{background:#1a1a2e;color:#fff;font-family:'Press Start 2P',monospace;min-he
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #1a1a2e; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

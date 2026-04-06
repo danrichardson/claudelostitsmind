@@ -9,7 +9,8 @@ export function render() {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{min-height:100vh;overflow-x:hidden;background:#f0f7ff;font-family:'Nunito',sans-serif;padding:20px;padding-top:52px;display:flex;flex-direction:column;align-items:center}
+html, body { height: 100%; }
+body{min-height:100vh;overflow-x:hidden;background:var(--bg);font-family:'Nunito',sans-serif;padding:20px;display:flex;flex-direction:column;align-items:center}
 h1{font-size:0.8rem;color:#557;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:4px;text-align:center}
 .sub{font-size:0.65rem;color:#99a;margin-bottom:12px;font-style:italic;text-align:center}
 .worksheet{background:#fff;max-width:680px;width:100%;border:1.5px solid #b8c8e0;padding:24px;box-shadow:0 2px 8px rgba(0,80,160,0.07)}
@@ -28,7 +29,7 @@ text{font-family:'Nunito',sans-serif}
 </style>
 
 <style>
-  :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
+  :root { --bg: #f0f7ff; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
     :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
   }

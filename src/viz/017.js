@@ -8,7 +8,12 @@ export function render() {
 <title>017 – The Flatline — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#080c08;color:#00cc00;font-family:'Courier New',monospace;display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:20px}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);color:#00cc00;font-family:'Courier New',monospace;display:flex;flex-direction:column;min-height:100vh;}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:1.3rem;letter-spacing:0.25em;color:#00cc00;margin-bottom:2px;text-transform:uppercase}
 .subtitle{font-size:0.9rem;color:#336633;letter-spacing:0.12em;margin-bottom:16px}
 .monitor-rack{display:flex;flex-direction:column;gap:6px;width:100%;max-width:960px}
@@ -28,7 +33,7 @@ canvas.channel-canvas{border:1px solid #0a2a0a;border-radius:2px;display:block;w
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #080c08; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }

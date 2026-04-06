@@ -8,7 +8,12 @@ export function render() {
 <title>039 – Glitch Mosaic — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px;font-family:monospace}
+html, body { height: 100%;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+}
+body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:monospace}
+canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
 h1{font-size:0.65rem;letter-spacing:0.2em;color:#444;text-transform:uppercase;margin-bottom:8px;text-align:center}
 canvas{display:block;cursor:pointer}
 .info{font-size:0.55rem;color:#333;text-align:center;margin-top:8px;line-height:1.8}
@@ -17,7 +22,7 @@ canvas{display:block;cursor:pointer}
 <style>
   :root { --bg: #f5f5f5; --fg: #111; --accent: #222; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #0c0c0e; --fg: #e8e4f0; --accent: #00e5ff; }
+    :root { --bg: #000; --fg: #e8e4f0; --accent: #00e5ff; }
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
@@ -154,6 +159,7 @@ canvas.addEventListener('mousemove', function(e) {
 setup();
 draw(0);
 window.addEventListener('resize', () => { setup(); draw(0); });
+window.dispatchEvent(new Event('resize'));
 </script>
 </body>
 </html>`;
