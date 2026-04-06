@@ -13,11 +13,12 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;min-height:100vh;gap:8px}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:0.55rem;letter-spacing:0.08em;color:#fff;text-align:center}
-.game-area{display:flex;gap:16px;align-items:flex-start}
-canvas{border:2px solid #333;display:block}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.page{padding:8px 20px;flex:1;display:flex;flex-direction:column;min-height:0;align-items:center}
+h1{font-size:0.55rem;letter-spacing:0.08em;color:#fff;text-align:center;flex:0 0 auto;margin-bottom:4px}
+.game-wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.game-area{display:flex;gap:16px;align-items:flex-start;transform-origin:center center}
+canvas{border:2px solid #333;display:block;image-rendering:pixelated}
 .sidebar{min-width:100px;font-size:0.45rem}
 .sidebar-box{border:2px solid #333;padding:8px;margin-bottom:8px}
 .sb-label{color:#888;margin-bottom:4px}
@@ -37,8 +38,9 @@ canvas{border:2px solid #333;display:block}
 </head>
 <body>
 ${nav('027')}
+<div class="page">
 <h1>TETRIS: CLAUDE EDITION</h1>
-<div class="game-area">
+<div class="game-wrap" id="gwrap"><div class="game-area" id="garea">
   <canvas id="c" width="120" height="240"></canvas>
   <div class="sidebar">
     <div class="sidebar-box"><div class="sb-label">LINES</div><div class="sb-val" id="lines">0</div></div>
@@ -47,6 +49,7 @@ ${nav('027')}
     <div class="sidebar-box"><div class="sb-label">NEXT</div><canvas id="next" width="60" height="60"></canvas></div>
     <div class="sidebar-box"><div class="sb-label">STATUS</div><div class="sb-val red" id="status" style="font-size:0.35rem;line-height:1.6"></div></div>
   </div>
+</div></div>
 </div>
 <script>
 const canvas=document.getElementById('c');
@@ -140,16 +143,9 @@ setInterval(()=>{
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
+function scaleGame(){const w=document.getElementById('gwrap');const a=document.getElementById('garea');if(!w||!a)return;const s=Math.min(w.offsetWidth/a.offsetWidth,w.offsetHeight/a.offsetHeight);a.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleGame);setTimeout(scaleGame,100);
 </script>
-
 </body>
 </html>`;
 }

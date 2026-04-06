@@ -13,13 +13,14 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:'Press Start 2P',monospace;color:#fff}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:0.6rem;color:#ffff00;letter-spacing:0.1em;margin-bottom:4px;text-align:center}
-.subtitle{font-size:0.45rem;color:#555;letter-spacing:0.08em;margin-bottom:16px;text-align:center}
-canvas{border:3px solid #111;display:block;max-width:100%}
-.stats{display:flex;gap:20px;margin-top:10px;font-size:0.45rem;color:#aaa;flex-wrap:wrap;justify-content:center}
-.score-display{font-size:0.55rem;color:#ffff00;text-align:center;margin:8px 0}
+body{background:var(--bg);display:flex;flex-direction:column;height:100vh;overflow:hidden;font-family:'Press Start 2P',monospace;color:#fff}
+.page{padding:8px 20px;flex:1;display:flex;flex-direction:column;min-height:0;align-items:center}
+h1{font-size:0.6rem;color:#ffff00;letter-spacing:0.1em;margin-bottom:2px;text-align:center;flex:0 0 auto}
+.subtitle{font-size:0.45rem;color:#555;letter-spacing:0.08em;margin-bottom:4px;text-align:center;flex:0 0 auto}
+.score-display{font-size:0.55rem;color:#ffff00;text-align:center;margin:4px 0;flex:0 0 auto}
+.game-wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+canvas{border:3px solid #111;display:block;transform-origin:center center;image-rendering:pixelated}
+.stats{display:flex;gap:20px;margin-top:6px;font-size:0.45rem;color:#aaa;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
 </style>
 
 <style>
@@ -34,13 +35,15 @@ canvas{border:3px solid #111;display:block;max-width:100%}
 </head>
 <body>
 ${nav('023')}
+<div class="page">
 <h1>023 — PAC-MAN SPIRAL CHASE</h1>
 <p class="subtitle">Claude eats DOE runs · "DONE" ghost chases · maze = the session</p>
 <div class="score-display">SCORE: <span id="score">0</span> &nbsp; LIVES: <span id="lives">3</span></div>
-<canvas id="c" width="420" height="420"></canvas>
+<div class="game-wrap" id="gwrap"><canvas id="c" width="420" height="420"></canvas></div>
 <div class="stats">
   <span id="phase-display">Phase: PRODUCTIVE</span>
   <span id="dots-display">Dots: 18/18</span>
+</div>
 </div>
 <script>
 const canvas=document.getElementById('c');
@@ -214,15 +217,8 @@ loop();
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
-window.dispatchEvent(new Event('resize'));
+function scaleGame(){const w=document.getElementById('gwrap');if(!w)return;const s=Math.min(w.offsetWidth/canvas.width,w.offsetHeight/canvas.height);canvas.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleGame);scaleGame();
 </script>
 </body>
 </html>`;

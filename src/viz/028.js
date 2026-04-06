@@ -14,7 +14,7 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}
+body{background:var(--bg);height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:20px}
 .gb{background:#8b956d;border-radius:12px 12px 50% 50% / 12px 12px 30% 30%;padding:24px 20px 40px;width:min(240px,90vw);box-shadow:4px 4px 12px rgba(0,0,0,0.5),inset 2px 2px 4px rgba(255,255,255,0.2)}
 .screen-bezel{background:#505a3c;border-radius:4px;padding:8px;margin-bottom:16px;box-shadow:inset 2px 2px 8px rgba(0,0,0,0.5)}
 .screen{background:#9bbc0f;width:160px;height:144px;margin:0 auto;font-family:'Press Start 2P',monospace;font-size:6px;color:#0f380f;overflow:hidden;position:relative;line-height:1.5;padding:4px}

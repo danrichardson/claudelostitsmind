@@ -12,7 +12,7 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#ddbbff;font-family:'Press Start 2P',monospace;min-height:100vh;padding:20px}
+body{background:var(--bg);color:#ddbbff;font-family:'Press Start 2P',monospace;height:100vh;overflow-y:auto;padding:20px}
 h1{font-size:0.6rem;color:#aa88ff;letter-spacing:0.1em;margin-bottom:16px;text-align:center}
 .quest-log{max-width:600px;margin:0 auto;border:2px solid #330066;padding:12px;background:#05000a}
 .quest-header{font-size:0.5rem;color:#8866ff;border-bottom:1px solid #330066;padding-bottom:8px;margin-bottom:12px}

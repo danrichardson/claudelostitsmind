@@ -13,12 +13,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;min-height:100vh;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:0.6rem;letter-spacing:0.1em;color:#33ff33;margin-bottom:4px}
-.subtitle{font-size:0.4rem;color:#444;letter-spacing:0.08em;margin-bottom:12px}
-canvas{display:block;border:2px solid #111;max-width:100%}
-.score-row{display:flex;gap:20px;font-size:0.5rem;margin-bottom:8px;color:#fff;flex-wrap:wrap;justify-content:center}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.page{padding:8px 20px;flex:1;display:flex;flex-direction:column;min-height:0;align-items:center}
+h1{font-size:0.6rem;letter-spacing:0.1em;color:#33ff33;margin-bottom:2px;flex:0 0 auto}
+.subtitle{font-size:0.4rem;color:#444;letter-spacing:0.08em;margin-bottom:4px;flex:0 0 auto}
+.score-row{display:flex;gap:20px;font-size:0.5rem;margin-bottom:4px;color:#fff;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+.game-wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+canvas{display:block;border:2px solid #111;transform-origin:center center;image-rendering:pixelated}
 .label{font-size:0.4rem;color:#666}
 </style>
 
@@ -34,6 +35,7 @@ canvas{display:block;border:2px solid #111;max-width:100%}
 </head>
 <body>
 ${nav('024')}
+<div class="page">
 <h1>SPACE INVADERS: DOE EDITION</h1>
 <p class="subtitle">18 EXPERIMENTAL RUNS — DEFEAT THEM ALL — AVOID THE SPIRAL BOSS</p>
 <div class="score-row">
@@ -41,7 +43,8 @@ ${nav('024')}
   <span>RUNS LEFT: <span id="rleft">18</span></span>
   <span>PHASE: <span id="phase">PRODUCTIVE</span></span>
 </div>
-<canvas id="c" width="460" height="420"></canvas>
+<div class="game-wrap" id="gwrap"><canvas id="c" width="460" height="420"></canvas></div>
+</div>
 <script>
 const canvas=document.getElementById('c');
 const ctx=canvas.getContext('2d');
@@ -181,16 +184,9 @@ loop();
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
+function scaleGame(){const w=document.getElementById('gwrap');if(!w)return;const s=Math.min(w.offsetWidth/canvas.width,w.offsetHeight/canvas.height);canvas.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleGame);scaleGame();
 </script>
-
 </body>
 </html>`;
 }

@@ -13,12 +13,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:'Press Start 2P',monospace;color:#fff}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:0.55rem;letter-spacing:0.1em;color:#ff88ff;margin-bottom:4px;text-align:center}
-canvas{display:block;margin:0 auto;border:4px solid #330055}
-.caption{font-size:0.4rem;color:#886688;margin-top:12px;text-align:center;max-width:300px;line-height:2}
-.phase-label{font-size:0.5rem;color:#ff88ff;text-align:center;margin:8px 0}
+body{background:var(--bg);display:flex;flex-direction:column;height:100vh;overflow:hidden;font-family:'Press Start 2P',monospace;color:#fff}
+.page{padding:8px 20px;flex:1;display:flex;flex-direction:column;min-height:0;align-items:center}
+h1{font-size:0.55rem;letter-spacing:0.1em;color:#ff88ff;margin-bottom:4px;text-align:center;flex:0 0 auto}
+.phase-label{font-size:0.5rem;color:#ff88ff;text-align:center;margin:4px 0;flex:0 0 auto}
+.game-wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+canvas{display:block;border:4px solid #330055;transform-origin:center center;image-rendering:pixelated}
+.caption{font-size:0.4rem;color:#886688;margin-top:8px;text-align:center;max-width:300px;line-height:2;flex:0 0 auto}
 </style>
 
 <style>
@@ -42,10 +43,12 @@ canvas{display:block;margin:0 auto;border:4px solid #330055}
 </head>
 <body>
 ${nav('030')}
+<div class="page">
 <h1>030 — PIXEL PORTRAIT</h1>
 <p class="phase-label" id="label">FRAME 1: THE BRILLIANT PHASE</p>
-<canvas id="c" width="128" height="128"></canvas>
+<div class="game-wrap" id="gwrap"><canvas id="c" width="128" height="128"></canvas></div>
 <p class="caption" id="caption">A robot, hard at work. Statistical rigor.<br>18 runs, perfectly executed.</p>
+</div>
 <script>
 const canvas=document.getElementById('c');
 const ctx=canvas.getContext('2d');
@@ -126,16 +129,9 @@ nextFrame();
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
+function scaleGame(){const w=document.getElementById('gwrap');if(!w)return;const s=Math.min(w.offsetWidth/canvas.width,w.offsetHeight/canvas.height);canvas.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleGame);scaleGame();
 </script>
-
 </body>
 </html>`;
 }

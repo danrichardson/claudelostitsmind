@@ -12,12 +12,13 @@ html, body { height: 100%;
   overflow: hidden;
   display: flex; flex-direction: column;
 }
-body{background:var(--bg);color:#ffcc44;font-family:'Courier New',monospace;display:flex;flex-direction:column;min-height:100vh;}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
-h1{font-size:0.7rem;letter-spacing:0.15em;color:#ff8c00;margin-bottom:4px;text-transform:uppercase}
-canvas{border:3px solid #3a2000;display:block;max-width:100%;background:#000}
-.legend{display:flex;gap:12px;margin-top:10px;font-size:0.5rem;color:#886600;flex-wrap:wrap;justify-content:center}
-.room-info{font-size:0.55rem;color:#ffaa00;text-align:center;margin-top:8px;min-height:2em}
+body{background:var(--bg);color:#ffcc44;font-family:'Courier New',monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.page{padding:8px 20px;flex:1;display:flex;flex-direction:column;min-height:0;align-items:center}
+h1{font-size:0.7rem;letter-spacing:0.15em;color:#ff8c00;margin-bottom:4px;text-transform:uppercase;flex:0 0 auto}
+.game-wrap{flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
+canvas{border:3px solid #3a2000;display:block;background:#000;transform-origin:center center;image-rendering:pixelated}
+.legend{display:flex;gap:12px;margin-top:6px;font-size:0.5rem;color:#886600;flex-wrap:wrap;justify-content:center;flex:0 0 auto}
+.room-info{font-size:0.55rem;color:#ffaa00;text-align:center;margin-top:4px;min-height:2em;flex:0 0 auto}
 </style>
 
 <style>
@@ -41,8 +42,9 @@ canvas{border:3px solid #3a2000;display:block;max-width:100%;background:#000}
 </head>
 <body>
 ${nav('025')}
+<div class="page">
 <h1>025 — THE DUNGEON MAP</h1>
-<canvas id="c" width="480" height="360"></canvas>
+<div class="game-wrap" id="gwrap"><canvas id="c" width="480" height="360"></canvas></div>
 <div class="legend">
   <span style="color:#44aa44">■ Productive rooms</span>
   <span style="color:#aaaa00">■ Drift corridor</span>
@@ -50,6 +52,7 @@ ${nav('025')}
   <span style="color:#ffff44">@ Claude</span>
 </div>
 <div class="room-info" id="room-info">Move with arrow keys or click rooms</div>
+</div>
 <script>
 const canvas=document.getElementById('c');
 const ctx=canvas.getContext('2d');
@@ -159,15 +162,8 @@ autoWalk();
 </script>
 
 <script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
-window.dispatchEvent(new Event('resize'));
+function scaleGame(){const w=document.getElementById('gwrap');if(!w)return;const s=Math.min(w.offsetWidth/canvas.width,w.offsetHeight/canvas.height);canvas.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleGame);scaleGame();
 </script>
 </body>
 </html>`;

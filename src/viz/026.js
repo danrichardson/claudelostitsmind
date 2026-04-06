@@ -12,7 +12,7 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden;padding:20px}
 .screen{text-align:center;max-width:500px}
 .gameover{font-size:clamp(1.5rem,6vw,2.5rem);color:#ff4444;text-shadow:4px 4px 0 #880000;animation:flash 0.8s steps(1) infinite;margin-bottom:20px;letter-spacing:0.05em}
 @keyframes flash{50%{color:#ff8888}}
