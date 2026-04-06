@@ -14,7 +14,7 @@ html, body { height: 100%;
 }
 body{background:var(--bg);color:#ddbbff;font-family:'Press Start 2P',monospace;height:100vh;overflow-y:auto;padding:20px}
 h1{font-size:0.6rem;color:#aa88ff;letter-spacing:0.1em;margin-bottom:16px;text-align:center}
-.quest-log{max-width:600px;margin:0 auto;border:2px solid #330066;padding:12px;background:#05000a}
+.quest-log{max-width:900px;margin:0 auto;border:2px solid #330066;padding:12px;background:#05000a}
 .quest-header{font-size:0.5rem;color:#8866ff;border-bottom:1px solid #330066;padding-bottom:8px;margin-bottom:12px}
 .quest-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;padding:6px;border:1px solid #220044;background:#080010}
 .status-icon{font-size:0.8rem;width:20px;flex-shrink:0}

@@ -10,8 +10,9 @@ export function render() {
 <style>
 *{margin:0;padding:0;box-sizing:border-box;image-rendering:pixelated}
 html,body{height:100%;overflow:hidden}
-body{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:'Press Start 2P',monospace;color:#fff}
-.screen{background:#6d6d6d;border:8px solid #999;border-radius:8px;padding:0;width:min(360px,90vw);position:relative;box-shadow:inset 0 0 20px rgba(0,0,0,0.5)}
+body{background:var(--bg);display:flex;flex-direction:column;height:100vh;overflow:hidden;font-family:'Press Start 2P',monospace;color:#fff}
+.ui-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden}
+.screen{background:#6d6d6d;border:8px solid #999;border-radius:8px;padding:0;width:min(360px,90vw);position:relative;box-shadow:inset 0 0 20px rgba(0,0,0,0.5);transform-origin:center center}
 .screen-inner{background:#0000aa;padding:20px 16px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
 .nes-title{font-size:0.7rem;color:#fff;letter-spacing:0.1em;text-align:center;margin-bottom:8px;line-height:1.8}
 .spinner{font-size:1.2rem;animation:spin 0.5s steps(4) infinite}
@@ -39,7 +40,7 @@ body{background:var(--bg);display:flex;flex-direction:column;align-items:center;
 </head>
 <body>
 ${nav('022')}
-<div class="screen">
+<div class="ui-wrap"><div class="screen" id="uel">
   <div class="screen-inner">
     <div class="nes-title" id="title">CLAUDE CODE<br>AGENT v1.0</div>
     <div id="spinner" class="nes-text">▶▶▶ NOW LOADING ◀◀◀</div>
@@ -51,7 +52,7 @@ ${nav('022')}
     </div>
     <div class="nes-text blink" id="press">PRESS START</div>
   </div>
-</div>
+</div></div>
 
 <script>
 const STAGES=[
@@ -104,6 +105,8 @@ function step(){
   setTimeout(step,s.delay+Math.random()*80);
 }
 setTimeout(step,600);
+function scaleUI(){const w=document.querySelector('.ui-wrap');const el=document.getElementById('uel');if(!w||!el)return;const s=Math.min(w.offsetWidth/el.offsetWidth,w.offsetHeight/el.offsetHeight);el.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleUI);setTimeout(scaleUI,50);
 </script>
 
 </body>

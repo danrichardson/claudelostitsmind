@@ -12,8 +12,9 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden;padding:20px}
-.screen{text-align:center;max-width:500px}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.ui-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden}
+.screen{text-align:center;max-width:500px;transform-origin:center center}
 .gameover{font-size:clamp(1.5rem,6vw,2.5rem);color:#ff4444;text-shadow:4px 4px 0 #880000;animation:flash 0.8s steps(1) infinite;margin-bottom:20px;letter-spacing:0.05em}
 @keyframes flash{50%{color:#ff8888}}
 .score-board{background:#0a0a0a;border:3px solid #333;padding:16px;margin-bottom:20px;text-align:left}
@@ -45,7 +46,7 @@ body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;disp
 </head>
 <body>
 ${nav('026')}
-<div class="screen">
+<div class="ui-wrap"><div class="screen" id="uel">
   <div class="gameover">GAME OVER</div>
 
   <div class="score-board">
@@ -73,7 +74,7 @@ ${nav('026')}
   </div>
 
   <div class="insert-coin">INSERT COIN TO CONTINUE</div>
-</div>
+</div></div>
 <script>
 let s=0;
 const target=312580;
@@ -83,6 +84,8 @@ function countUp(){if(s<target){s+=Math.min(3450,target-s);
   requestAnimationFrame(countUp);}
 }
 setTimeout(countUp,800);
+function scaleUI(){const w=document.querySelector('.ui-wrap');const el=document.getElementById('uel');if(!w||!el)return;const s=Math.min(w.offsetWidth/el.offsetWidth,w.offsetHeight/el.offsetHeight);el.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleUI);setTimeout(scaleUI,50);
 </script>
 
 </body>

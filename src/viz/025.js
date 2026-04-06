@@ -163,7 +163,7 @@ autoWalk();
 
 <script>
 function scaleGame(){const w=document.getElementById('gwrap');if(!w)return;const s=Math.min(w.offsetWidth/canvas.width,w.offsetHeight/canvas.height);canvas.style.transform='scale('+s+')';}
-window.addEventListener('resize',scaleGame);scaleGame();
+window.addEventListener('resize',scaleGame);setTimeout(scaleGame,50);
 </script>
 </body>
 </html>`;

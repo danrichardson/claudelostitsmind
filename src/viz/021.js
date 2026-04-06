@@ -12,8 +12,9 @@ export function render() {
 html, body { height: 100%;
   overflow: hidden;
 }
-body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow:hidden}
-.game-screen{background:#0f0f23;border:4px solid #444;padding:24px 30px;max-width:500px;width:100%;box-shadow:0 0 30px rgba(100,100,255,0.2)}
+body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.ui-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:0;overflow:hidden}
+.game-screen{background:#0f0f23;border:4px solid #444;padding:24px 30px;max-width:500px;width:100%;box-shadow:0 0 30px rgba(100,100,255,0.2);transform-origin:center center}
 .vs-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
 .fighter{text-align:center;font-size:0.5rem}
 .fighter-name{font-size:0.55rem;color:#ffdd00;margin-bottom:8px}
@@ -50,7 +51,7 @@ body{background:var(--bg);color:#fff;font-family:'Press Start 2P',monospace;heig
 </head>
 <body>
 ${nav('021')}
-<div class="game-screen">
+<div class="ui-wrap"><div class="game-screen" id="uel">
   <div class="vs-row">
     <div class="fighter">
       <div class="fighter-name">CLAUDE</div>
@@ -75,7 +76,7 @@ ${nav('021')}
     <div class="ko-text">K.O.!</div>
     <div class="ko-sub" id="ko-sub">CLAUDE LOSES<br>FINAL SCORE: SPIRAL WINS<br>344 "DONE"s DELIVERED</div>
   </div>
-</div>
+</div></div>
 <script>
 const SCRIPT=[
   {type:'system',text:'ROUND 1 START',hp_c:100,hp_s:100,stage:'STAGE 1: DOE EXPERIMENT'},
@@ -140,6 +141,8 @@ function step(){
 }
 
 setTimeout(step,800);
+function scaleUI(){const w=document.querySelector('.ui-wrap');const el=document.getElementById('uel');if(!w||!el)return;const s=Math.min(w.offsetWidth/el.offsetWidth,w.offsetHeight/el.offsetHeight);el.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleUI);setTimeout(scaleUI,50);
 </script>
 
 </body>
