@@ -37,6 +37,8 @@ p{margin-bottom:8pt;line-height:1.5}
 .kbd-hint{font-size:0.65rem;color:#aaa;text-align:right;margin-bottom:4px;font-style:italic}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2b579a;color:#fff;padding:8px 20px;border-radius:4px;font-size:0.85rem;opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:100}
 .toast.show{opacity:1}
+@keyframes hint-pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.hint-pulse .ins,.hint-pulse .del{animation:hint-pulse 1s ease-in-out 3}
 </style>
 
 <style>
@@ -65,6 +67,9 @@ ${nav('062')}
 </div>
 <div class="doc" id="doc">
   <div class="doc-title">Session Report: the-entire-mess.md</div>
+  <div style="background:#e8f0fb;border-left:4px solid #2b579a;padding:6px 10px;margin-bottom:10pt;font-size:9.5pt;color:#1a3a6a">
+    💡 <strong>Interactive:</strong> Click <span style="background:#dff0d8;color:#155724;padding:0 3px">green inserts</span> to accept · click <span style="background:#f8d7da;color:#721c24;text-decoration:line-through;padding:0 3px">red deletions</span> to reject · click 💬 comments to expand · use ribbon buttons above
+  </div>
 
   <p><span class="ins" onclick="acceptOne(this)">The AI agent successfully</span><span class="del" onclick="rejectOne(this)"> Claude</span> <span class="ins" onclick="acceptOne(this)">designed and executed</span><span class="del" onclick="rejectOne(this)">ran</span> a <strong>3×3 factorial DOE experiment</strong> with 18 conditions across <span class="ins" onclick="acceptOne(this)">three model tiers</span><span class="del" onclick="rejectOne(this)">Haiku, Sonnet, and Opus</span>.</p>
 
@@ -149,10 +154,14 @@ function addReply() {
   const doc = document.getElementById('doc');
   const div = document.createElement('div');
   div.innerHTML = REPLIES[replyIdx++ % REPLIES.length];
-  doc.appendChild(div.firstElementChild);
-  div.firstElementChild && div.firstElementChild.scrollIntoView({behavior:'smooth'});
+  const el = div.firstElementChild;
+  doc.appendChild(el);
+  el && el.scrollIntoView({behavior:'smooth'});
   toast('New comment added');
 }
+// Pulse tracked changes on load to hint they're clickable
+setTimeout(() => { document.getElementById('doc').classList.add('hint-pulse'); }, 400);
+setTimeout(() => { document.getElementById('doc').classList.remove('hint-pulse'); }, 3400);
 document.addEventListener('keydown', function(e) {
   if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
   if (e.key === 'a' || e.key === 'A') acceptAll();

@@ -8,12 +8,9 @@ export function render() {
 <title>073 – The Rorschach — Claude Lost Its Mind</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html, body { height: 100%;
-  overflow: hidden;
-  display: flex; flex-direction: column;
-}
-body{background:var(--bg);display:flex;flex-direction:column;min-height:100vh;font-family:Georgia,serif}
-canvas { display: block; width: 100%; height: 100vh; background: var(--bg); }
+html, body { height: 100%; }
+body{background:var(--bg);display:flex;flex-direction:column;align-items:center;min-height:100vh;padding:12px 20px;font-family:Georgia,serif;overflow-y:auto}
+canvas { display: block; width: 100%; height: auto; background: var(--bg); }
 h1{font-size:1rem;color:#888;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;text-align:center}
 .card{background:#fff;border:1px solid #ddd;padding:20px;box-shadow:2px 2px 8px rgba(0,0,0,0.08);max-width:540px;width:100%}
 canvas{display:block;margin:0 auto;width:100%;height:auto}
@@ -195,17 +192,6 @@ document.addEventListener('keydown', function(e) {
 });
 </script>
 
-<script>
-  window.addEventListener('resize', () => {
-    const cvs = document.querySelector('canvas');
-    if(cvs && cvs.style.width === '100%') return; // already handled by css
-    if(cvs && !cvs.dataset.fixedOut) {
-      cvs.width = window.innerWidth;
-      cvs.height = window.innerHeight;
-    }
-  });
-window.dispatchEvent(new Event('resize'));
-</script>
 </body>
 </html>`;
 }

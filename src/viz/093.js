@@ -14,7 +14,7 @@ body{background:var(--bg);display:flex;flex-direction:column;align-items:center;
 .book{background:#fff;max-width:540px;width:100%;box-shadow:4px 4px 20px rgba(0,0,0,0.2),-2px 0 8px rgba(0,0,0,0.1);border-left:8px solid #8a1a20;padding:32px;min-height:400px;display:flex;flex-direction:column}
 .page-num{font-size:0.9rem;color:#aaa;text-align:right;margin-bottom:20px;letter-spacing:0.1em}
 .chapter{font-size:0.85rem;color:#8a1a20;text-transform:uppercase;letter-spacing:0.15em;margin-bottom:16px}
-.text{font-size:0.9rem;line-height:1.8;color:#222;flex:1;margin-bottom:20px}
+.text{font-size:0.9rem;line-height:1.8;color:#222;flex:1;margin-bottom:20px;white-space:pre-wrap}
 .choices{display:flex;flex-direction:column;gap:8px;margin-top:auto}
 .choice{display:flex;gap:8px;align-items:flex-start;cursor:pointer;padding:10px 14px;border:1px solid #ddd;background:#fafaf5;border-radius:2px;transition:background 0.15s;font-family:'Lora',serif;font-size:0.95rem;text-align:left}
 .choice:hover{background:#f0e8d0;border-color:#8a1a20}
@@ -29,6 +29,12 @@ body{background:var(--bg);display:flex;flex-direction:column;align-items:center;
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
+    .book { background: #1a1520 !important; border-left-color: #c0424a !important; }
+    .text { color: #d8d0e8 !important; }
+    .choice { background: #221a30 !important; border-color: #4a3060 !important; color: #d8d0e8 !important; }
+    .choice:hover { background: #3a2448 !important; border-color: #c0424a !important; }
+    .page-num, .breadcrumb { color: #664466 !important; }
+    .chapter { color: #c0424a !important; }
   }
 </style>
 </head>

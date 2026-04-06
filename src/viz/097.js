@@ -20,8 +20,8 @@ h1{font-size:1rem;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;marg
 .challenge-prompt{font-size:0.95rem;color:#333;margin-bottom:10px;font-weight:600}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
 .tile{aspect-ratio:1;background:#e8e8e8;border:2px solid transparent;border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-align:center;padding:6px;line-height:1.3;color:#333;transition:all 0.15s;overflow:hidden;word-break:break-word}
-.tile:hover{border-color:#4a90d9;background:#e0ecf8}
-.tile.selected{border-color:#4a90d9;background:#d0e8ff}
+.tile:hover{border-color:#4a90d9;background:#e0ecf8;transform:scale(1.03)}
+.tile.selected{border-color:#4a90d9;background:#d0e8ff;font-weight:600}
 .tile.wrong{border-color:#e03030;background:#ffe8e8}
 .tile.correct{border-color:#30a030;background:#e0f0e0}
 .btn-row{display:flex;justify-content:flex-end;gap:8px}
@@ -42,6 +42,16 @@ h1{font-size:1rem;letter-spacing:0.15em;color:#aaa;text-transform:uppercase;marg
   }
   @media (prefers-color-scheme: dark) {
     body { background: var(--bg) !important; color: var(--fg) !important; }
+    .captcha-box { background: #181820 !important; border-color: #333 !important; }
+    .captcha-title { color: #ddd !important; }
+    .captcha-sub { color: #888 !important; }
+    .challenge { background: #0f0f18 !important; border-color: #333 !important; }
+    .challenge-prompt { color: #ccc !important; }
+    .tile { background: #1e1e2a !important; color: #ccc !important; border-color: #333 !important; }
+    .tile:hover { background: #2a2a40 !important; border-color: #4a90d9 !important; }
+    .tile.selected { background: #1a2a50 !important; border-color: #4a90d9 !important; color: #fff !important; }
+    .captcha-header { border-color: #333 !important; }
+    .footer { color: #555 !important; }
   }
 </style>
 </head>
